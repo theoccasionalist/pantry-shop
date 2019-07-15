@@ -1,0 +1,93 @@
+<div class="flex-grid">
+  <aside id="aside">
+      <mat-toolbar>Something</mat-toolbar>  
+      <mat-card>More of something over and over again</mat-card>
+  </aside>
+  <main id="familyForm">
+    <mat-toolbar>Family Information</mat-toolbar>  
+    <mat-card>
+      <form [formGroup]="familyForm">  
+      
+        <div id="name">
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required>
+          </mat-form-field>
+        </div>
+
+        <div id="birthDate">
+          <mat-form-field>
+            <mat-label>Birth Date</mat-label>
+            <input matInput [matDatepicker]="birthDatePicker" [min]="minDate" [max]="maxDate" placeholder="Birth Date" formControlName="birthDate">
+            <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #birthDatePicker startView="multi-year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div id="address">
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Zip Code</mat-label>
+            <input matInput formControlName="zipCode">
+          </mat-form-field>
+        </div>
+
+        <div id="contact">
+          <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="emailAddress">
+          </mat-form-field>
+        </div>  
+
+        <div id="familySize">
+          <mat-form-field>
+            <mat-label>Family Size</mat-label>
+            <mat-select matInput formControlName="familySize" required>
+              <mat-option [value]=1>1</mat-option>
+              <mat-option [value]=2>2</mat-option>
+              <mat-option [value]=3>3</mat-option>
+              <mat-option [value]=4>4</mat-option>
+              <mat-option [value]=5>5</mat-option>
+              <mat-option [value]=6>6</mat-option>
+              <mat-option [value]=7>7</mat-option>
+              <mat-option [value]=8>8</mat-option>
+              <mat-option [value]=9>9+</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>School Aged Children</mat-label>
+            <mat-select matInput formControlName="schoolChildren" required>
+              <mat-option [value]=0>0</mat-option>
+              <mat-option [value]=1>1</mat-option>
+              <mat-option [value]=2>2</mat-option>
+              <mat-option [value]=3>3</mat-option>
+              <mat-option [value]=4>4</mat-option>
+              <mat-option [value]=5>5</mat-option>
+              <mat-option [value]=6>6</mat-option>
+              <mat-option [value]=7>7</mat-option>
+              <mat-option [value]=8>8</mat-option>
+              <mat-option [value]=9>9+</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>  
+
+      </form>
+      <div id="buttonSpace">
+        <div></div>
+        <button mat-raised-button (click)="onGoShoppingClick()">Go Shopping</button>
+      </div>
+    </mat-card>
+  </main>  
+</div>

@@ -1,0 +1,44 @@
+.flex-grid {
+    margin: 5%;
+    margin-top: 7%;
+    display: flex;
+    justify-content: space-around;
+}
+.mat-toolbar {
+    background: lightseagreen;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: solid black .5px;
+    justify-content: center;
+}
+#aside {
+    border: solid 5px;
+}
+/* #familyForm {
+    justify-content: space-evenly;
+   
+} */
+.container {
+    width: 90%;
+    border: solid red;
+}
+.mat-card {
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+#familyForm .mat-card {
+    background: rgb(43, 126, 235);
+}
+button {
+    width: auto;
+    height: auto;
+    background-color: goldenrod;
+    border: solid black .5px;
+    border-radius: 5px;
+    /* left: 80%; */
+}
+#buttonSpace {
+    display: flex;
+    justify-content: space-between;
+}

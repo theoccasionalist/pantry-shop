@@ -1,0 +1,60 @@
+.flex-grid {
+    margin: 5%;
+    margin-top: 7%;
+    display: flex;
+    justify-content: space-between;
+}
+.mat-toolbar {
+    background: lightseagreen;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: solid black .5px;
+}
+#left, #right {
+    position: sticky;
+    top: 95px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    background: rgba(33, 38, 39, 0.7);
+    border-radius: 10px;
+    height: 15%;
+    min-width: 250px;
+}
+#left .mat-card {
+    background: rgb(221, 88, 47);
+    margin: 5%;
+}
+#middle {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    background: rgba(33, 38, 39, 0.7);
+    border-radius: 10px;
+    height: 60%;
+    min-width: 500px;
+}
+#middle .mat-toolbar {
+    justify-content: center;
+}
+button {
+    width: auto;
+    height: auto;
+    background-color: goldenrod;
+    border: solid black .5px;
+    border-radius: 5px;
+}
+#familyButton, #cartButton {
+    margin: 5%;
+}
+#fruit {
+    position: fixed;
+    z-index: -1;
+    top: 40%;
+    right: -12%;
+    overflow: hidden;
+}
+
+
+  

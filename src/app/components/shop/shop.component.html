@@ -1,0 +1,32 @@
+<div class="flex-grid">                
+    
+    <summary id="left">
+        <mat-toolbar>Family Info</mat-toolbar>
+        <mat-card >
+            Family Name: 
+            <div>{{family.lastName}}</div>
+        </mat-card>
+        <mat-card>{{'Family Size: ' + family.familySize}}</mat-card>
+        <mat-card *ngIf="family.schoolChildren !== 0">{{'School Children: ' + family.schoolChildren}}</mat-card>
+        <mat-card>
+            Choice Points:
+            <div>{{ remainingPoints + ' / ' + maxPoints}}</div>
+        </mat-card>
+        <button id="familyButton" mat-raised-button color (click)="onBackToFamilyClick()">Back to Family</button>
+    </summary>    
+    
+    <main id="middle">
+        <mat-toolbar>Click Below to Shop</mat-toolbar>
+        <app-bulk-product></app-bulk-product>
+        <app-after-school-product *ngIf="family.schoolChildren !== 0"></app-after-school-product>
+        <app-choice-product (pointEmitter)="receivePoints($event)"></app-choice-product>  
+    </main>
+    
+    <nav id="right">
+        <mat-toolbar>Ready to Place Order?</mat-toolbar> 
+        <button id="cartButton" mat-raised-button (click)="onReviewCartClick()">Review Cart</button>
+    </nav>  
+
+</div>
+<img src="../../../assets/images/fruit.png" id="fruit"> 
+

@@ -1,0 +1,17 @@
+<mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+      <mat-panel-title>
+        Produce
+      </mat-panel-title>
+      <mat-panel-description>
+         {{panelOpenState ? 'close' : 'open'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>  
+  <mat-card *ngFor="let bulkProduct of bulkProducts" class="card-container">
+    <mat-card-header>
+      <mat-card-title>{{bulkProduct.name}}</mat-card-title>
+      <div>{{isProductInCart(bulkProduct) ? 'Added to Cart' : 'Not in Cart'}}</div>
+      <mat-checkbox  (change)="updateBulkCart(bulkProduct)" [checked]="isProductInCart(bulkProduct)"></mat-checkbox>
+    </mat-card-header>
+  </mat-card>
+</mat-expansion-panel>
