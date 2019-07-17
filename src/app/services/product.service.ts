@@ -12,18 +12,6 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getBulkProducts() {
-    const bulkProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/bulk-products`).subscribe(
-      (response: any[]) => {
-        response.map(element =>
-          bulkProducts.push({name: element.name})
-        );
-      }
-    );
-    return bulkProducts;
-  }
-
   getAfterSchoolProducts() {
     const afterSchoolProducts: Product[] = [];
     this.httpClient.get(`${this.uri}/after-school-products`).subscribe(
@@ -36,6 +24,18 @@ export class ProductService {
     return afterSchoolProducts;
   }
 
+  getBulkProducts() {
+    const bulkProducts: Product[] = [];
+    this.httpClient.get(`${this.uri}/bulk-products`).subscribe(
+      (response: any[]) => {
+        response.map(element =>
+          bulkProducts.push({name: element.name})
+        );
+      }
+    );
+    return bulkProducts;
+  }
+
   getChoiceProducts() {
     const choiceProducts: ChoiceProduct[] = [];
     this.httpClient.get(`${this.uri}/choice-products`).subscribe(
@@ -46,5 +46,29 @@ export class ProductService {
       }
     );
     return choiceProducts;
+  }
+
+  getDairyProducts() {
+    const dairyProducts: Product[] = [];
+    this.httpClient.get(`${this.uri}/dairy-products`).subscribe(
+      (response: any[]) => {
+        response.map(element =>
+          dairyProducts.push({name: element.name})
+        );
+      }
+    );
+    return dairyProducts;
+  }
+
+  getMeatProducts() {
+    const meatProducts: Product[] = [];
+    this.httpClient.get(`${this.uri}/meat-products`).subscribe(
+      (response: any[]) => {
+        response.map(element =>
+          meatProducts.push({name: element.name})
+        );
+      }
+    );
+    return meatProducts;
   }
 }

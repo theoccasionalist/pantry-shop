@@ -6,11 +6,13 @@
             Family Name: 
             <div>{{family.lastName}}</div>
         </mat-card>
-        <mat-card>{{'Family Size: ' + family.familySize}}</mat-card>
+        <mat-card> {{'Family Size: ' + family.familySize}}</mat-card>
         <mat-card *ngIf="family.schoolChildren !== 0">{{'School Children: ' + family.schoolChildren}}</mat-card>
         <mat-card>
             Choice Points:
-            <div>{{ remainingPoints + ' / ' + maxPoints}}</div>
+            <div>
+                {{ remainingPoints + ' / ' + maxPoints}}
+            </div>
         </mat-card>
         <button id="familyButton" mat-raised-button color (click)="onBackToFamilyClick()">Back to Family</button>
     </summary>    

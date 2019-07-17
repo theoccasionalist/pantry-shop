@@ -1,44 +1,65 @@
-<p>{{'Family: ' + family.firstName + ' Size:' + family.familySize}}</p>
-<mat-card *ngIf="bulkItems.length">
-<table mat-table [dataSource]='bulkItems'>
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>  
-</table>
-</mat-card>
-<mat-card *ngIf="afterSchoolItems.length">
-<table mat-table [dataSource]='afterSchoolItems'>
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-  <ng-container matColumnDef="amount">
-    <th mat-header-cell *matHeaderCellDef> Amount </th>
-    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>  
-</table>
-</mat-card>
-<mat-card *ngIf="choiceItems.length"> 
-<table mat-table [dataSource]='choiceItems'>
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-  <ng-container matColumnDef="amount">
-    <th mat-header-cell *matHeaderCellDef> Amount </th>
-    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>  
-</table>    
-</mat-card>
-<mat-select required>
-    <mat-option [value]="pickUpDate">Whenever</mat-option>
-</mat-select>
-<button mat-raised-button (click)="onBackToCart()">Back to Cart</button>
-<button mat-raised-button (click)="onSubmitOrder()">Submit Order</button>
+<div class="flex-container">  
+  
+  <div class="back-container">
+      <mat-toolbar>Change Items?</mat-toolbar>
+      <button mat-raised-button (click)="onBackToCart()">Back to Cart</button>
+  </div>
+
+  <div class="cart-container">
+    <mat-toolbar>Cart Overview</mat-toolbar>
+    <mat-card class="cart-sub-container">
+      <mat-card *ngIf="bulkItems.length">
+        <table mat-table [dataSource]='bulkItems'>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="produceColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: produceColumns;"></tr>  
+        </table>
+      </mat-card>
+
+      <mat-card>Dairy</mat-card>
+      <mat-card>Meat</mat-card>
+
+      <mat-card *ngIf="afterSchoolItems.length">
+        <table mat-table [dataSource]='afterSchoolItems'>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="name"> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="amount" class="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>  
+        </table>
+      </mat-card>
+
+      <mat-card *ngIf="choiceItems.length"> 
+        <table mat-table [dataSource]='choiceItems'>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>  
+        </table>    
+      </mat-card>
+    </mat-card>
+  </div>  
+
+  <div class="submit-container">
+    <mat-toolbar>Place Order</mat-toolbar>
+    <mat-select required>
+      <mat-label>Something here</mat-label>
+      <mat-option [value]="pickUpDate">Whenever</mat-option>
+    </mat-select>
+    <button mat-raised-button (click)="onSubmitOrder()">Submit Order</button>
+  </div> 
+</div>   

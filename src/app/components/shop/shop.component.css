@@ -23,7 +23,8 @@
     min-width: 250px;
 }
 #left .mat-card {
-    background: rgb(221, 88, 47);
+    /* background: rgb(221, 88, 47); */
+    background: rgb(160, 6, 160);
     margin: 5%;
 }
 #middle {
