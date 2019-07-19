@@ -22,9 +22,9 @@ export class CartComponent implements OnInit {
   afterSchoolItems: any[];
   choiceItems: any[];
   panelOpenState = false;
-  produceColumns: string[] = ['name'];
-  displayedColumns2: string[] = ['name', 'amount'];
-  displayedColumns3: string[] = ['name', 'amount'];
+  bulkColumns: string[] = ['name', 'amount'];
+  afterSchoolColumns: string[] = ['name', 'amount'];
+  choiceColumns: string[] = ['name', 'amount'];
   uri = 'http://localhost:4000';
 
   constructor(private cartService: CartService, private familyService: FamilyService,

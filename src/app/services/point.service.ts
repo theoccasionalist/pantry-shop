@@ -12,6 +12,7 @@ export class PointService {
 
   points = 0;
   family: Family;
+  maxPoints: number;
 
   private pointSource = new BehaviorSubject(this.points);
   currentPoints = this.pointSource.asObservable();
@@ -25,39 +26,29 @@ export class PointService {
   initPoints() {
     const family = this.familyService.getFamily();
     if (family.familySize === 1 || family.familySize === 2 ) {
+      this.maxPoints = 10;
       this.pointSource.next(10);
     }
     if (family.familySize === 3 || family.familySize === 4) {
+      this.maxPoints = 20;
       this.pointSource.next(20);
     }
     if (family.familySize === 5 || family.familySize === 6) {
+      this.maxPoints = 25;
       this.pointSource.next(25);
     }
     if (family.familySize === 7 || family.familySize === 8) {
+      this.maxPoints = 30;
       this.pointSource.next(30);
     }
     if (family.familySize === 9) {
+      this.maxPoints = 35;
       this.pointSource.next(35);
     }
   }
 
   getMaxPoints() {
-    const family = this.familyService.getFamily();
-    if (family.familySize === 1 || family.familySize === 2 ) {
-      return 10;
-    }
-    if (family.familySize === 3 || family.familySize === 4) {
-      return 20;
-    }
-    if (family.familySize === 5 || family.familySize === 6) {
-      return 25;
-    }
-    if (family.familySize === 7 || family.familySize === 8) {
-      return 30;
-    }
-    if (family.familySize === 9) {
-      return 35;
-    }
+    return this.maxPoints;
   }
 
   updatePoints(remainingPoints: number) {

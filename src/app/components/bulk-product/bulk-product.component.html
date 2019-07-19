@@ -10,7 +10,7 @@
   <mat-card *ngFor="let bulkProduct of bulkProducts" class="card-container">
     <mat-card-header>
       <mat-card-title>{{bulkProduct.name}}</mat-card-title>
-      <div>{{isProductInCart(bulkProduct) ? 'Added to Cart' : 'Not in Cart'}}</div>
+      <div>{{isProductInCart(bulkProduct) ? getProductAmountType(bulkProduct) : 'None in Cart'}}</div>
       <mat-checkbox  (change)="updateBulkCart(bulkProduct)" [checked]="isProductInCart(bulkProduct)"></mat-checkbox>
     </mat-card-header>
   </mat-card>

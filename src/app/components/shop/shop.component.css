@@ -10,7 +10,7 @@
     border-top-right-radius: 10px;
     border-bottom: solid black .5px;
 }
-#left, #right {
+.button-container {
     position: sticky;
     top: 95px;
     display: flex;
@@ -45,8 +45,6 @@ button {
     background-color: goldenrod;
     border: solid black .5px;
     border-radius: 5px;
-}
-#familyButton, #cartButton {
     margin: 5%;
 }
 #fruit {
