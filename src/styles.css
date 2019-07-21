@@ -26,9 +26,12 @@ flex: 1;
 }
 .mat-datepicker-content {
   background:  rgb(18, 122, 117);
+  border: solid black .5px;
 }
 .mat-select-panel {
   background:  rgb(18, 122, 117);
+  border: solid black .5px;
 }
+
 
 

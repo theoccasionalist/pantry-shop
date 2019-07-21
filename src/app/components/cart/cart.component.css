@@ -1,0 +1,29 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 5%;
+    background: blue;
+    top: 7%;
+    min-width: 500px;
+}
+.mat-card {
+    background: rgb(43, 126, 235);
+}
+.cart-sub-container {
+    display: flex;
+    justify-content: space-between;
+}
+button {
+    width: auto;
+    height: auto;
+    background-color: goldenrod;
+    border: solid black .5px;
+    border-radius: 5px;
+    margin-top: auto;
+    margin-bottom: 2%;
+}
+.form-container {
+    margin: 1%;
+    top: 20;
+}
+
