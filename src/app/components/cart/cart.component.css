@@ -1,17 +1,59 @@
-.flex-container {
+#flex-container {
     display: flex;
     justify-content: space-between;
     margin: 5%;
-    background: blue;
-    top: 7%;
-    min-width: 500px;
+    margin-top: 7%;
+    min-width: 1100px;
 }
-.mat-card {
-    background: rgb(43, 126, 235);
+.button-container {
+    position: sticky;
+    top: 95px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    background: rgba(33, 38, 39, 0.7);
+    height: 10%;
+    border-radius: 10px;
+    /* min-width: 200px; */
 }
-.cart-sub-container {
+#cart-container {
+    min-width: 250px;
+}
+#cart-sub-container {
     display: flex;
     justify-content: space-between;
+    background: rgba(33, 38, 39, 0.7);
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    top: 0;
+}
+#empty-cart {
+    background: rgb(43, 126, 235);
+    width: 100%;
+    text-align: center;
+}
+.form-container {
+    margin-right: 3%;
+}
+.mat-toolbar {
+    background: lightseagreen;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: solid black .5px;
+    justify-content: center;
+}
+.items-toolbar {
+    background: rgb(160, 6, 160);
+}
+.items-card {
+    background: rgb(43, 126, 235);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.mat-table {
+    background: rgb(12, 36, 100); 
 }
 button {
     width: auto;
@@ -19,11 +61,7 @@ button {
     background-color: goldenrod;
     border: solid black .5px;
     border-radius: 5px;
-    margin-top: auto;
-    margin-bottom: 2%;
+    margin: 5%;
 }
-.form-container {
-    margin: 1%;
-    top: 20;
-}
+
 

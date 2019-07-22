@@ -9,6 +9,7 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: solid black .5px;
+    justify-content: center;
 }
 .button-container {
     position: sticky;
@@ -20,10 +21,9 @@
     background: rgba(33, 38, 39, 0.7);
     border-radius: 10px;
     height: 15%;
-    min-width: 250px;
+    min-width: 200px;
 }
 #left .mat-card {
-    /* background: rgb(221, 88, 47); */
     background: rgb(160, 6, 160);
     margin: 5%;
 }
@@ -35,9 +35,6 @@
     border-radius: 10px;
     height: 60%;
     min-width: 500px;
-}
-#middle .mat-toolbar {
-    justify-content: center;
 }
 button {
     width: auto;
