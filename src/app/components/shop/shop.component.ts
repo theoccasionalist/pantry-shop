@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { BulkProductComponent } from '../bulk-product/bulk-product.component';
 import { AfterSchoolProductComponent } from '../after-school-product/after-school-product.component';
@@ -70,5 +70,10 @@ export class ShopComponent implements OnInit {
     this.cartService.updateServiceCart(this.cart);
     this.router.navigate([`/cart`]);
     console.log(this.cart);
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    $event.returnValue = true;
   }
 }

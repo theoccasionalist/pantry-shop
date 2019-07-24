@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Cart } from '../../models/cart.model';
 import { CartCategoryItems } from '../../models/cart-category-items.model';
 import { CartService } from '../../services/cart.service';
@@ -59,5 +59,10 @@ export class CartComponent implements OnInit {
       this.router.navigate([`/`])
     );
     this.cartService.resetCart();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    $event.returnValue = true;
   }
 }

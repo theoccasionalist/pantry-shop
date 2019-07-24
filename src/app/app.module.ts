@@ -21,6 +21,8 @@ import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
 import { LoginComponent } from './components/login/login.component';
 import { SubmissionComponent } from './components/submission/submission.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { CallbackComponent } from './components/callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { SubmissionComponent } from './components/submission/submission.componen
     ShopComponent,
     FamilyComponent,
     LoginComponent,
-    SubmissionComponent
+    SubmissionComponent,
+    NavbarComponent,
+    CallbackComponent
   ],
   imports: [
     AppRoutingModule,

@@ -3,12 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
+import { CallbackComponent } from './components/callback/callback.component';
+import { AuthGuard } from './guards/auth.guard';
+import { FamilyGuard } from './guards/family.guard';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  {path: 'family', component: FamilyComponent},
-  {path: 'shop', component: ShopComponent},
-  {path: 'cart', component: CartComponent},
-  {path: '', redirectTo: 'family', pathMatch: 'full'}
+  {path: 'callback', component: CallbackComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'family', component: FamilyComponent, canActivate: [AuthGuard]},
+  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard, FamilyGuard]},
+  {path: 'cart', component: CartComponent, canActivate: [AuthGuard, FamilyGuard]},
+  {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
