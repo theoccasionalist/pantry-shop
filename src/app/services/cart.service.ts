@@ -49,11 +49,21 @@ export class CartService {
     return afterSchoolItems;
   }
 
-  getServiceChoiceCart() {
+  getServiceChoiceItems() {
     let choiceItems: any[];
     this.currentCart.subscribe(cart =>
        cart.categoryItems.some(el => el.category === 'choice products') ?
         choiceItems = cart.categoryItems.filter(el => el.category === 'choice products')[0].items :
+        choiceItems = []
+      );
+    return choiceItems;
+  }
+
+  getServiceMeatItems() {
+    let choiceItems: any[];
+    this.currentCart.subscribe(cart =>
+       cart.categoryItems.some(el => el.category === 'meat products') ?
+        choiceItems = cart.categoryItems.filter(el => el.category === 'meat products')[0].items :
         choiceItems = []
       );
     return choiceItems;

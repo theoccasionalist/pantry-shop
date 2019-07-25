@@ -71,4 +71,16 @@ export class ProductService {
     );
     return meatProducts;
   }
+
+  getRecipes() {
+    const recipes: Product[] = [];
+    this.httpClient.get(`${this.uri}/recipes`).subscribe(
+      (response: any[]) => {
+        response.map(element =>
+          recipes.push({name: element.name})
+        );
+      }
+    );
+    return recipes;
+  }
 }

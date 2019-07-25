@@ -1,0 +1,17 @@
+<mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+      <mat-panel-title>
+        Meat
+      </mat-panel-title>
+      <mat-panel-description>
+         {{panelOpenState ? 'close' : 'open'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>  
+  <mat-card *ngFor="let meatProduct of meatProducts" class="card-container">
+    <mat-card-header>
+      <mat-card-title>{{meatProduct.name}}</mat-card-title>
+      <div>{{isProductInCart(meatProduct) ? Something : 'None in Cart'}}</div>
+      <mat-checkbox></mat-checkbox>
+    </mat-card-header>
+  </mat-card>
+</mat-expansion-panel>

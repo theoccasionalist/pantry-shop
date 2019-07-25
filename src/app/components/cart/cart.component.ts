@@ -36,7 +36,7 @@ export class CartComponent implements OnInit {
     this.cartItems = this.cartService.getAllCategoryItems();
     this.bulkItems = this.cartService.getServiceBulkItems();
     this.afterSchoolItems = this.cartService.getServiceAfterSchoolItems();
-    this.choiceItems = this.cartService.getServiceChoiceCart();
+    this.choiceItems = this.cartService.getServiceChoiceItems();
     console.log(this.cart);
   }
 

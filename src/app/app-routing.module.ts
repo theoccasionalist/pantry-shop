@@ -11,9 +11,10 @@ import { LoginComponent } from './components/login/login.component';
 const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'family', component: FamilyComponent, canActivate: [AuthGuard]},
-  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard, FamilyGuard]},
-  {path: 'cart', component: CartComponent, canActivate: [AuthGuard, FamilyGuard]},
+  // {path: 'family', component: FamilyComponent, canActivate: [AuthGuard]},
+  {path: 'family', component: FamilyComponent},
+  {path: 'shop', component: ShopComponent},
+  {path: 'cart', component: CartComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

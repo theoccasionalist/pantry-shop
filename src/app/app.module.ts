@@ -23,6 +23,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SubmissionComponent } from './components/submission/submission.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
+import { MeatProductComponent } from './components/meat-product/meat-product.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CallbackComponent } from './components/callback/callback.component';
     LoginComponent,
     SubmissionComponent,
     NavbarComponent,
-    CallbackComponent
+    CallbackComponent,
+    MeatProductComponent
   ],
   imports: [
     AppRoutingModule,

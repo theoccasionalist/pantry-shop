@@ -19,9 +19,7 @@ export class BulkProductComponent implements OnInit {
   amountTypes: Map<string, string> = new Map ([
     ['fruit', 'Mixed Fruit'],
     ['vegetables', 'Mixed Vegetables'],
-    ['meat', 'Lbs. Mixed Meats'],
-    ['bread', 'One Loaf'],
-    ['eggs', 'One Dozen']
+    ['bread', 'One Loaf']
   ]);
 
 
@@ -46,12 +44,7 @@ export class BulkProductComponent implements OnInit {
     let amountType = 'Added to Cart';
     this.amountTypes.forEach((value, key) => {
         if (productName.includes(key)) {
-          if (productName.includes('meat')) {
-            const lbs = this.getMeatLbs();
-            amountType = lbs + this.amountTypes.get(key);
-          } else {
             amountType = this.amountTypes.get(key);
-          }
         }
       }
     );
