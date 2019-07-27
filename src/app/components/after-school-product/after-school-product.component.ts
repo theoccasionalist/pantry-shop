@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { Product } from 'src/app/models/product.model';
+import { AfterSchoolProduct } from 'src/app/models/after-school-product.model';
 import { Family } from 'src/app/models/family.model';
 import { FamilyService } from 'src/app/services/family.service';
 
@@ -11,21 +11,16 @@ import { FamilyService } from 'src/app/services/family.service';
   styleUrls: ['./after-school-product.component.css']
 })
 export class AfterSchoolProductComponent implements OnInit {
-  afterSchoolProducts: Product[];
+  afterSchoolProducts: AfterSchoolProduct[];
   afterSchoolCart: any[];
   family: Family;
-  limits = [
-    {name: 'Canned Meal', limit: null},
-    {name: 'Fruit', limit: null},
-    {name: 'Snacks', limit: null}
-  ];
+  productLimits = [];
 
   constructor(private cartService: CartService, private familyService: FamilyService, private productService: ProductService) {
    }
 
   ngOnInit() {
     this.family = this.familyService.getFamily();
-    this.setAfterSchoolProductLimits();
     this.afterSchoolProducts = this.productService.getAfterSchoolProducts();
     this.afterSchoolCart = this.cartService.getServiceAfterSchoolItems();
   }
@@ -34,41 +29,34 @@ export class AfterSchoolProductComponent implements OnInit {
     return this.afterSchoolCart;
   }
 
-  getAfterSchoolProductInCart(afterSchoolProduct: Product) {
+  getAfterSchoolProductInCart(afterSchoolProduct: AfterSchoolProduct) {
     return this.afterSchoolCart.find(cartItem => cartItem.name === afterSchoolProduct.name);
   }
 
-  getAfterSchoolProductAmountInCart(afterSchoolProduct: Product) {
+  getAfterSchoolProductAmountInCart(afterSchoolProduct: AfterSchoolProduct) {
     return !this.getAfterSchoolProductInCart(afterSchoolProduct) ?
     0 : this.getAfterSchoolProductInCart(afterSchoolProduct).amount;
   }
 
-  getAfterSchoolProductLimit(afterSchoolProduct: Product) {
-    return this.limits.find(cartItem => cartItem.name === afterSchoolProduct.name).limit;
+  getAfterSchoolProductLimit(afterSchoolProduct: AfterSchoolProduct) {
+    const childSize = this.family.schoolChildren;
+    let limit: number;
+    afterSchoolProduct.sizeLimit.forEach(element => (
+      element.size.includes(childSize) ? limit = element.limit : limit
+    ));
+    return limit;
   }
 
-  setAfterSchoolProductLimits() {
-    for (let i = 0; i <= this.limits.length - 1; i++) {
-      for (let j = 10; j >= 1; j = j - 1) {
-        if (this.family.schoolChildren === j) {
-          this.limits[i].limit = j;
-        }
-      }
-    }
-  }
-
-  isAfterSchoolProductInCart(afterSchoolProduct: Product) {
+  isAfterSchoolProductInCart(afterSchoolProduct: AfterSchoolProduct) {
     return this.getAfterSchoolProductInCart(afterSchoolProduct) ? true : false;
-    // this.getAfterSchoolProductInCart(afterSchoolProduct).amount >= 1
   }
 
-  isAfterSchoolProductAtLimit(afterSchoolProduct: Product) {
+  isAfterSchoolProductAtLimit(afterSchoolProduct: AfterSchoolProduct) {
     return this.getAfterSchoolProductInCart(afterSchoolProduct) &&
-    this.getAfterSchoolProductInCart(afterSchoolProduct).amount === this.getAfterSchoolProductLimit(afterSchoolProduct) ?
-    true : false;
+    this.getAfterSchoolProductInCart(afterSchoolProduct).amount === this.getAfterSchoolProductLimit(afterSchoolProduct);
   }
 
-  addAfterSchoolProduct(afterSchoolProduct: Product) {
+  addAfterSchoolProduct(afterSchoolProduct: AfterSchoolProduct) {
     if (!this.isAfterSchoolProductAtLimit(afterSchoolProduct)) {
       if (!this.isAfterSchoolProductInCart(afterSchoolProduct)) {
         this.afterSchoolCart.push({name: afterSchoolProduct.name, amount: 1});
@@ -78,7 +66,7 @@ export class AfterSchoolProductComponent implements OnInit {
     }
   }
 
-  removeAfterSchoolProduct(afterSchoolProduct: Product) {
+  removeAfterSchoolProduct(afterSchoolProduct: AfterSchoolProduct) {
     if (this.getAfterSchoolProductInCart(afterSchoolProduct).amount >= 1) {
       this.getAfterSchoolProductInCart(afterSchoolProduct).amount--;
       if (this.getAfterSchoolProductInCart(afterSchoolProduct).amount === 0) {
