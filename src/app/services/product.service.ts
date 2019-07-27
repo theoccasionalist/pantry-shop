@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { AfterSchoolProduct } from '../models/after-school-product.model';
 import { Product} from '../models/product.model';
 import { ChoiceProduct } from '../models/choice-product.model';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +14,24 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
+  private sortByName(productArray) {
+    return productArray.sort(
+      (first, second) =>
+      first.name.toLowerCase() < second.name.toLowerCase() ? -1 : 1
+    );
+  }
+
   getAfterSchoolProducts() {
-    const afterSchoolProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/after-school-products`).subscribe(
+    const afterSchoolProducts: AfterSchoolProduct[] = [];
+    this.httpClient.get(`${this.uri}/after-school-products`).pipe(
+      tap(result => this.sortByName(result))
+    ).subscribe(
       (response: any[]) => {
-        response.map(element =>
-          afterSchoolProducts.push({name: element.name})
+        response.forEach(element =>
+          afterSchoolProducts.push({
+            name: element.name,
+            sizeLimit: element.sizeLimit
+          })
         );
       }
     );
@@ -26,9 +40,11 @@ export class ProductService {
 
   getBulkProducts() {
     const bulkProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/bulk-products`).subscribe(
+    this.httpClient.get(`${this.uri}/bulk-products`).pipe(
+      tap(result => this.sortByName(result))
+    ).subscribe(
       (response: any[]) => {
-        response.map(element =>
+        response.forEach(element =>
           bulkProducts.push({name: element.name})
         );
       }
@@ -38,9 +54,11 @@ export class ProductService {
 
   getChoiceProducts() {
     const choiceProducts: ChoiceProduct[] = [];
-    this.httpClient.get(`${this.uri}/choice-products`).subscribe(
+    this.httpClient.get(`${this.uri}/choice-products`).pipe(
+      tap(result => this.sortByName(result))
+    ).subscribe(
       (response: any[]) => {
-        response.map(element =>
+        response.forEach(element =>
           choiceProducts.push({name: element.name, limit: element.limit, points: element.points})
         );
       }
@@ -50,9 +68,11 @@ export class ProductService {
 
   getDairyProducts() {
     const dairyProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/dairy-products`).subscribe(
+    this.httpClient.get(`${this.uri}/dairy-products`).pipe(
+      tap(result => this.sortByName(result))
+    ).subscribe(
       (response: any[]) => {
-        response.map(element =>
+        response.forEach(element =>
           dairyProducts.push({name: element.name})
         );
       }
@@ -62,9 +82,11 @@ export class ProductService {
 
   getMeatProducts() {
     const meatProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/meat-products`).subscribe(
+    this.httpClient.get(`${this.uri}/meat-products`).pipe(
+      tap(result => this.sortByName(result))
+    ).subscribe(
       (response: any[]) => {
-        response.map(element =>
+        response.forEach(element =>
           meatProducts.push({name: element.name})
         );
       }

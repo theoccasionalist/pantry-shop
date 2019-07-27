@@ -43,7 +43,6 @@ export class ChoiceProductComponent implements OnInit {
 
   isChoiceProductInCart(choiceProduct: ChoiceProduct) {
     return this.getChoiceProductInCart(choiceProduct) ? true : false;
-    // && this.getChoiceProductInCart(choiceProduct).amount >= 1
   }
 
   isChoiceProductAtLimit(choiceProduct: ChoiceProduct) {
