@@ -59,6 +59,16 @@ export class CartService {
     return choiceItems;
   }
 
+  getServiceDairyItems() {
+    let dairyItems: any[];
+    this.currentCart.subscribe(cart =>
+       cart.categoryItems.some(el => el.category === 'dairy products') ?
+        dairyItems = cart.categoryItems.filter(el => el.category === 'dairy products')[0].items :
+        dairyItems = []
+      );
+    return dairyItems;
+  }
+
   getServiceMeatItems() {
     let meatItems: any[];
     this.currentCart.subscribe(cart =>

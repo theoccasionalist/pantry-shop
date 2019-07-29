@@ -68,18 +68,9 @@ export class ProductService {
     return choiceProducts;
   }
 
-  getDairyProducts() {
-    const dairyProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/dairy-products`).pipe(
-      tap(result => this.sortByName(result))
-    ).subscribe(
-      (response: any[]) => {
-        response.forEach(element =>
-          dairyProducts.push({name: element.name})
-        );
-      }
-    );
-    return dairyProducts;
+  getDairyProducts(): Observable<any> {
+    return this.httpClient.get(`${this.uri}/dairy-products`).pipe(
+      tap(result => this.sortByName(result)));
   }
 
   getMeatAmounts(): Observable<any> {

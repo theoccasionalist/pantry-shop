@@ -20,6 +20,7 @@ import { SubmissionComponent } from './components/submission/submission.componen
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { MeatProductComponent } from './components/meat-product/meat-product.component';
+import { DairyProductComponent } from './components/dairy-product/dairy-product.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MeatProductComponent } from './components/meat-product/meat-product.com
     SubmissionComponent,
     NavbarComponent,
     CallbackComponent,
-    MeatProductComponent
+    MeatProductComponent,
+    DairyProductComponent
   ],
   imports: [
     AppRoutingModule,

@@ -2,8 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from 'src/app/models/product.model';
-import { CartCategoryItems } from '../../models/cart-category-items.model';
-import { FamilyService } from 'src/app/services/family.service';
 import { Family } from 'src/app/models/family.model';
 
 @Component({
@@ -59,6 +57,5 @@ export class BulkProductComponent implements OnInit {
     this.isProductInCart(bulkProduct) ?
       this.bulkCart = this.bulkCart.filter((cartItem) => cartItem.name !== bulkProduct.name) :
       this.bulkCart.push({name: bulkProduct.name, amount: amountType});
-    console.log(this.bulkCart);
   }
 }

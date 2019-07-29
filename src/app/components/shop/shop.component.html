@@ -17,10 +17,11 @@
     
     <main id="middle">
         <mat-toolbar>Click Below to Shop</mat-toolbar>
-        <app-bulk-product [family]="family"></app-bulk-product>
-        <app-meat-product [family]="family"></app-meat-product>
         <app-after-school-product [family]="family" *ngIf="family.schoolChildren !== 0"></app-after-school-product>
-        <app-choice-product [family]="family" (pointEmitter)="receivePoints($event)"></app-choice-product>  
+        <app-bulk-product [family]="family"></app-bulk-product>
+        <app-choice-product [family]="family" (pointEmitter)="receivePoints($event)"></app-choice-product> 
+        <app-dairy-product [family]="family"></app-dairy-product>
+        <app-meat-product [family]="family"></app-meat-product>     
     </main>
     
     <nav class="button-container">
