@@ -9,6 +9,7 @@ import { CartService } from '../../services/cart.service';
 import { Family } from '../../models/family.model';
 import { FamilyService} from '../../services/family.service';
 import { PointService } from '../../services/point.service';
+import { DairyProductComponent } from '../dairy-product/dairy-product.component';
 
 @Component({
   selector: 'app-shop',
@@ -16,12 +17,14 @@ import { PointService } from '../../services/point.service';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
-  @ViewChild(BulkProductComponent, {static: false})
-  bulkProductComponent: BulkProductComponent;
   @ViewChild(AfterSchoolProductComponent, {static: false})
   afterSchoolProductComponent: AfterSchoolProductComponent;
+  @ViewChild(BulkProductComponent, {static: false})
+  bulkProductComponent: BulkProductComponent;
   @ViewChild(ChoiceProductComponent, {static: false})
   choiceProductComponent: ChoiceProductComponent;
+  @ViewChild(DairyProductComponent, {static: false})
+  dairyProductComponent: DairyProductComponent;
   @ViewChild(MeatProductComponent, {static: false})
   meatProductComponent: MeatProductComponent;
 
@@ -45,14 +48,9 @@ export class ShopComponent implements OnInit {
 
   updateShopComponentCart() {
     const bulk = this.bulkProductComponent.getBulkComponentCart();
+    const dairy = this.dairyProductComponent.getDairyComponentCart();
     const choice = this.choiceProductComponent.getChoiceComponentCart();
     const meat = this.meatProductComponent.getMeatComponentCart();
-    if (this.isComponentCartPopulated(bulk)) {
-      this.cart.push({
-        category: 'bulk products',
-        items: this.bulkProductComponent.getBulkComponentCart()
-      });
-    }
     if (this.afterSchoolProductComponent) {
       const afterSchool = this.afterSchoolProductComponent.getAfterSchoolComponentCart();
       if (this.isComponentCartPopulated(afterSchool)) {
@@ -62,10 +60,22 @@ export class ShopComponent implements OnInit {
         });
       }
     }
+    if (this.isComponentCartPopulated(bulk)) {
+      this.cart.push({
+        category: 'bulk products',
+        items: this.bulkProductComponent.getBulkComponentCart()
+      });
+    }
     if (this.isComponentCartPopulated(choice)) {
       this.cart.push({
         category: 'choice products',
         items: this.choiceProductComponent.getChoiceComponentCart()
+      });
+    }
+    if (this.isComponentCartPopulated(dairy)) {
+      this.cart.push({
+        category: 'dairy products',
+        items: this.dairyProductComponent.getDairyComponentCart()
       });
     }
     if (this.isComponentCartPopulated(meat) && this.meatProductComponent.includeMeat) {
