@@ -31,12 +31,12 @@ export class CartComponent implements OnInit {
               private httpClient: HttpClient,  private router: Router) { }
 
   ngOnInit() {
-    this.family = this.familyService.getFamily();
+    this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
     this.cart = this.cartService.getCart();
     this.cartItems = this.cartService.getAllCategoryItems();
     this.bulkItems = this.cartService.getServiceBulkItems();
     this.afterSchoolItems = this.cartService.getServiceAfterSchoolItems();
-    this.choiceItems = this.cartService.getServiceChoiceCart();
+    this.choiceItems = this.cartService.getServiceChoiceItems();
     console.log(this.cart);
   }
 

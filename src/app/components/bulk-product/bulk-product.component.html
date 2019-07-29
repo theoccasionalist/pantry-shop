@@ -1,7 +1,7 @@
 <mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false">
   <mat-expansion-panel-header>
       <mat-panel-title>
-        Dairy, Meat, and Produce
+        Bread and Produce
       </mat-panel-title>
       <mat-panel-description>
          {{panelOpenState ? 'close' : 'open'}}
@@ -10,8 +10,11 @@
   <mat-card *ngFor="let bulkProduct of bulkProducts" class="card-container">
     <mat-card-header>
       <mat-card-title>{{bulkProduct.name}}</mat-card-title>
-      <div>{{isProductInCart(bulkProduct) ? getProductAmountType(bulkProduct) : 'None in Cart'}}</div>
-      <mat-checkbox  (change)="updateBulkCart(bulkProduct)" [checked]="isProductInCart(bulkProduct)"></mat-checkbox>
+      <div>{{isProductInCart(bulkProduct) ? getProductAmountType(bulkProduct) + ' in Cart' : 'None in Cart'}}</div>
+      <mat-checkbox  (change)="updateBulkCart(bulkProduct)" 
+        [checked]="isProductInCart(bulkProduct)" labelPosition="before">
+        Include
+    </mat-checkbox>
     </mat-card-header>
   </mat-card>
 </mat-expansion-panel>

@@ -12,23 +12,20 @@ import { Family } from 'src/app/models/family.model';
   styleUrls: ['./bulk-product.component.css']
 })
 export class BulkProductComponent implements OnInit {
-  family: Family;
+  @Input() family: Family;
   bulkProducts: Product[];
   bulkCart: any[];
   panelOpenState = false;
   amountTypes: Map<string, string> = new Map ([
     ['fruit', 'Mixed Fruit'],
     ['vegetables', 'Mixed Vegetables'],
-    ['meat', 'Lbs. Mixed Meats'],
-    ['bread', 'One Loaf'],
-    ['eggs', 'One Dozen']
+    ['bread', 'One Loaf']
   ]);
 
 
-  constructor(private cartService: CartService, private familyService: FamilyService, private productService: ProductService) {}
+  constructor(private cartService: CartService, private productService: ProductService) {}
 
   ngOnInit() {
-    this.family = this.familyService.getFamily();
     this.bulkProducts = this.productService.getBulkProducts();
     this.bulkCart = this.cartService.getServiceBulkItems();
   }
@@ -46,26 +43,11 @@ export class BulkProductComponent implements OnInit {
     let amountType = 'Added to Cart';
     this.amountTypes.forEach((value, key) => {
         if (productName.includes(key)) {
-          if (productName.includes('meat')) {
-            const lbs = this.getMeatLbs();
-            amountType = lbs + this.amountTypes.get(key);
-          } else {
             amountType = this.amountTypes.get(key);
-          }
         }
       }
     );
     return amountType;
-  }
-
-  getMeatLbs() {
-    if (this.family.familySize <= 2) {
-      return '3 ';
-    } else if (this.family.familySize >= 6) {
-      return '7 ';
-    } else {
-      return '5 ';
-    }
   }
 
   isProductInCart(bulkProduct: Product) {
@@ -77,5 +59,6 @@ export class BulkProductComponent implements OnInit {
     this.isProductInCart(bulkProduct) ?
       this.bulkCart = this.bulkCart.filter((cartItem) => cartItem.name !== bulkProduct.name) :
       this.bulkCart.push({name: bulkProduct.name, amount: amountType});
+    console.log(this.bulkCart);
   }
 }

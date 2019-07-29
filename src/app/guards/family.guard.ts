@@ -7,12 +7,13 @@ import { Family } from '../models/family.model';
   providedIn: 'root'
 })
 export class FamilyGuard implements CanActivate  {
+  family: Family;
 
   constructor(private familyService: FamilyService, private router: Router) {
   }
 
   canActivate(): boolean | UrlTree {
-    const family: Family = this.familyService.getFamily();
-    return !family.familySize ? this.router.parseUrl('/family') : true;
+    this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
+    return !this.family.familySize ? this.router.parseUrl('/family') : true;
   }
 }

@@ -33,7 +33,7 @@ export class FamilyComponent implements OnInit {
               private pointService: PointService, private router: Router) {}
 
   ngOnInit() {
-    this.family = this.familyService.getFamily();
+    this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
     console.log(this.family);
   }
 

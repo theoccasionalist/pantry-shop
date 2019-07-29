@@ -10,5 +10,5 @@
 }
 .mat-card-header {
   display: grid; 
-  grid-template-columns: 49% auto 5%;
+  grid-template-columns: 49% auto 15%;
 }

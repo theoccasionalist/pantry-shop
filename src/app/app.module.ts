@@ -1,17 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import 'hammerjs';
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule,
-  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatSelectModule, MatTableModule,
+  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule, MatTableModule,
   MatToolbarModule } from '@angular/material';
 import { CartComponent } from './components/cart/cart.component';
 import { BulkProductComponent } from './components/bulk-product/bulk-product.component';
@@ -23,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SubmissionComponent } from './components/submission/submission.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
+import { MeatProductComponent } from './components/meat-product/meat-product.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +33,8 @@ import { CallbackComponent } from './components/callback/callback.component';
     LoginComponent,
     SubmissionComponent,
     NavbarComponent,
-    CallbackComponent
+    CallbackComponent,
+    MeatProductComponent
   ],
   imports: [
     AppRoutingModule,
@@ -53,6 +51,7 @@ import { CallbackComponent } from './components/callback/callback.component';
     MatFormFieldModule,
     MatNativeDateModule,
     MatOptionModule,
+    MatRadioModule,
     MatSelectModule,
     MatTableModule,
     MatToolbarModule,

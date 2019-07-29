@@ -3,7 +3,9 @@ import { AfterSchoolProduct } from '../models/after-school-product.model';
 import { Product} from '../models/product.model';
 import { ChoiceProduct } from '../models/choice-product.model';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { tap, map, filter } from 'rxjs/operators';
+import { FamilyService } from './family.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class ProductService {
 
   uri = 'http://localhost:4000';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private familyService: FamilyService, private httpClient: HttpClient) {}
 
   private sortByName(productArray) {
     return productArray.sort(
@@ -80,17 +82,24 @@ export class ProductService {
     return dairyProducts;
   }
 
-  getMeatProducts() {
-    const meatProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/meat-products`).pipe(
-      tap(result => this.sortByName(result))
-    ).subscribe(
+  getMeatAmounts(): Observable<any> {
+    return this.httpClient.get(`${this.uri}/meat-limits`);
+  }
+
+  getMeatProducts(): Observable<any> {
+    return this.httpClient.get(`${this.uri}/meat-products`).pipe(
+      tap(result => this.sortByName(result)));
+  }
+
+  getRecipes() {
+    const recipes: Product[] = [];
+    this.httpClient.get(`${this.uri}/recipes`).subscribe(
       (response: any[]) => {
-        response.forEach(element =>
-          meatProducts.push({name: element.name})
+        response.map(element =>
+          recipes.push({name: element.name})
         );
       }
     );
-    return meatProducts;
+    return recipes;
   }
 }

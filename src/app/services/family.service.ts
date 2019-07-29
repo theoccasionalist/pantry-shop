@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Family } from '../models/family.model';
 
 @Injectable({
@@ -19,10 +19,8 @@ export class FamilyService {
 
   constructor() { }
 
-  getFamily() {
-    let family: Family;
-    this.currentFamily.subscribe(currentFamily => family = currentFamily);
-    return family;
+  getFamily(): Observable<Family> {
+    return this.currentFamily;
   }
 
   updateFamily(family: Family) {

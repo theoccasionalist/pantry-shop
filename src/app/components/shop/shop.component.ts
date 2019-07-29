@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BulkProductComponent } from '../bulk-product/bulk-product.component';
 import { AfterSchoolProductComponent } from '../after-school-product/after-school-product.component';
 import { ChoiceProductComponent } from '../choice-product/choice-product.component';
+import { MeatProductComponent } from '../meat-product/meat-product.component';
 import { CartCategoryItems } from '../../models/cart-category-items.model';
 import { CartService } from '../../services/cart.service';
 import { Family } from '../../models/family.model';
@@ -21,6 +22,8 @@ export class ShopComponent implements OnInit {
   afterSchoolProductComponent: AfterSchoolProductComponent;
   @ViewChild(ChoiceProductComponent, {static: false})
   choiceProductComponent: ChoiceProductComponent;
+  @ViewChild(MeatProductComponent, {static: false})
+  meatProductComponent: MeatProductComponent;
 
   cart: CartCategoryItems[] = [];
   family: Family;
@@ -31,7 +34,7 @@ export class ShopComponent implements OnInit {
               private pointService: PointService, private router: Router) { }
 
   ngOnInit() {
-    this.family = this.familyService.getFamily();
+    this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
     this.remainingPoints = this.pointService.getPoints();
     this.maxPoints = this.pointService.getMaxPoints();
   }
@@ -40,24 +43,37 @@ export class ShopComponent implements OnInit {
     this.remainingPoints = $event;
   }
 
-  isComponentCartPopulated(componentCart: any[]) {
-    return componentCart.length !== 0;
-  }
-
   updateShopComponentCart() {
     const bulk = this.bulkProductComponent.getBulkComponentCart();
     const choice = this.choiceProductComponent.getChoiceComponentCart();
+    const meat = this.meatProductComponent.getMeatComponentCart();
     if (this.isComponentCartPopulated(bulk)) {
-      this.cart.push({category: 'bulk products', items: this.bulkProductComponent.getBulkComponentCart()});
+      this.cart.push({
+        category: 'bulk products',
+        items: this.bulkProductComponent.getBulkComponentCart()
+      });
     }
     if (this.afterSchoolProductComponent) {
       const afterSchool = this.afterSchoolProductComponent.getAfterSchoolComponentCart();
       if (this.isComponentCartPopulated(afterSchool)) {
-        this.cart.push({category: 'after school products', items: this.afterSchoolProductComponent.getAfterSchoolComponentCart()});
+        this.cart.push({
+          category: 'after school products',
+          items: this.afterSchoolProductComponent.getAfterSchoolComponentCart()
+        });
       }
     }
     if (this.isComponentCartPopulated(choice)) {
-      this.cart.push({category: 'choice products', items: this.choiceProductComponent.getChoiceComponentCart()});
+      this.cart.push({
+        category: 'choice products',
+        items: this.choiceProductComponent.getChoiceComponentCart()
+      });
+    }
+    if (this.isComponentCartPopulated(meat) && this.meatProductComponent.includeMeat) {
+      this.cart.push({
+        category: 'meat products',
+        amount: this.meatProductComponent.meatAmount,
+        items: this.meatProductComponent.getMeatComponentCart()
+      });
     }
   }
 
@@ -70,6 +86,10 @@ export class ShopComponent implements OnInit {
     this.cartService.updateServiceCart(this.cart);
     this.router.navigate([`/cart`]);
     console.log(this.cart);
+  }
+
+  private isComponentCartPopulated(componentCart: any[]) {
+    return componentCart.length !== 0;
   }
 
   @HostListener('window:beforeunload', ['$event'])
