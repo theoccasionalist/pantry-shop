@@ -16,13 +16,6 @@ export class ProductService {
 
   constructor(private familyService: FamilyService, private httpClient: HttpClient) {}
 
-  private sortByName(productArray) {
-    return productArray.sort(
-      (first, second) =>
-      first.name.toLowerCase() < second.name.toLowerCase() ? -1 : 1
-    );
-  }
-
   getAfterSchoolProducts() {
     const afterSchoolProducts: AfterSchoolProduct[] = [];
     this.httpClient.get(`${this.uri}/after-school-products`).pipe(
@@ -82,15 +75,14 @@ export class ProductService {
       tap(result => this.sortByName(result)));
   }
 
-  getRecipes() {
-    const recipes: Product[] = [];
-    this.httpClient.get(`${this.uri}/recipes`).subscribe(
-      (response: any[]) => {
-        response.map(element =>
-          recipes.push({name: element.name})
-        );
-      }
+  getRecipes(): Observable<any> {
+    return this.httpClient.get(`${this.uri}/recipes`);
+  }
+
+  private sortByName(productArray) {
+    return productArray.sort(
+      (first, second) =>
+      first.name.toLowerCase() < second.name.toLowerCase() ? -1 : 1
     );
-    return recipes;
   }
 }

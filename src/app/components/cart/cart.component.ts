@@ -17,10 +17,13 @@ export class CartComponent implements OnInit {
   family: Family;
   cart: Cart;
   @Input() pickUpDate;
-  cartItems: CartCategoryItems[];
-  bulkItems: any[];
   afterSchoolItems: any[];
+  bulkItems: any[];
   choiceItems: any[];
+  dairyItems: any[];
+  meatItems: any[];
+  recipeItems: any[];
+  cartItems: CartCategoryItems[];
   panelOpenState = false;
   bulkColumns: string[] = ['name', 'amount'];
   afterSchoolColumns: string[] = ['name', 'amount'];
@@ -34,9 +37,12 @@ export class CartComponent implements OnInit {
     this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
     this.cart = this.cartService.getCart();
     this.cartItems = this.cartService.getAllCategoryItems();
-    this.bulkItems = this.cartService.getServiceBulkItems();
     this.afterSchoolItems = this.cartService.getServiceAfterSchoolItems();
+    this.bulkItems = this.cartService.getServiceBulkItems();
     this.choiceItems = this.cartService.getServiceChoiceItems();
+    this.dairyItems = this.cartService.getServiceDairyItems();
+    this.meatItems = this.cartService.getServiceDairyItems();
+    this.recipeItems = this.cartService.getServiceRecipeItems();
     console.log(this.cart);
   }
 
