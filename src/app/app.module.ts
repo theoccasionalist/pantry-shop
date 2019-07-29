@@ -1,17 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import 'hammerjs';
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule,
-  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatSelectModule, MatTableModule,
+  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule, MatTableModule,
   MatToolbarModule } from '@angular/material';
 import { CartComponent } from './components/cart/cart.component';
 import { BulkProductComponent } from './components/bulk-product/bulk-product.component';
@@ -55,6 +51,7 @@ import { MeatProductComponent } from './components/meat-product/meat-product.com
     MatFormFieldModule,
     MatNativeDateModule,
     MatOptionModule,
+    MatRadioModule,
     MatSelectModule,
     MatTableModule,
     MatToolbarModule,

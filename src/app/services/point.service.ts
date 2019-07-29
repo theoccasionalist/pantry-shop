@@ -24,24 +24,24 @@ export class PointService {
   }
 
   initPoints() {
-    const family = this.familyService.getFamily();
-    if (family.familySize === 1 || family.familySize === 2 ) {
+    this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
+    if (this.family.familySize === 1 || this.family.familySize === 2 ) {
       this.maxPoints = 10;
       this.pointSource.next(10);
     }
-    if (family.familySize === 3 || family.familySize === 4) {
+    if (this.family.familySize === 3 || this.family.familySize === 4) {
       this.maxPoints = 20;
       this.pointSource.next(20);
     }
-    if (family.familySize === 5 || family.familySize === 6) {
+    if (this.family.familySize === 5 || this.family.familySize === 6) {
       this.maxPoints = 25;
       this.pointSource.next(25);
     }
-    if (family.familySize === 7 || family.familySize === 8) {
+    if (this.family.familySize === 7 || this.family.familySize === 8) {
       this.maxPoints = 30;
       this.pointSource.next(30);
     }
-    if (family.familySize === 9) {
+    if (this.family.familySize === 9) {
       this.maxPoints = 35;
       this.pointSource.next(35);
     }

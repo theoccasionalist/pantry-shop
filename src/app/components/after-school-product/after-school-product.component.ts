@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { AfterSchoolProduct } from 'src/app/models/after-school-product.model';
@@ -13,14 +13,13 @@ import { FamilyService } from 'src/app/services/family.service';
 export class AfterSchoolProductComponent implements OnInit {
   afterSchoolProducts: AfterSchoolProduct[];
   afterSchoolCart: any[];
-  family: Family;
+  @Input() family: Family;
   productLimits = [];
 
-  constructor(private cartService: CartService, private familyService: FamilyService, private productService: ProductService) {
+  constructor(private cartService: CartService, private productService: ProductService) {
    }
 
   ngOnInit() {
-    this.family = this.familyService.getFamily();
     this.afterSchoolProducts = this.productService.getAfterSchoolProducts();
     this.afterSchoolCart = this.cartService.getServiceAfterSchoolItems();
   }

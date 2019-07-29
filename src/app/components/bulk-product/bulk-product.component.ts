@@ -12,7 +12,7 @@ import { Family } from 'src/app/models/family.model';
   styleUrls: ['./bulk-product.component.css']
 })
 export class BulkProductComponent implements OnInit {
-  family: Family;
+  @Input() family: Family;
   bulkProducts: Product[];
   bulkCart: any[];
   panelOpenState = false;
@@ -23,10 +23,9 @@ export class BulkProductComponent implements OnInit {
   ]);
 
 
-  constructor(private cartService: CartService, private familyService: FamilyService, private productService: ProductService) {}
+  constructor(private cartService: CartService, private productService: ProductService) {}
 
   ngOnInit() {
-    this.family = this.familyService.getFamily();
     this.bulkProducts = this.productService.getBulkProducts();
     this.bulkCart = this.cartService.getServiceBulkItems();
   }
@@ -51,16 +50,6 @@ export class BulkProductComponent implements OnInit {
     return amountType;
   }
 
-  getMeatLbs() {
-    if (this.family.familySize <= 2) {
-      return '3 ';
-    } else if (this.family.familySize >= 6) {
-      return '7 ';
-    } else {
-      return '5 ';
-    }
-  }
-
   isProductInCart(bulkProduct: Product) {
     return this.bulkCart.some(cartItem => cartItem.name === bulkProduct.name);
   }
@@ -70,5 +59,6 @@ export class BulkProductComponent implements OnInit {
     this.isProductInCart(bulkProduct) ?
       this.bulkCart = this.bulkCart.filter((cartItem) => cartItem.name !== bulkProduct.name) :
       this.bulkCart.push({name: bulkProduct.name, amount: amountType});
+    console.log(this.bulkCart);
   }
 }

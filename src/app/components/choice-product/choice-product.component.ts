@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { ChoiceProduct } from 'src/app/models/choice-product.model';
@@ -14,16 +14,14 @@ import { PointService } from 'src/app/services/point.service';
 export class ChoiceProductComponent implements OnInit {
   choiceProducts: ChoiceProduct[];
   choiceCart: any[];
-  family: Family;
+  @Input() family: Family;
   remainingPoints: number;
   @Output() pointEmitter = new EventEmitter<number>();
   panelOpenState =  false;
 
-  constructor(private cartService: CartService, private familyService: FamilyService,
-              private pointService: PointService, private productService: ProductService) { }
+  constructor(private cartService: CartService, private pointService: PointService, private productService: ProductService) { }
 
   ngOnInit() {
-    this.family = this.familyService.getFamily();
     this.remainingPoints = this.pointService.getPoints();
     this.choiceProducts = this.productService.getChoiceProducts();
     this.choiceCart = this.cartService.getServiceChoiceItems();

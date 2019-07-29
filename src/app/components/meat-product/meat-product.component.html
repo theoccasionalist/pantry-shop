@@ -1,17 +1,39 @@
 <mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false">
+  
   <mat-expansion-panel-header>
-      <mat-panel-title>
-        Meat
-      </mat-panel-title>
-      <mat-panel-description>
-         {{panelOpenState ? 'close' : 'open'}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>  
-  <mat-card *ngFor="let meatProduct of meatProducts" class="card-container">
-    <mat-card-header>
-      <mat-card-title>{{meatProduct.name}}</mat-card-title>
-      <div>{{isProductInCart(meatProduct) ? Something : 'None in Cart'}}</div>
-      <mat-checkbox></mat-checkbox>
-    </mat-card-header>
+    <mat-panel-title>
+      Meat
+    </mat-panel-title>
+    <mat-panel-description>
+        {{panelOpenState ? 'close' : 'open'}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  
+  <mat-card id="checkbox"> 
+    <mat-checkbox (change)="updateIncludeMeatFlag()" [checked]="includeMeat">Include Meat</mat-checkbox> 
+    <div *ngIf="includeMeat">{{meatAmount}} Pounds of Meat in Cart.</div> 
   </mat-card>
+
+  <div id="overlay-container">
+    <div id="overlay" *ngIf="!includeMeat">No Meat in Cart</div>
+    <mat-card id="info" *ngIf="includeMeat">Although we ask that you mark your preferences below,
+      given the quick rotation of our meat selections, we cannot guarantee availability of all the listed meat items.  
+      Nonetheless, we will do our best to satisfy indicated preferences.
+    </mat-card>   
+    <mat-card *ngFor="let meatProduct of meatProducts">
+      <mat-card-header>
+        <mat-card-title>{{meatProduct.name}}</mat-card-title>
+        <mat-card-content>
+          <mat-radio-group>
+            <mat-radio-button *ngFor="let preference of preferenceOptions" 
+              labelPosition="before" [value]="preference" (change)="updateMeatCart(meatProduct,preference)"
+              [checked]="isPreferenceChecked(meatProduct,preference)" [disabled]="!includeMeat">
+              {{preference}}
+            </mat-radio-button> 
+          </mat-radio-group>
+        </mat-card-content>  
+      </mat-card-header>
+    </mat-card>
+  </div>
+    
 </mat-expansion-panel>

@@ -60,13 +60,13 @@ export class CartService {
   }
 
   getServiceMeatItems() {
-    let choiceItems: any[];
+    let meatItems: any[];
     this.currentCart.subscribe(cart =>
        cart.categoryItems.some(el => el.category === 'meat products') ?
-        choiceItems = cart.categoryItems.filter(el => el.category === 'meat products')[0].items :
-        choiceItems = []
+        meatItems = cart.categoryItems.filter(el => el.category === 'meat products')[0].items :
+        meatItems = []
       );
-    return choiceItems;
+    return meatItems;
   }
 
   updateServiceCart(cartItems: CartCategoryItems[]) {
