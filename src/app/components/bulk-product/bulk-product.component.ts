@@ -10,7 +10,6 @@ import { Family } from 'src/app/models/family.model';
   styleUrls: ['./bulk-product.component.css']
 })
 export class BulkProductComponent implements OnInit {
-  @Input() family: Family;
   bulkProducts: Product[];
   bulkCart: any[];
   panelOpenState = false;

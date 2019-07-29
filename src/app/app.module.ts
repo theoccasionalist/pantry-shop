@@ -21,6 +21,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { MeatProductComponent } from './components/meat-product/meat-product.component';
 import { DairyProductComponent } from './components/dairy-product/dairy-product.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DairyProductComponent } from './components/dairy-product/dairy-product.
     NavbarComponent,
     CallbackComponent,
     MeatProductComponent,
-    DairyProductComponent
+    DairyProductComponent,
+    RecipeComponent
   ],
   imports: [
     AppRoutingModule,

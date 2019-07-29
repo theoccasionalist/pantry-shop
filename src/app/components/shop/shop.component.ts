@@ -10,6 +10,7 @@ import { Family } from '../../models/family.model';
 import { FamilyService} from '../../services/family.service';
 import { PointService } from '../../services/point.service';
 import { DairyProductComponent } from '../dairy-product/dairy-product.component';
+import { RecipeComponent } from '../recipe/recipe.component';
 
 @Component({
   selector: 'app-shop',
@@ -27,6 +28,8 @@ export class ShopComponent implements OnInit {
   dairyProductComponent: DairyProductComponent;
   @ViewChild(MeatProductComponent, {static: false})
   meatProductComponent: MeatProductComponent;
+  @ViewChild(RecipeComponent, {static: false})
+  recipeComponent: RecipeComponent;
 
   cart: CartCategoryItems[] = [];
   family: Family;
@@ -51,6 +54,7 @@ export class ShopComponent implements OnInit {
     const dairy = this.dairyProductComponent.getDairyComponentCart();
     const choice = this.choiceProductComponent.getChoiceComponentCart();
     const meat = this.meatProductComponent.getMeatComponentCart();
+    const recipe = this.recipeComponent.getRecipeComponentCart();
     if (this.afterSchoolProductComponent) {
       const afterSchool = this.afterSchoolProductComponent.getAfterSchoolComponentCart();
       if (this.isComponentCartPopulated(afterSchool)) {
@@ -83,6 +87,12 @@ export class ShopComponent implements OnInit {
         category: 'meat products',
         amount: this.meatProductComponent.meatAmount,
         items: this.meatProductComponent.getMeatComponentCart()
+      });
+    }
+    if (this.isComponentCartPopulated(recipe)) {
+      this.cart.push({
+        category: 'recipe',
+        items: this.recipeComponent.getRecipeComponentCart()
       });
     }
   }
