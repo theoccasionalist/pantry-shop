@@ -11,6 +11,7 @@ import { FamilyService} from '../../services/family.service';
 import { PointService } from '../../services/point.service';
 import { DairyProductComponent } from '../dairy-product/dairy-product.component';
 import { RecipeComponent } from '../recipe/recipe.component';
+import { Cart } from 'src/app/models/cart.model';
 
 @Component({
   selector: 'app-shop',
@@ -31,7 +32,7 @@ export class ShopComponent implements OnInit {
   @ViewChild(RecipeComponent, {static: false})
   recipeComponent: RecipeComponent;
 
-  cart: CartCategoryItems[] = [];
+  cart: Cart;
   family: Family;
   remainingPoints: number;
   maxPoints: number;
@@ -40,6 +41,7 @@ export class ShopComponent implements OnInit {
               private pointService: PointService, private router: Router) { }
 
   ngOnInit() {
+    this.cartService.getCart().subscribe(currentCart => this.cart = currentCart);
     this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
     this.remainingPoints = this.pointService.getPoints();
     this.maxPoints = this.pointService.getMaxPoints();
@@ -58,39 +60,39 @@ export class ShopComponent implements OnInit {
     if (this.afterSchoolProductComponent) {
       const afterSchool = this.afterSchoolProductComponent.getAfterSchoolComponentCart();
       if (this.isComponentCartPopulated(afterSchool)) {
-        this.cart.push({
-          category: 'after school products',
+        this.cart.categoryItems.push({
+          category: 'afterSchool',
           items: this.afterSchoolProductComponent.getAfterSchoolComponentCart()
         });
       }
     }
     if (this.isComponentCartPopulated(bulk)) {
-      this.cart.push({
-        category: 'bulk products',
+      this.cart.categoryItems.push({
+        category: 'bulk',
         items: this.bulkProductComponent.getBulkComponentCart()
       });
     }
     if (this.isComponentCartPopulated(choice)) {
-      this.cart.push({
-        category: 'choice products',
+      this.cart.categoryItems.push({
+        category: 'choice',
         items: this.choiceProductComponent.getChoiceComponentCart()
       });
     }
     if (this.isComponentCartPopulated(dairy)) {
-      this.cart.push({
-        category: 'dairy products',
+      this.cart.categoryItems.push({
+        category: 'dairy',
         items: this.dairyProductComponent.getDairyComponentCart()
       });
     }
     if (this.isComponentCartPopulated(meat) && this.meatProductComponent.includeMeat) {
-      this.cart.push({
-        category: 'meat products',
+      this.cart.categoryItems.push({
+        category: 'meat',
         amount: this.meatProductComponent.meatAmount,
         items: this.meatProductComponent.getMeatComponentCart()
       });
     }
     if (this.isComponentCartPopulated(recipe)) {
-      this.cart.push({
+      this.cart.categoryItems.push({
         category: 'recipe',
         items: this.recipeComponent.getRecipeComponentCart()
       });
@@ -103,7 +105,7 @@ export class ShopComponent implements OnInit {
 
   onReviewCartClick() {
     this.updateShopComponentCart();
-    this.cartService.updateServiceCart(this.cart);
+    this.cartService.updateCart(this.cart);
     this.router.navigate([`/cart`]);
     console.log(this.cart);
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart } from '../models/cart.model';
 import { CartCategoryItems } from '../models/cart-category-items.model';
 
@@ -17,10 +17,8 @@ export class CartService {
 
   constructor() { }
 
-  getCart() {
-    let cart: Cart;
-    this.currentCart.subscribe(currentCart => cart = currentCart);
-    return cart;
+  getCart(): Observable<Cart> {
+    return this.currentCart;
   }
 
   getAllCategoryItems() {
@@ -42,8 +40,8 @@ export class CartService {
   getServiceAfterSchoolItems() {
     let afterSchoolItems: any[];
     this.currentCart.subscribe(cart =>
-       cart.categoryItems.some(el => el.category === 'after school products') ?
-        afterSchoolItems = cart.categoryItems.filter(el => el.category === 'after school products')[0].items :
+       cart.categoryItems.some(el => el.category === 'afterSchool') ?
+        afterSchoolItems = cart.categoryItems.filter(el => el.category === 'afterSchool')[0].items :
         afterSchoolItems = []
       );
     return afterSchoolItems;
@@ -89,9 +87,7 @@ export class CartService {
     return recipes;
   }
 
-  updateServiceCart(cartItems: CartCategoryItems[]) {
-    const cart = this.getCart();
-    cart.categoryItems = cartItems;
+  updateCart(cart: Cart) {
     this.cartSource.next(cart);
   }
 

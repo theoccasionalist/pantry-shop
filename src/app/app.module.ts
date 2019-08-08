@@ -4,6 +4,7 @@ import 'hammerjs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ScrollingModule, ViewportRuler} from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule,
@@ -59,9 +60,10 @@ import { RecipeComponent } from './components/recipe/recipe.component';
     MatSelectModule,
     MatTableModule,
     MatToolbarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ScrollingModule
   ],
-  providers: [],
+  providers: [ViewportRuler],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,9 @@
-#flex-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 5%;
+#grid-container {
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+    column-gap: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 7%;
     min-width: 1100px;
 }
@@ -10,32 +12,38 @@
     top: 95px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 20%;
     background: rgba(33, 38, 39, 0.7);
-    height: 10%;
     border-radius: 10px;
-    /* min-width: 200px; */
+    height: 125px;
+    min-width: 200px;
 }
-#cart-container {
-    min-width: 250px;
-}
-#cart-sub-container {
+#empty-cart {
+    background: rgba(33, 38, 39, 0.7);
+    border: solid black .5px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: 10%;
+    height: 70vh;
+}
+.cdk-virtual-scroll-viewport {
     background: rgba(33, 38, 39, 0.7);
     border-radius: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    top: 0;
-}
-#empty-cart {
-    background: rgb(43, 126, 235);
+    height: 70vh;
     width: 100%;
+}
+.order {
+    background: rgb(160, 6, 160);
     text-align: center;
 }
-.form-container {
-    margin-right: 3%;
+.top {
+    margin-top: 2%;
+}
+.bottom {
+    margin-bottom: 2%;
 }
 .mat-toolbar {
     background: lightseagreen;
@@ -43,17 +51,30 @@
     border-top-right-radius: 10px;
     border-bottom: solid black .5px;
     justify-content: center;
+    text-align: center;
 }
 .items-toolbar {
-    background: rgb(160, 6, 160);
+    background-color: rgb(43, 126, 235);;
+    height: 50%;
+    margin-left: 5%;
+    width: 90%;
 }
-.items-card {
-    background: rgb(43, 126, 235);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.top-table {
+    margin-top: 2.5%;
+}
+.bottom-table {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 1rem;
+    margin-bottom: 2.5%;
 }
 .mat-table {
-    background: rgb(12, 36, 100); 
+    background: rgb(12, 36, 100);
+    width: 90%;
+    margin-left: 5%
+}
+tr.mat-footer-row {
+    font-weight: bold;
 }
 button {
     width: auto;
