@@ -1,13 +1,11 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { Cart } from '../../models/cart.model';
-import { CartCategoryItems } from '../../models/cart-category-items.model';
 import { CartService } from '../../services/cart.service';
 import { Family } from '../../models/family.model';
 import { FamilyService } from '../../services/family.service';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
 import { HttpClient } from '@angular/common/http';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +23,7 @@ export class CartComponent implements OnInit {
   totals = {};
 
   constructor(private cartService: CartService, private familyService: FamilyService,
-              private httpClient: HttpClient,  private router: Router, private ruler: ViewportRuler) { }
+              private httpClient: HttpClient,  private router: Router) { }
 
   ngOnInit() {
     this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
