@@ -7,6 +7,7 @@ import { FamilyService } from '../../services/family.service';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
 import { HttpClient } from '@angular/common/http';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-cart',
@@ -17,33 +18,46 @@ export class CartComponent implements OnInit {
   family: Family;
   cart: Cart;
   @Input() pickUpDate;
-  afterSchoolItems: any[];
-  bulkItems: any[];
-  choiceItems: any[];
-  dairyItems: any[];
-  meatItems: any[];
-  recipeItems: any[];
-  cartItems: CartCategoryItems[];
   panelOpenState = false;
-  bulkColumns: string[] = ['name', 'amount'];
-  afterSchoolColumns: string[] = ['name', 'amount'];
-  choiceColumns: string[] = ['name', 'amount'];
+  columns: string[] = ['column1', 'column2'];
   uri = 'http://localhost:4000';
+  viewItems = {};
+  totals = {};
 
   constructor(private cartService: CartService, private familyService: FamilyService,
-              private httpClient: HttpClient,  private router: Router) { }
+              private httpClient: HttpClient,  private router: Router, private ruler: ViewportRuler) { }
 
   ngOnInit() {
     this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
-    this.cart = this.cartService.getCart();
-    this.cartItems = this.cartService.getAllCategoryItems();
-    this.afterSchoolItems = this.cartService.getServiceAfterSchoolItems();
-    this.bulkItems = this.cartService.getServiceBulkItems();
-    this.choiceItems = this.cartService.getServiceChoiceItems();
-    this.dairyItems = this.cartService.getServiceDairyItems();
-    this.meatItems = this.cartService.getServiceDairyItems();
-    this.recipeItems = this.cartService.getServiceRecipeItems();
+    this.cartService.getCart().subscribe(currentCart => this.cart = currentCart);
+    this.setViewItems(this.cart);
+    this.setTotals(this.cart);
     console.log(this.cart);
+  }
+
+  setViewItems(cart: Cart) {
+    const categories = ['afterSchool', 'bulk', 'choice', 'dairy', 'meat', 'recipe'];
+    cart.categoryItems.forEach(subCart => {
+      categories.forEach(category => {
+        if (subCart.category === category) {
+          Object.assign(this.viewItems, {[category] : subCart.items});
+      }});
+    });
+  }
+
+  setTotals(cart: Cart) {
+    cart.categoryItems.forEach(subCart => {
+      if (subCart.category === 'bulk'
+        || subCart.category === 'dairy'
+        || subCart.category === 'recipe') {
+        Object.assign(this.totals, {[subCart.category] : subCart.items.length});
+      } else if (subCart.category === 'meat') {
+        Object.assign(this.totals, {[subCart.category] : subCart.amount});
+      } else {
+        Object.assign(this.totals, {
+          [subCart.category] : subCart.items.map(item => item.amount).reduce((acc, value) => acc + value)
+        });
+    }});
   }
 
   onBackToCart() {

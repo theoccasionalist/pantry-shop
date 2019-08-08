@@ -27,6 +27,9 @@
     background: rgb(160, 6, 160);
     margin: 5%;
 }
+#right {
+    height: 125px;
+}
 #middle {
     display: flex;
     flex-direction: column;

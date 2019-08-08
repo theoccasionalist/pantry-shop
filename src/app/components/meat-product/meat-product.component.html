@@ -11,11 +11,12 @@
   
   <mat-card id="checkbox"> 
     <mat-checkbox (change)="updateIncludeMeatFlag()" [checked]="includeMeat">Include Meat</mat-checkbox> 
-    <div *ngIf="includeMeat">{{meatAmount}} Pounds of Meat in Cart.</div> 
+    <div *ngIf="!includeMeat; else meat">No meat in cart</div>
+    <ng-template #meat><div>{{meatAmount}} Pounds of Meat in Cart</div></ng-template> 
   </mat-card>
 
   <div id="overlay-container">
-    <div id="overlay" *ngIf="!includeMeat">No Meat in Cart</div>
+    <div id="overlay" *ngIf="!includeMeat">Please click above to add meat.</div>
     <mat-card id="info" *ngIf="includeMeat">Although we ask that you mark your preferences below,
       given the quick rotation of our meat selections, we cannot guarantee availability of all the listed meat items.  
       Nonetheless, we will do our best to satisfy indicated preferences.
