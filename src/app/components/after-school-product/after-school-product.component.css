@@ -22,7 +22,12 @@
   display: flex;
   justify-content: space-between;
 }
-button {
+.mat-action-row {
+  border-top: 0;
+  cursor: pointer;
+  justify-content: center;
+}
+.mat-button {
   background-color: goldenrod;
   height: auto;
   width: 75%;

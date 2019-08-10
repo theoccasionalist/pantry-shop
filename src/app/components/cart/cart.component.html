@@ -12,12 +12,13 @@
   
   <div id="cart-container" *ngIf="cart.categoryItems.length">
 
-    <mat-toolbar>Cart Overview</mat-toolbar>
+    <mat-toolbar>
+      Cart Overview<br>
+      Please review order below
+    </mat-toolbar>
     
     <cdk-virtual-scroll-viewport  [itemSize]="">
 
-      <mat-card class="order top">Please scroll down to view order</mat-card>
-     
       <ng-container *ngIf="viewItems.afterSchool">
         <mat-toolbar class="items-toolbar top-table">After School Items</mat-toolbar>
         <table mat-table [dataSource]="viewItems.afterSchool">
@@ -138,7 +139,7 @@
           <div class="items-toolbar bottom-table"></div> 
         </ng-container>
 
-      <mat-card *ngIf="cart.categoryItems.length" class="order bottom">End of order</mat-card>  
+      <mat-card *ngIf="cart.categoryItems.length" id="end-order">End of order</mat-card>  
 
       </cdk-virtual-scroll-viewport>  
     </div>

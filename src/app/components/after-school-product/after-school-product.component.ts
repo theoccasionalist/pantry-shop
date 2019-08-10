@@ -3,7 +3,6 @@ import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { AfterSchoolProduct } from 'src/app/models/after-school-product.model';
 import { Family } from 'src/app/models/family.model';
-import { FamilyService } from 'src/app/services/family.service';
 
 @Component({
   selector: 'app-after-school-product',
@@ -11,9 +10,10 @@ import { FamilyService } from 'src/app/services/family.service';
   styleUrls: ['./after-school-product.component.css']
 })
 export class AfterSchoolProductComponent implements OnInit {
-  afterSchoolProducts: AfterSchoolProduct[];
+  afterSchoolProducts: AfterSchoolProduct[] = [];
   afterSchoolCart: any[];
   @Input() family: Family;
+  panelOpenState = false;
   productLimits = [];
 
   constructor(private cartService: CartService, private productService: ProductService) {
@@ -25,7 +25,18 @@ export class AfterSchoolProductComponent implements OnInit {
        this.afterSchoolCart = cart.categoryItems.filter(el => el.category === 'afterSchool')[0].items :
        this.afterSchoolCart = []
      );
-    this.afterSchoolProducts = this.productService.getAfterSchoolProducts();
+    this.productService.getAfterSchoolProducts().subscribe(
+      (response: any[]) => {
+        response.forEach(el =>
+          this.afterSchoolProducts.push({
+            name: el.name,
+            sizeLimit: el.sizeLimit
+      }));
+    });
+  }
+
+  closePanel() {
+    this.panelOpenState = false;
   }
 
   getAfterSchoolComponentCart() {

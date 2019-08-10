@@ -20,6 +20,7 @@
 #empty-cart {
     background: rgba(33, 38, 39, 0.7);
     border: solid black .5px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     text-align: center;
@@ -34,16 +35,6 @@
     border-top-right-radius: 0;
     height: 70vh;
     width: 100%;
-}
-.order {
-    background: rgb(160, 6, 160);
-    text-align: center;
-}
-.top {
-    margin-top: 2%;
-}
-.bottom {
-    margin-bottom: 2%;
 }
 .mat-toolbar {
     background: lightseagreen;
@@ -84,5 +75,9 @@ button {
     border-radius: 5px;
     margin: 5%;
 }
-
-
+#end-order {
+    background: transparent;
+    box-shadow: 0px 10px 10px rgb(0, 0, 0, .3);
+    text-align: center;
+    margin-bottom: 2%;
+}

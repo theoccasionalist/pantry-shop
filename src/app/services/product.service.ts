@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AfterSchoolProduct } from '../models/after-school-product.model';
 import { Product} from '../models/product.model';
-import { ChoiceProduct } from '../models/choice-product.model';
 import { HttpClient } from '@angular/common/http';
-import { tap, map, filter } from 'rxjs/operators';
-import { FamilyService } from './family.service';
+import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,23 +12,11 @@ export class ProductService {
 
   uri = 'http://localhost:4000';
 
-  constructor(private familyService: FamilyService, private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   getAfterSchoolProducts() {
-    const afterSchoolProducts: AfterSchoolProduct[] = [];
-    this.httpClient.get(`${this.uri}/after-school-products`).pipe(
-      tap(result => this.sortByName(result))
-    ).subscribe(
-      (response: any[]) => {
-        response.forEach(element =>
-          afterSchoolProducts.push({
-            name: element.name,
-            sizeLimit: element.sizeLimit
-          })
-        );
-      }
-    );
-    return afterSchoolProducts;
+    return this.httpClient.get(`${this.uri}/after-school-products`).pipe(
+      tap(result => this.sortByName(result)));
   }
 
   getBulkProducts() {
@@ -48,17 +34,8 @@ export class ProductService {
   }
 
   getChoiceProducts() {
-    const choiceProducts: ChoiceProduct[] = [];
-    this.httpClient.get(`${this.uri}/choice-products`).pipe(
-      tap(result => this.sortByName(result))
-    ).subscribe(
-      (response: any[]) => {
-        response.forEach(element =>
-          choiceProducts.push({name: element.name, limit: element.limit, points: element.points})
-        );
-      }
-    );
-    return choiceProducts;
+    return this.httpClient.get(`${this.uri}/choice-products`).pipe(
+      tap(result => this.sortByName(result)));
   }
 
   getDairyProducts(): Observable<any> {

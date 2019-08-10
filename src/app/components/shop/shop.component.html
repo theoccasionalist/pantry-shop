@@ -17,12 +17,14 @@
     
     <main id="middle">
         <mat-toolbar>Click Below to Shop</mat-toolbar>
-        <app-after-school-product [family]="family" *ngIf="family.schoolChildren !== 0"></app-after-school-product>
-        <app-bulk-product></app-bulk-product>
-        <app-choice-product [family]="family" (pointEmitter)="receivePoints($event)"></app-choice-product> 
-        <app-dairy-product [family]="family"></app-dairy-product>
-        <app-meat-product [family]="family"></app-meat-product>
-        <app-recipe></app-recipe>     
+        <cdk-virtual-scroll-viewport  itemSize="">
+            <app-after-school-product [family]="family" *ngIf="family.schoolChildren !== 0"></app-after-school-product>
+            <app-bulk-product></app-bulk-product>
+            <app-choice-product [family]="family" (pointEmitter)="receivePoints($event)"></app-choice-product> 
+            <app-dairy-product [family]="family"></app-dairy-product>
+            <app-meat-product [family]="family"></app-meat-product>
+            <app-recipe></app-recipe>
+        </cdk-virtual-scroll-viewport>     
     </main>
     
     <nav class="button-container" id="right">

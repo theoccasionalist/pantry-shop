@@ -1,4 +1,5 @@
-<mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false">
+<mat-expansion-panel [expanded]="panelOpenState" 
+(opened) ="panelOpenState = true" (closed)="panelOpenState = false">
   
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -36,5 +37,7 @@
       </mat-card-header>
     </mat-card>
   </div>
+
+  <mat-action-row (click)="closePanel()">{{panelOpenState ? 'close' : 'open'}}</mat-action-row>
     
 </mat-expansion-panel>
