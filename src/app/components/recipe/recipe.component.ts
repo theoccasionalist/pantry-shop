@@ -16,12 +16,16 @@ export class RecipeComponent implements OnInit {
   constructor(private cartService: CartService, private productService: ProductService) { }
 
   ngOnInit() {
+    this.cartService.getCart().subscribe(cart =>
+      cart.categoryItems.some(el => el.category === 'recipe') ?
+       this.recipeCart = cart.categoryItems.filter(el => el.category === 'recipe')[0].items :
+       this.recipeCart = []
+    );
     this.productService.getRecipes().subscribe((response: any[]) => {
       response.forEach(element => this.recipes.push({
         name: element.name,
       }));
     });
-    this.recipeCart = this.cartService.getServiceRecipeItems();
   }
 
   getRecipeComponentCart() {

@@ -3,6 +3,7 @@ import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from 'src/app/models/product.model';
 import { Family } from 'src/app/models/family.model';
+import { CartCategoryItems } from 'src/app/models/cart-category-items.model';
 
 @Component({
   selector: 'app-bulk-product',
@@ -23,8 +24,12 @@ export class BulkProductComponent implements OnInit {
   constructor(private cartService: CartService, private productService: ProductService) {}
 
   ngOnInit() {
+    this.cartService.getCart().subscribe(cart =>
+      cart.categoryItems.some(el => el.category === 'bulk') ?
+       this.bulkCart = cart.categoryItems.filter(el => el.category === 'bulk')[0].items :
+       this.bulkCart = []
+    );
     this.bulkProducts = this.productService.getBulkProducts();
-    this.bulkCart = this.cartService.getServiceBulkItems();
   }
 
   getBulkComponentCart() {
@@ -54,7 +59,7 @@ export class BulkProductComponent implements OnInit {
   updateBulkCart(bulkProduct: Product) {
     const amountType = this.getProductAmountType(bulkProduct);
     this.isProductInCart(bulkProduct) ?
-      this.bulkCart = this.bulkCart.filter((cartItem) => cartItem.name !== bulkProduct.name) :
+      this.bulkCart = this.bulkCart.filter(cartItem => cartItem.name !== bulkProduct.name) :
       this.bulkCart.push({name: bulkProduct.name, amount: amountType});
   }
 }

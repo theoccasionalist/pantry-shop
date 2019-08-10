@@ -20,8 +20,12 @@ export class AfterSchoolProductComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.cartService.getCart().subscribe(cart =>
+      cart.categoryItems.some(el => el.category === 'afterSchool') ?
+       this.afterSchoolCart = cart.categoryItems.filter(el => el.category === 'afterSchool')[0].items :
+       this.afterSchoolCart = []
+     );
     this.afterSchoolProducts = this.productService.getAfterSchoolProducts();
-    this.afterSchoolCart = this.cartService.getServiceAfterSchoolItems();
   }
 
   getAfterSchoolComponentCart() {

@@ -22,9 +22,13 @@ export class ChoiceProductComponent implements OnInit {
   constructor(private cartService: CartService, private pointService: PointService, private productService: ProductService) { }
 
   ngOnInit() {
-    this.remainingPoints = this.pointService.getPoints();
+    this.cartService.getCart().subscribe(cart =>
+      cart.categoryItems.some(el => el.category === 'choice') ?
+       this.choiceCart = cart.categoryItems.filter(el => el.category === 'choice')[0].items :
+       this.choiceCart = []
+    );
     this.choiceProducts = this.productService.getChoiceProducts();
-    this.choiceCart = this.cartService.getServiceChoiceItems();
+    this.remainingPoints = this.pointService.getPoints();
   }
 
   getChoiceComponentCart() {

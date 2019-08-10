@@ -7,14 +7,14 @@ import { Family } from '../models/family.model';
 })
 export class FamilyService {
 
-  defaultFamily: Family = {
+  family: Family = {
     firstName: null,
     lastName: null,
     familySize: null,
     schoolChildren: null
   };
 
-  private familySource = new BehaviorSubject(this.defaultFamily);
+  private familySource = new BehaviorSubject(this.family);
   currentFamily = this.familySource.asObservable();
 
   constructor() { }

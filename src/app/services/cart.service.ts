@@ -1,90 +1,23 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Cart } from '../models/cart.model';
-import { CartCategoryItems } from '../models/cart-category-items.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  defaultCart: Cart = {
+  cart: Cart = {
     categoryItems: [] = []
   };
 
-  private cartSource = new BehaviorSubject(this.defaultCart);
+  private cartSource = new BehaviorSubject(this.cart);
   currentCart = this.cartSource.asObservable();
 
   constructor() { }
 
   getCart(): Observable<Cart> {
     return this.currentCart;
-  }
-
-  getAllCategoryItems() {
-    let cartItems: any[];
-    this.currentCart.subscribe(currentCart => cartItems = currentCart.categoryItems);
-    return cartItems;
-  }
-
-  getServiceBulkItems() {
-    let bulkItems: any[];
-    this.currentCart.subscribe(cart =>
-       cart.categoryItems.some(el => el.category === 'bulk products') ?
-        bulkItems = cart.categoryItems.filter(el => el.category === 'bulk products')[0].items :
-        bulkItems = []
-      );
-    return bulkItems;
-  }
-
-  getServiceAfterSchoolItems() {
-    let afterSchoolItems: any[];
-    this.currentCart.subscribe(cart =>
-       cart.categoryItems.some(el => el.category === 'afterSchool') ?
-        afterSchoolItems = cart.categoryItems.filter(el => el.category === 'afterSchool')[0].items :
-        afterSchoolItems = []
-      );
-    return afterSchoolItems;
-  }
-
-  getServiceChoiceItems() {
-    let choiceItems: any[];
-    this.currentCart.subscribe(cart =>
-       cart.categoryItems.some(el => el.category === 'choice products') ?
-        choiceItems = cart.categoryItems.filter(el => el.category === 'choice products')[0].items :
-        choiceItems = []
-      );
-    return choiceItems;
-  }
-
-  getServiceDairyItems() {
-    let dairyItems: any[];
-    this.currentCart.subscribe(cart =>
-       cart.categoryItems.some(el => el.category === 'dairy products') ?
-        dairyItems = cart.categoryItems.filter(el => el.category === 'dairy products')[0].items :
-        dairyItems = []
-      );
-    return dairyItems;
-  }
-
-  getServiceMeatItems() {
-    let meatItems: any[];
-    this.currentCart.subscribe(cart =>
-       cart.categoryItems.some(el => el.category === 'meat products') ?
-        meatItems = cart.categoryItems.filter(el => el.category === 'meat products')[0].items :
-        meatItems = []
-      );
-    return meatItems;
-  }
-
-  getServiceRecipeItems() {
-    let recipes: any[];
-    this.currentCart.subscribe(cart =>
-       cart.categoryItems.some(el => el.category === 'recipe') ?
-        recipes = cart.categoryItems.filter(el => el.category === 'recipe')[0].items :
-        recipes = []
-      );
-    return recipes;
   }
 
   updateCart(cart: Cart) {

@@ -22,18 +22,25 @@ export class MeatProductComponent implements OnInit {
   constructor(private cartService: CartService, private viewChange: ChangeDetectorRef, private productService: ProductService) { }
 
   ngOnInit() {
+    this.cartService.getCart().subscribe(cart =>
+      cart.categoryItems.some(el => el.category === 'meat') ?
+       this.meatCart = cart.categoryItems.filter(el => el.category === 'meat')[0].items :
+       this.meatCart = []
+    );
     this.productService.getMeatProducts().subscribe((response: any[]) => {
-      response.forEach(element => this.meatProducts.push({name: element.name}));
+      response.forEach(el => this.meatProducts.push({name: el.name}));
     });
     this.productService.getMeatAmounts().subscribe((response: any[]) => {
-      response.forEach(element => {
-        if (element.size.includes(this.family.familySize)) {
-          this.meatAmount = element.amount;
+      response.forEach(el => {
+        if (el.size.includes(this.family.familySize)) {
+          this.meatAmount = el.amount;
       }});
     });
-    this.meatCart = this.cartService.getServiceMeatItems();
-    console.log(this.meatCart);
     this.setIncludeMeatFlag();
+  }
+
+  private setIncludeMeatFlag() {
+    this.meatCart.length ? this.includeMeat = true : this.includeMeat = false;
   }
 
   getMeatComponentCart() {
@@ -52,6 +59,14 @@ export class MeatProductComponent implements OnInit {
     }
   }
 
+  private initMeatCart() {
+    this.meatProducts.forEach(cartItem =>
+        this.meatCart.push({
+          name: cartItem.name,
+          preference: this.preferenceOptions[1]
+    }));
+  }
+
   updateMeatCart(meatProduct: Product, selectedPreference: string) {
     const inCart = this.meatCart.some(cartItem => cartItem.name === meatProduct.name);
     if (!inCart) {
@@ -68,14 +83,6 @@ export class MeatProductComponent implements OnInit {
     }
   }
 
-  private initMeatCart() {
-    this.meatProducts.forEach(cartItem =>
-        this.meatCart.push({
-          name: cartItem.name,
-          preference: this.preferenceOptions[1]
-    }));
-  }
-
   private excludeAllCheck() {
     const hasItems = this.meatCart.filter(cartItem => cartItem.preference !== this.preferenceOptions[2]);
     if (!hasItems.length) {
@@ -83,9 +90,5 @@ export class MeatProductComponent implements OnInit {
       this.viewChange.markForCheck();
       this.includeMeat = false;
     }
-  }
-
-  private setIncludeMeatFlag() {
-    this.meatCart.length ? this.includeMeat = true : this.includeMeat = false;
   }
 }

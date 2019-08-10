@@ -18,13 +18,17 @@ export class DairyProductComponent implements OnInit {
   constructor(private cartService: CartService, private productService: ProductService) {}
 
   ngOnInit() {
+    this.cartService.getCart().subscribe(cart =>
+      cart.categoryItems.some(el => el.category === 'dairy') ?
+       this.dairyCart = cart.categoryItems.filter(el => el.category === 'dairy')[0].items :
+       this.dairyCart = []
+    );
     this.productService.getDairyProducts().subscribe((response: any[]) => {
-      response.forEach(element => this.dairyProducts.push({
-        name: element.name,
-        sizeAmount: element.sizeAmount
+      response.forEach(el => this.dairyProducts.push({
+        name: el.name,
+        sizeAmount: el.sizeAmount
       }));
     });
-    this.dairyCart = this.cartService.getServiceDairyItems();
   }
 
   getDairyComponentCart() {
