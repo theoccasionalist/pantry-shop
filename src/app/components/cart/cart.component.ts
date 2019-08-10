@@ -53,7 +53,8 @@ export class CartComponent implements OnInit {
         Object.assign(this.totals, {[subCart.category] : subCart.amount});
       } else {
         Object.assign(this.totals, {
-          [subCart.category] : subCart.items.map(item => item.amount).reduce((acc, value) => acc + value)
+          [subCart.category] : subCart.items.map(item => item.amount)
+          .reduce((acc, value) => acc + value)
         });
     }});
   }

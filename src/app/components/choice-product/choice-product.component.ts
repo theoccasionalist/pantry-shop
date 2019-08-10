@@ -2,7 +2,6 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { ChoiceProduct } from 'src/app/models/choice-product.model';
-import { FamilyService } from 'src/app/services/family.service';
 import { Family } from 'src/app/models/family.model';
 import { PointService } from 'src/app/services/point.service';
 
@@ -12,7 +11,7 @@ import { PointService } from 'src/app/services/point.service';
   styleUrls: ['./choice-product.component.css']
 })
 export class ChoiceProductComponent implements OnInit {
-  choiceProducts: ChoiceProduct[];
+  choiceProducts: ChoiceProduct[] = [];
   choiceCart: any[];
   @Input() family: Family;
   remainingPoints: number;
@@ -27,8 +26,19 @@ export class ChoiceProductComponent implements OnInit {
        this.choiceCart = cart.categoryItems.filter(el => el.category === 'choice')[0].items :
        this.choiceCart = []
     );
-    this.choiceProducts = this.productService.getChoiceProducts();
+    this.productService.getChoiceProducts().subscribe(
+      (response: any[]) => {
+        response.forEach(el =>
+          this.choiceProducts.push(
+            {name: el.name, limit: el.limit, points: el.points})
+        );
+      }
+    );
     this.remainingPoints = this.pointService.getPoints();
+  }
+
+  closePanel() {
+    this.panelOpenState = false;
   }
 
   getChoiceComponentCart() {

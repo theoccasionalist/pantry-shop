@@ -43,6 +43,10 @@ export class MeatProductComponent implements OnInit {
     this.meatCart.length ? this.includeMeat = true : this.includeMeat = false;
   }
 
+  closePanel() {
+    this.panelOpenState = false;
+  }
+
   getMeatComponentCart() {
     return this.meatCart;
   }
