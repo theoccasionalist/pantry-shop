@@ -12,3 +12,9 @@
     display: grid; 
     grid-template-columns: 49% auto 15%;
   }
+  .mat-action-row {
+    border-top: 0;
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+    justify-content: center;
+  }

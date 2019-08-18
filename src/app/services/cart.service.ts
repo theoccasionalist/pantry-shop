@@ -8,7 +8,8 @@ import { Cart } from '../models/cart.model';
 export class CartService {
 
   cart: Cart = {
-    categoryItems: [] = []
+    familyName: null,
+    items: []
   };
 
   private cartSource = new BehaviorSubject(this.cart);
@@ -21,13 +22,6 @@ export class CartService {
   }
 
   updateCart(cart: Cart) {
-    this.cartSource.next(cart);
-  }
-
-  resetCart() {
-    const cart: Cart = {
-      categoryItems: [] = []
-    };
     this.cartSource.next(cart);
   }
 }

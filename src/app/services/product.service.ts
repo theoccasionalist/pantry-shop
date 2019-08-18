@@ -14,46 +14,8 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAfterSchoolProducts() {
-    return this.httpClient.get(`${this.uri}/after-school-products`).pipe(
-      tap(result => this.sortByName(result)));
-  }
-
-  getBulkProducts() {
-    const bulkProducts: Product[] = [];
-    this.httpClient.get(`${this.uri}/bulk-products`).pipe(
-      tap(result => this.sortByName(result))
-    ).subscribe(
-      (response: any[]) => {
-        response.forEach(element =>
-          bulkProducts.push({name: element.name})
-        );
-      }
-    );
-    return bulkProducts;
-  }
-
-  getChoiceProducts() {
-    return this.httpClient.get(`${this.uri}/choice-products`).pipe(
-      tap(result => this.sortByName(result)));
-  }
-
-  getDairyProducts(): Observable<any> {
-    return this.httpClient.get(`${this.uri}/dairy-products`).pipe(
-      tap(result => this.sortByName(result)));
-  }
-
-  getMeatAmounts(): Observable<any> {
-    return this.httpClient.get(`${this.uri}/meat-limits`);
-  }
-
-  getMeatProducts(): Observable<any> {
-    return this.httpClient.get(`${this.uri}/meat-products`).pipe(
-      tap(result => this.sortByName(result)));
-  }
-
-  getRecipes(): Observable<any> {
-    return this.httpClient.get(`${this.uri}/recipes`);
+  getProducts() {
+    return this.httpClient.get(`${this.uri}/products`);
   }
 
   private sortByName(productArray) {

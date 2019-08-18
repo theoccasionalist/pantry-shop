@@ -1,5 +1,6 @@
-import { CartCategoryItems } from './cart-category-items.model';
+import { CartItems } from './cart-items.model';
 
 export class Cart {
-    categoryItems: CartCategoryItems[];
+    familyName: string;
+    items: CartItems[];
 }
