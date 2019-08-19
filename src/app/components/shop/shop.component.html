@@ -18,13 +18,12 @@
     <main id="middle">
         <mat-toolbar>Click Below to Shop</mat-toolbar>
         <cdk-virtual-scroll-viewport  itemSize="">
-            <app-single-product *ngFor="let type of singlesTypes" [family]="family" [type]="type"></app-single-product>
+            <ng-container *ngFor="let type of totalTypes" >
+                <app-single-product *ngIf="singlesTypes.includes(type)" [family]="family" [type]="type"></app-single-product>
+                <app-multiple-product *ngIf="multiplesTypes.includes(type)" [family]="family" [type]="type"></app-multiple-product>
+            </ng-container>
             <!-- <app-after-school-product [family]="family" *ngIf="family.schoolChildren !== 0"></app-after-school-product>
-            <app-bulk-product></app-bulk-product>
-            <app-choice-product [family]="family" (pointEmitter)="receivePoints($event)"></app-choice-product> 
-            <app-dairy-product [family]="family"></app-dairy-product>
-            <app-meat-product [family]="family"></app-meat-product>
-            <app-recipe></app-recipe> -->
+            <app-meat-product [family]="family"></app-meat-product> -->
         </cdk-virtual-scroll-viewport>     
     </main>
     

@@ -14,10 +14,14 @@ export class BaseProductComponent {
 
     constructor(protected cartService: CartService, protected productService: ProductService) {}
 
-    getAmount(product: Product) {
+    getAmount(product: Product, school?: boolean) {
         let amount: number;
+        let familyValue = this.family.familySize;
+        if (school) {
+            familyValue = this.family.schoolChildren;
+        }
         product.sizeAmount.forEach(mapping => {
-            if (mapping.minSize <= this.family.familySize && this.family.familySize <= mapping.maxSize) {
+            if (mapping.minSize <= familyValue && familyValue <= mapping.maxSize) {
             amount = mapping.amount;
             }});
         return amount;

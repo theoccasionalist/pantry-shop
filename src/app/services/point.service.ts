@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class PointService {
   points = 0;
-  maxPoints: number;
+  maxPoints = 0;
   uri = 'http://localhost:4000';
 
   constructor(private httpClient: HttpClient) { }
@@ -20,10 +20,6 @@ export class PointService {
 
   getCurrentPoints(): Observable<number> {
     return this.currentPoints;
-  }
-
-  getMaxPoints() {
-    return this.maxPoints;
   }
 
   getPointsMapping() {

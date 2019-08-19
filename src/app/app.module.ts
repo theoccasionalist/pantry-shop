@@ -18,6 +18,7 @@ import { SubmissionComponent } from './components/submission/submission.componen
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { SingleProductComponent } from './components/single-product/single-product.component';
+import { MultipleProductComponent } from './components/multiple-product/multiple-product.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SingleProductComponent } from './components/single-product/single-produ
     SubmissionComponent,
     NavbarComponent,
     CallbackComponent,
-    SingleProductComponent
+    SingleProductComponent,
+    MultipleProductComponent
   ],
   imports: [
     AppRoutingModule,

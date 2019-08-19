@@ -3,6 +3,7 @@ import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from 'src/app/models/product.model';
 import { BaseProductComponent } from 'src/app/models/base-product-component.model';
+import { filter, mergeMap, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-single-product',
@@ -17,9 +18,7 @@ export class SingleProductComponent extends BaseProductComponent implements OnIn
 
   ngOnInit() {
     this.cartService.getCart().subscribe(currentCart => this.cart = currentCart);
-    this.productService.getProducts().subscribe((products: Product[]) => {
-      this.products = products.filter(product => product.type === this.type);
-    });
+    this.productService.getProductsByType(this.type).subscribe((products: Product[]) => this.products = products);
   }
 
   getUnit(product: Product) {

@@ -1,0 +1,43 @@
+.mat-expansion-panel {
+    background: rgb(43, 126, 235);
+    margin: 2%;
+    border: solid black .5px;
+    }
+  .mat-card {
+    background: rgb(12, 36, 100);
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  .mat-card-header {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .limit {
+    margin-left: 7%;
+  }
+  .amount {
+    margin-left: 35%;
+  }
+  .mat-card-content {
+    display: flex;
+    justify-content: space-between;
+  }
+  .mat-action-row {
+    border-top: 0;
+    cursor: pointer;
+    justify-content: center;
+  }
+  .mat-button {
+    background-color: goldenrod;
+    height: auto;
+    width: 75%;
+    margin-left: 10%;
+    border: solid black .5px;
+    border-radius: 5px;
+  }
+  .mat-action-row {
+    border-top: 0;
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+    justify-content: center;
+  }
