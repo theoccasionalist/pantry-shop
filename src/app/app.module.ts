@@ -7,9 +7,9 @@ import { AppComponent } from './app.component';
 import { ScrollingModule, ViewportRuler} from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule,
+import { MatButtonModule, MatCardModule, MatDatepickerModule, MatExpansionModule,
   MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule, MatTableModule,
-  MatToolbarModule } from '@angular/material';
+  MatToolbarModule, MatTooltipModule } from '@angular/material';
 // import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
@@ -17,8 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 import { SubmissionComponent } from './components/submission/submission.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
-import { SingleProductComponent } from './components/single-product/single-product.component';
-import { MultipleProductComponent } from './components/multiple-product/multiple-product.component';
+import { ProductComponent } from './components/product/product.component';
+import { ProductTypeComponent } from './components/product-type/product-type.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +30,8 @@ import { MultipleProductComponent } from './components/multiple-product/multiple
     SubmissionComponent,
     NavbarComponent,
     CallbackComponent,
-    SingleProductComponent,
-    MultipleProductComponent
+    ProductComponent,
+    ProductTypeComponent
   ],
   imports: [
     AppRoutingModule,
@@ -41,7 +41,6 @@ import { MultipleProductComponent } from './components/multiple-product/multiple
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
-    MatCheckboxModule,
     MatDatepickerModule,
     MatExpansionModule,
     MatInputModule,
@@ -52,6 +51,7 @@ import { MultipleProductComponent } from './components/multiple-product/multiple
     MatSelectModule,
     MatTableModule,
     MatToolbarModule,
+    MatTooltipModule,
     ReactiveFormsModule,
     ScrollingModule
   ],

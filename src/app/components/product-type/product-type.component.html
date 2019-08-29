@@ -1,0 +1,19 @@
+<ng-container *ngIf="!onlySchoolProducts || schoolIncluded"> 
+  <mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{type}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{panelOpenState ? 'close' : 'open'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    <mat-card *ngFor="let product of products" class="card-container">
+      <mat-card-title>{{product.name}}</mat-card-title>
+      <mat-card-content>
+          <app-product  [family]="family" [product]="product"></app-product>
+      </mat-card-content>
+    </mat-card>       
+    <mat-action-row (click)="closePanel()"></mat-action-row>
+  </mat-expansion-panel>
+</ng-container>   

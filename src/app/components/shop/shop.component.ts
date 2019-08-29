@@ -8,7 +8,6 @@ import { PointService } from '../../services/point.service';
 // import { Cart } from 'src/app/models/cart.model';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product.model';
-import { ProductAmountType } from 'src/app/models/product-amount-type.model';
 
 @Component({
   selector: 'app-shop',
@@ -32,19 +31,16 @@ export class ShopComponent implements OnInit {
     this.pointService.getCurrentPoints().subscribe(currentPoints => this.currentPoints = currentPoints);
     this.productService.getProducts().subscribe((response: Product[]) => {
       response.forEach((product: Product) => {
-        if (!this.totalTypes.includes(product.type)) {
-          this.totalTypes.push(product.type);
-          this.totalTypes.sort();
-        }
-        if (product.multiple ) {
-          if (!this.multiplesTypes.includes(product.type)) {
-            this.multiplesTypes.push(product.type);
-          }
-        } else if (!this.singlesTypes.includes(product.type)) {
-            this.singlesTypes.push(product.type);
-        }
+        this.initTypes(product);
       });
     });
+  }
+
+  initTypes(product: Product) {
+    if (!this.totalTypes.includes(product.type)) {
+      this.totalTypes.push(product.type);
+      this.totalTypes.sort();
+    }
   }
 
   onBackToFamilyClick() {

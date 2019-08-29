@@ -3,5 +3,4 @@ export class CartItems {
     type: string;
     name: string;
     amount: number;
-    unit: string;
 }

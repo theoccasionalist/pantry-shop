@@ -1,8 +1,8 @@
 import { Family } from './family.model';
-import { CartCategoryItems } from './cart-category-items.model';
+import { Cart } from './cart.model';
 
 export class Order {
     family: Family;
-    cart: CartCategoryItems[];
+    cart: Cart;
     pickUpDate: string;
 }

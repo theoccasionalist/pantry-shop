@@ -2,40 +2,44 @@ import { Input } from '@angular/core';
 import { Family } from './family.model';
 import { Product } from './product.model';
 import { CartService } from '../services/cart.service';
-import { ProductService } from '../services/product.service';
 import { Cart } from './cart.model';
 
 export class BaseProductComponent {
     cart: Cart;
     @Input() family: Family;
-    panelOpenState = false;
-    products: Product[] = [];
-    @Input() type: string;
+    inFamilySize = false;
+    inCart: boolean;
+    maxAmount: number;
+    @Input() product: Product;
 
-    constructor(protected cartService: CartService, protected productService: ProductService) {}
+    constructor(protected cartService: CartService) {}
 
-    getAmount(product: Product, school?: boolean) {
-        let amount: number;
-        let familyValue = this.family.familySize;
-        if (school) {
-            familyValue = this.family.schoolChildren;
-        }
-        product.sizeAmount.forEach(mapping => {
-            if (mapping.minSize <= familyValue && familyValue <= mapping.maxSize) {
-            amount = mapping.amount;
-            }});
-        return amount;
+    addProductToCart() {
+        this.cart.items.push({
+            productId: this.product._id, type: this.product.type, name: this.product.name, amount: 1
+        });
     }
 
-    getProductInCart(product: Product) {
-        return this.cart.items.find(cartItem => cartItem.productId === product._id);
+    getProductInCart() {
+        return this.cart.items.find(cartItem => cartItem.productId === this.product._id);
     }
 
-    isProductInCart(product: Product) {
-        return this.cart.items.some(cartItem => cartItem.productId === product._id);
+    isProductInCart() {
+        return this.cart.items.some(cartItem => cartItem.productId === this.product._id);
     }
 
-    closePanel() {
-        this.panelOpenState = false;
+    setMaxAmount(school?: boolean) {
+        let familyValue: number;
+        school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
+        this.product.famSizeAmount.forEach(mapping => {
+            if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
+            this.maxAmount = mapping.maxAmount;
+            }
+        });
+        console.log(this.maxAmount);
+    }
+
+    removeProductFromCart() {
+        this.cart.items = this.cart.items.filter(cartItem => cartItem.productId !== this.product._id);
     }
 }
