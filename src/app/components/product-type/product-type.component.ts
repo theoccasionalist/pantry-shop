@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Family } from 'src/app/models/family.model';
 import { Product } from 'src/app/models/product.model';
-import { ProductService } from 'src/app/services/product.service';
+import { Type } from 'src/app/models/type.model';
 
 @Component({
   selector: 'app-product-type',
@@ -9,32 +9,23 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-type.component.css']
 })
 export class ProductTypeComponent implements OnInit {
+  atTypeMaxAmount = false;
   @Input() family: Family;
   panelOpenState = false;
   products: Product[] = [];
   onlySchoolProducts: boolean;
   schoolIncluded: boolean;
-  @Input() type: string;
+  @Input() type: Type;
+  typeAmountInCart = 0;
+  typeMaxAmount: number = null;
 
-  constructor(private productService: ProductService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((products: Product[]) => {
-      this.initProducts(products);
-    });
     this.schoolIncluded = this.family.schoolChildren > 0;
-  }
-
-  initProducts(products: Product[]) {
-    products.forEach(product =>
-      product.famSizeAmount.forEach(mapping => {
-        if (mapping.minFamSize <= this.family.familySize
-          && this.family.familySize <= mapping.maxFamSize
-          && this.type === product.type) {
-            this.products.push(product);
-        }
-    }));
-    this.onlySchoolProducts = this.isOnlySchoolProducts();
+    this.setProducts(this.type.products);
+    this.setTypeMaxAmount();
+    console.log(this.products);
   }
 
   closePanel() {
@@ -50,4 +41,49 @@ export class ProductTypeComponent implements OnInit {
     });
     return counter === this.products.length;
   }
+
+  setProducts(products: Product[]) {
+    products.forEach(product => {
+      if (product.prodSizeAmount) {
+        product.prodSizeAmount.forEach(mapping => {
+          if (mapping.minFamSize <= this.family.familySize
+            && this.family.familySize <= mapping.maxFamSize) {
+              this.products.push(product);
+          }
+        });
+      } else {
+        this.products.push(product);
+      }
+    });
+    this.onlySchoolProducts = this.isOnlySchoolProducts();
+    // this.sortProductsByName();
+  }
+
+  setTypeMaxAmount() {
+    if (this.type.typeSizeAmount) {
+      this.type.typeSizeAmount.forEach(mapping => {
+        if (mapping.minFamSize <= this.family.familySize
+          && this.family.familySize <= mapping.maxFamSize) {
+            this.typeMaxAmount = mapping.maxAmount;
+          }
+      });
+    } else {
+      this.typeMaxAmount = null;
+    }
+  }
+
+  updateAtTypeMaxAmount(atTypeMaxAmount: boolean) {
+    this.atTypeMaxAmount = atTypeMaxAmount;
+  }
+
+  updateTypeAmountInCart(amount: number) {
+    this.typeAmountInCart = amount;
+  }
+
+  // sortProductsByName() {
+  //   this.products.sort((before, after) =>
+  //   before.productName.trim().toLowerCase() >
+  //    after.productName.trim().toLowerCase() ?
+  //    1 : -1);
+  // }
 }

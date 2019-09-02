@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Product} from '../models/product.model';
 import { HttpClient } from '@angular/common/http';
-import { mergeMap, filter, toArray } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,9 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getProducts() {
-    return this.httpClient.get(`${this.uri}/products`);
+  getProductsByTypes() {
+    return this.httpClient.get(`${this.uri}/products-by-types`).pipe(
+      map(result => result[0].productsByTypes)
+    );
   }
 }

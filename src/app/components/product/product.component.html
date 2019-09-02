@@ -1,17 +1,17 @@
 <div class="grid-container">
   <div class="info-container">
-    <span class="limit" tooltip="Maximum Allowed in the Cart" tooltipPosition="above">{{'Maximum Amount: ' + maxAmount}}</span>  
+    <span *ngIf="!typeAmountProduct" class="limit" tooltip="Maximum Allowed in the Cart" tooltipPosition="above">{{'Maximum Amount: ' + prodMaxAmount}}</span>  
     <span class="amount">{{inCart ? amountInCart + ' in Cart' : 'None in Cart' }}</span> 
   </div>
   <div> 
-    <ng-container *ngIf="!pointProduct; else points">
+    <ng-container *ngIf="!pointProduct">
       <button mat-button (click)="removeOne()" [disabled]="!inCart">-</button>
-      <button mat-button (click)="addOne()" [disabled]="atMaxAmount">+</button>
+      <button mat-button (click)="addOne()" [disabled]="atMaxAmount || atTypeMaxAmount">+</button>
     </ng-container>
-    <ng-template #points>
+    <ng-container *ngIf="pointProduct">
       <button mat-button (click)="removeOnePoints()" [disabled]="!inCart">-</button>
-      <button mat-button (click)="addOnePoints()" [disabled]="pointsDisabled">+</button>
-    </ng-template>
+      <button mat-button (click)="addOnePoints()" [disabled]="pointDisabled || atTypeMaxAmount">+</button>
+    </ng-container>
   </div>
   <div *ngIf="pointProduct" class="points" matTooltip="The amount of choice points the item costs." matTooltipPosition="below">{{'Choice Points: ' + product.points}}</div>     
-</div>      
+</div>

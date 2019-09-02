@@ -1,6 +1,6 @@
 export class CartItems {
     productId: string;
-    type: string;
-    name: string;
+    productName: string;
     amount: number;
+    typeName: string;
 }

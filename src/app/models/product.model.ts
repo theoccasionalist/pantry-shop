@@ -1,14 +1,15 @@
+import { Type } from './type.model';
+
 export class Product {
-    // tslint:disable-next-line:variable-name
-    _id: string;
-    type: string;
-    name: string;
-    famSizeAmount: [{
+    productId: string;
+    productName: string;
+    prodSizeAmount?: [{
         minFamSize: number;
         maxFamSize: number;
         maxAmount: number;
     }];
+    type?: Type;
     points?: number;
     school?: boolean;
-    meat?: boolean;
+    infant?: boolean;
 }
