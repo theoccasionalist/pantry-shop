@@ -13,16 +13,14 @@
       <br>
       {{typeAmountInCart != 0 ? typeAmountInCart + ' ' + type.typeName + ' product in Cart' : 'None in Cart'}}
     </mat-card>
-    <mat-card *ngFor="let product of products" class="card-container">
-      <mat-card-title>{{product.productName}}</mat-card-title>
-      <mat-card-content>
-          <app-product  
-          [atTypeMaxAmount]="atTypeMaxAmount" (atTypeMaxAmountEmitter)="updateAtTypeMaxAmount($event)"
-          [family]="family" [product]="product" [type]="type" [typeMaxAmount]="typeMaxAmount"
-          [typeAmountInCart]="typeAmountInCart" (typeAmountInCartEmitter)="updateTypeAmountInCart($event)">
-        </app-product>
-      </mat-card-content>
-    </mat-card>       
+    <ng-container *ngFor="let product of products">
+      <app-product  
+      [atTypeMaxAmount]="atTypeMaxAmount" (atTypeMaxAmountEmitter)="updateAtTypeMaxAmount($event)"
+      [family]="family" [product]="product" [type]="type" [typeMaxAmount]="typeMaxAmount"
+      (isPointDisabled)="updateAllPointDisabled()" (pointDisabledEmitter)="updateAllPointDisabled()"    
+      [typeAmountInCart]="typeAmountInCart" (typeAmountInCartEmitter)="updateTypeAmountInCart($event)">
+      </app-product>
+    </ng-container>       
     <mat-action-row (click)="closePanel()"></mat-action-row>
   </mat-expansion-panel>
 </ng-container>   

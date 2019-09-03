@@ -8,16 +8,6 @@
   margin-top: 1em;
   margin-bottom: 1em;
 }
-
-.mat-card-header {
-  display: grid;
-  grid-template-columns: 45% auto;
-}
-.single-product {
-  display: grid; 
-  grid-template-columns: 80% 20%;
-}
-
 .mat-action-row {
   border-top: 0;
   color: rgba(255,255,255,.7);

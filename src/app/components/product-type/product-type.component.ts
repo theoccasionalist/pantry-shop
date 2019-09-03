@@ -72,6 +72,8 @@ export class ProductTypeComponent implements OnInit {
     }
   }
 
+  updateAllPointDisabled() {}
+
   updateAtTypeMaxAmount(atTypeMaxAmount: boolean) {
     this.atTypeMaxAmount = atTypeMaxAmount;
   }

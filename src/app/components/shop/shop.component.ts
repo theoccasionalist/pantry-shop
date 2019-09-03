@@ -38,10 +38,6 @@ export class ShopComponent implements OnInit {
     this.router.navigate([`/cart`]);
   }
 
-  receivePoints($event) {
-    this.currentPoints = $event;
-  }
-
   sortTypesByName() {
     this.types.sort((before, after) => before.typeName.trim().toLowerCase() > after.typeName.trim().toLowerCase() ? 1 : -1);
   }

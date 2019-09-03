@@ -1,11 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { PointService } from 'src/app/services/point.service';
 import { Cart } from 'src/app/models/cart.model';
 import { Family } from 'src/app/models/family.model';
 import { Product } from 'src/app/models/product.model';
 import { Type } from 'src/app/models/type.model';
-import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -23,7 +22,7 @@ export class ProductComponent implements OnInit {
   inCart: boolean;
   inFamilySize = false;
   pointDisabled: boolean;
-  @Output() pointEmitter = new EventEmitter<number>();
+  @Output() pointDisabledEmitter = new EventEmitter();
   pointProduct: boolean;
   prodMaxAmount: number;
   @Input() product: Product;
@@ -33,7 +32,7 @@ export class ProductComponent implements OnInit {
   typeAmountProduct: boolean;
   @Input() typeMaxAmount: number;
 
-  constructor(private cartService: CartService, private pointService: PointService, private productService: ProductService) {}
+  constructor(private viewChange: ChangeDetectorRef, private cartService: CartService, private pointService: PointService) {}
 
   ngOnInit() {
     this.cartService.getCart().subscribe(currentCart => {
@@ -44,7 +43,7 @@ export class ProductComponent implements OnInit {
     });
     this.pointService.getCurrentPoints().subscribe(currentPoints => {
       this.currentPoints = currentPoints;
-      this.isPointsDisabled();
+      this.isPointDisabled();
     });
     this.pointProduct = this.isPointProduct();
     this.setProdMaxAmount();
@@ -78,21 +77,21 @@ export class ProductComponent implements OnInit {
       this.addOne();
       this.removePoints();
     }
-    this.pointDisabled = this.isPointsDisabled();
+    this.pointDisabledEmitter.emit();
+    this.viewChange.markForCheck();
   }
 
   addPoints() {
     this.currentPoints = this.currentPoints + this.product.points;
     this.pointService.updatePoints(this.currentPoints);
-    this.pointEmitter.emit(this.currentPoints);
   }
 
   getProductInCart() {
     return this.cart.items.find(cartItem => cartItem.productId === this.product.productId);
   }
 
-  isPointsDisabled() {
-    return this.atMaxAmount || this.currentPoints < this.product.points;
+  isPointDisabled() {
+    this.pointDisabled = this.atMaxAmount || this.currentPoints < this.product.points;
   }
 
   isPointProduct() {
@@ -133,13 +132,12 @@ export class ProductComponent implements OnInit {
   removeOnePoints() {
     this.removeOne();
     this.addPoints();
-    this.pointDisabled = this.isPointsDisabled();
+    this.pointDisabledEmitter.emit();
   }
 
   removePoints() {
       this.currentPoints = this.currentPoints - this.product.points;
       this.pointService.updatePoints(this.currentPoints);
-      this.pointEmitter.emit(this.currentPoints);
   }
 
   removeProductFromCart() {
@@ -175,5 +173,13 @@ export class ProductComponent implements OnInit {
       this.typeAmountInCart--;
       this.typeAmountInCartEmitter.emit(this.typeAmountInCart);
     }
+  }
+
+  updateAtTypeMaxAmount(atTypeMaxAmount: boolean) {
+    this.atTypeMaxAmount = atTypeMaxAmount;
+  }
+
+  updateTypeAmountInCart(amount: number) {
+    this.typeAmountInCart = amount;
   }
 }
