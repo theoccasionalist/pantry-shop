@@ -15,35 +15,31 @@ export class ProductComponent implements OnInit {
   amountInCart: number;
   atMaxAmount: boolean;
   @Input() atTypeMaxAmount: boolean;
-  @Output() atTypeMaxAmountEmitter = new EventEmitter<boolean>();
   cart: Cart;
   currentPoints: number;
   @Input() family: Family;
   inCart: boolean;
   inFamilySize = false;
   pointDisabled: boolean;
-  @Output() pointDisabledEmitter = new EventEmitter();
   pointProduct: boolean;
   prodMaxAmount: number;
   @Input() product: Product;
   @Input() type: Type;
-  @Input() typeAmountInCart: number;
-  @Output() typeAmountInCartEmitter = new EventEmitter<number>();
+  @Output() typeAmountInCartEmitter = new EventEmitter<boolean>();
   typeAmountProduct: boolean;
-  @Input() typeMaxAmount: number;
 
-  constructor(private viewChange: ChangeDetectorRef, private cartService: CartService, private pointService: PointService) {}
+  constructor(private cartService: CartService, private pointService: PointService) {}
 
   ngOnInit() {
     this.cartService.getCart().subscribe(currentCart => {
       this.cart = currentCart;
       this.inCart = this.isProductInCart();
-      this.setAmountInCart();
+      this.amountInCart = this.getAmountInCart();
       this.atMaxAmount = this.isProductAtMaxAmount();
     });
     this.pointService.getCurrentPoints().subscribe(currentPoints => {
       this.currentPoints = currentPoints;
-      this.isPointDisabled();
+      this.pointDisabled = this.isPointDisabled();
     });
     this.pointProduct = this.isPointProduct();
     this.setProdMaxAmount();
@@ -63,12 +59,8 @@ export class ProductComponent implements OnInit {
     } else if (!this.atMaxAmount || !this.atTypeMaxAmount) {
       this.getProductInCart().amount++;
     }
-    this.inCart = this.isProductInCart();
-    this.setAmountInCart();
-    this.atMaxAmount = this.isProductAtMaxAmount();
+    this.cartService.updateCart(this.cart);
     this.AddOneTypeAmountInCart();
-    this.atTypeMaxAmount = this.isProductAtTypeMaxAmount();
-    this.atTypeMaxAmountEmitter.emit(this.atTypeMaxAmount);
     console.log(this.atTypeMaxAmount);
   }
 
@@ -77,8 +69,6 @@ export class ProductComponent implements OnInit {
       this.addOne();
       this.removePoints();
     }
-    this.pointDisabledEmitter.emit();
-    this.viewChange.markForCheck();
   }
 
   addPoints() {
@@ -86,12 +76,16 @@ export class ProductComponent implements OnInit {
     this.pointService.updatePoints(this.currentPoints);
   }
 
+  getAmountInCart() {
+    return this.getProductInCart() ? this.getProductInCart().amount : 0;
+  }
+
   getProductInCart() {
     return this.cart.items.find(cartItem => cartItem.productId === this.product.productId);
   }
 
   isPointDisabled() {
-    this.pointDisabled = this.atMaxAmount || this.currentPoints < this.product.points;
+    return this.atMaxAmount || this.currentPoints < this.product.points;
   }
 
   isPointProduct() {
@@ -99,13 +93,7 @@ export class ProductComponent implements OnInit {
   }
 
   isProductAtMaxAmount() {
-    return this.isProductInCart() ?
-      this.getProductInCart().amount === this.prodMaxAmount : false;
-  }
-
-  isProductAtTypeMaxAmount() {
-    console.log(this.typeAmountInCart);
-    return this.isProductInCart() ? this.typeAmountInCart === this.typeMaxAmount : false;
+    return this.isProductInCart() ? this.getProductInCart().amount === this.prodMaxAmount : false;
   }
 
   isProductInCart() {
@@ -121,18 +109,13 @@ export class ProductComponent implements OnInit {
     if (this.getProductInCart().amount === 0) {
       this.removeProductFromCart();
     }
-    this.inCart = this.isProductInCart();
-    this.setAmountInCart();
-    this.atMaxAmount = this.isProductAtMaxAmount();
+    this.cartService.updateCart(this.cart);
     this.RemoveOneTypeAmountInCart();
-    this.atTypeMaxAmount = this.isProductAtTypeMaxAmount();
-    this.atTypeMaxAmountEmitter.emit(this.atTypeMaxAmount);
   }
 
   removeOnePoints() {
     this.removeOne();
     this.addPoints();
-    this.pointDisabledEmitter.emit();
   }
 
   removePoints() {
@@ -142,10 +125,6 @@ export class ProductComponent implements OnInit {
 
   removeProductFromCart() {
     this.cart.items = this.cart.items.filter(cartItem => cartItem.productId !== this.product.productId);
-}
-
-  setAmountInCart() {
-    this.getProductInCart() ? this.amountInCart = this.getProductInCart().amount : this.amountInCart = 0;
   }
 
   setProdMaxAmount(school?: boolean) {
@@ -161,25 +140,10 @@ export class ProductComponent implements OnInit {
   }
 
   AddOneTypeAmountInCart() {
-    if (this.typeMaxAmount != null) {
-      this.typeAmountInCart++;
-      this.typeAmountInCartEmitter.emit(this.typeAmountInCart);
-    }
-
+    this.typeAmountInCartEmitter.emit(true);
   }
 
   RemoveOneTypeAmountInCart() {
-    if (this.typeMaxAmount != null) {
-      this.typeAmountInCart--;
-      this.typeAmountInCartEmitter.emit(this.typeAmountInCart);
-    }
-  }
-
-  updateAtTypeMaxAmount(atTypeMaxAmount: boolean) {
-    this.atTypeMaxAmount = atTypeMaxAmount;
-  }
-
-  updateTypeAmountInCart(amount: number) {
-    this.typeAmountInCart = amount;
+    this.typeAmountInCartEmitter.emit(false);
   }
 }

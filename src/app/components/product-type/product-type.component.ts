@@ -72,14 +72,14 @@ export class ProductTypeComponent implements OnInit {
     }
   }
 
-  updateAllPointDisabled() {}
-
-  updateAtTypeMaxAmount(atTypeMaxAmount: boolean) {
-    this.atTypeMaxAmount = atTypeMaxAmount;
-  }
-
-  updateTypeAmountInCart(amount: number) {
-    this.typeAmountInCart = amount;
+  updateTypeAmount(addOrRemove: boolean) {
+    if (!this.atTypeMaxAmount && addOrRemove) {
+      this.typeAmountInCart++;
+    }
+    if (this.typeAmountInCart !== 0 && !addOrRemove) {
+      this.typeAmountInCart--;
+    }
+    this.atTypeMaxAmount = this.typeAmountInCart === this.typeMaxAmount;
   }
 
   // sortProductsByName() {
