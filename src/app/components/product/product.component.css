@@ -3,8 +3,8 @@
   grid-template-columns: 70% 30%;
 }
 .info-container {
-display: grid;
-grid-template-columns: 67% auto;
+  display: grid;
+  grid-template-columns: 67% auto;
 }
 .points {
   margin-top: -5%;
@@ -21,11 +21,14 @@ grid-template-columns: 67% auto;
   margin-top: 1em;
   margin-bottom: 1em;
 }
-::ng-deep .mat-tooltip {
-  background-color: red;
-  color: blue;
-  font-size: 20px;
+.sub-points {
+  margin-top: -6%;
 }
-.blah {
-  margin: 0;
+.sub-product {
+  background: rgb(43, 126, 235);
+
+}
+.sub-product-grid-container {
+  display: grid;
+  grid-template-columns: 65% 35%;
 }

@@ -15,6 +15,8 @@ export class ProductTypeComponent implements OnInit {
   products: Product[] = [];
   onlySchoolProducts: boolean;
   schoolIncluded: boolean;
+  subProduct: boolean;
+  @Input()subType;
   @Input() type: Type;
   typeAmountInCart = 0;
   typeMaxAmount: number = null;
@@ -25,6 +27,7 @@ export class ProductTypeComponent implements OnInit {
     this.schoolIncluded = this.family.schoolChildren > 0;
     this.setProducts(this.type.products);
     this.setTypeMaxAmount();
+    this.subProduct = this.subType;
     console.log(this.products);
   }
 
@@ -72,11 +75,11 @@ export class ProductTypeComponent implements OnInit {
     }
   }
 
-  updateTypeAmount(addOrRemove: boolean) {
-    if (!this.atTypeMaxAmount && addOrRemove) {
+  updateTypeAmount(addOne: boolean) {
+    if (!this.atTypeMaxAmount && addOne) {
       this.typeAmountInCart++;
     }
-    if (this.typeAmountInCart !== 0 && !addOrRemove) {
+    if (this.typeAmountInCart !== 0 && !addOne) {
       this.typeAmountInCart--;
     }
     this.atTypeMaxAmount = this.typeAmountInCart === this.typeMaxAmount;

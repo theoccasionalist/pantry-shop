@@ -1,5 +1,5 @@
 <ng-container *ngIf="!onlySchoolProducts || schoolIncluded"> 
-  <mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState">
+  <mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState" [ngClass]="{'sub-type' : subType}">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{type.typeName}}
@@ -8,14 +8,19 @@
         {{panelOpenState ? 'close' : 'open'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <mat-card *ngIf="typeMaxAmount != null">
+    <mat-card *ngIf="typeMaxAmount != null" [ngClass]="{'sub-type-max-amount' : subType}">
       {{'You are allowed ' + typeMaxAmount + ' items from the below products.'}}
       <br>
-      {{typeAmountInCart != 0 ? typeAmountInCart + ' ' + type.typeName + ' product in Cart' : 'None in Cart'}}
+      {{'Each item is 1 ' + type.unit  + '.'}}
+      <br>
+      <ng-container *ngIf="typeMaxAmount === 0">{{'None in Cart'}}</ng-container>
+      <ng-container *ngIf="typeMaxAmount === 1">{{typeAmountInCart + ' ' + type.typeName + ' Product in Cart' }}</ng-container>
+      <ng-container *ngIf="typeMaxAmount >= 1">{{typeAmountInCart + ' ' + type.typeName + ' Products in Cart' }}</ng-container>
+      <!-- {{typeAmountInCart != 0 ? typeAmountInCart + ' ' + type.typeName + ' Product in Cart' : 'None in Cart'}} -->
     </mat-card>
     <ng-container *ngFor="let product of products">
-      <app-product [atTypeMaxAmount]="atTypeMaxAmount" [family]="family" 
-      [product]="product" [type]="type" (typeAmountInCartEmitter)="updateTypeAmount($event)">
+      <app-product (addOneTypeAmount)="updateTypeAmount($event)" [atTypeMaxAmount]="atTypeMaxAmount" 
+      [family]="family" [product]="product" [subProduct]="subProduct" [type]="type">
       </app-product>
     </ng-container>       
     <mat-action-row (click)="closePanel()"></mat-action-row>

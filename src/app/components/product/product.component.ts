@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { PointService } from 'src/app/services/point.service';
 import { Cart } from 'src/app/models/cart.model';
@@ -12,6 +12,7 @@ import { Type } from 'src/app/models/type.model';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  @Output() addOneTypeAmount = new EventEmitter<boolean>();
   amountInCart: number;
   atMaxAmount: boolean;
   @Input() atTypeMaxAmount: boolean;
@@ -24,8 +25,9 @@ export class ProductComponent implements OnInit {
   pointProduct: boolean;
   prodMaxAmount: number;
   @Input() product: Product;
+  @Input() subProduct;
+  subType = true;
   @Input() type: Type;
-  @Output() typeAmountInCartEmitter = new EventEmitter<boolean>();
   typeAmountProduct: boolean;
 
   constructor(private cartService: CartService, private pointService: PointService) {}
@@ -60,7 +62,7 @@ export class ProductComponent implements OnInit {
       this.getProductInCart().amount++;
     }
     this.cartService.updateCart(this.cart);
-    this.AddOneTypeAmountInCart();
+    this.addOneTypeAmount.emit(true);
     console.log(this.atTypeMaxAmount);
   }
 
@@ -110,7 +112,7 @@ export class ProductComponent implements OnInit {
       this.removeProductFromCart();
     }
     this.cartService.updateCart(this.cart);
-    this.RemoveOneTypeAmountInCart();
+    this.addOneTypeAmount.emit(false);
   }
 
   removeOnePoints() {
@@ -137,13 +139,5 @@ export class ProductComponent implements OnInit {
           }
       });
     }
-  }
-
-  AddOneTypeAmountInCart() {
-    this.typeAmountInCartEmitter.emit(true);
-  }
-
-  RemoveOneTypeAmountInCart() {
-    this.typeAmountInCartEmitter.emit(false);
   }
 }

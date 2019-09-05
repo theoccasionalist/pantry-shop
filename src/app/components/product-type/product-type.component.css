@@ -14,3 +14,11 @@
   cursor: pointer;
   justify-content: center;
 }
+.sub-type {
+  background: rgb(12, 36, 100);
+  margin: 0;
+  width: 100%;
+}
+.sub-type-max-amount {
+  background: rgb(43, 126, 235);
+}
