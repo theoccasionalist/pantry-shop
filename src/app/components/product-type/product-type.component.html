@@ -13,14 +13,15 @@
       <br>
       {{'Each item is 1 ' + type.unit  + '.'}}
       <br>
-      <ng-container *ngIf="typeMaxAmount === 0">{{'None in Cart'}}</ng-container>
-      <ng-container *ngIf="typeMaxAmount === 1">{{typeAmountInCart + ' ' + type.typeName + ' Product in Cart' }}</ng-container>
-      <ng-container *ngIf="typeMaxAmount >= 1">{{typeAmountInCart + ' ' + type.typeName + ' Products in Cart' }}</ng-container>
-      <!-- {{typeAmountInCart != 0 ? typeAmountInCart + ' ' + type.typeName + ' Product in Cart' : 'None in Cart'}} -->
+      {{typeAmountInCart === 0 ? 'None in Cart':
+          typeAmountInCart >= 1 ? 
+          typeAmountInCart + ' ' + type.typeName + ' Products in Cart' : 
+          typeAmountInCart + ' ' + type.typeName + ' Product in Cart'
+      }}
     </mat-card>
     <ng-container *ngFor="let product of products">
       <app-product (addOneTypeAmount)="updateTypeAmount($event)" [atTypeMaxAmount]="atTypeMaxAmount" 
-      [family]="family" [product]="product" [subProduct]="subProduct" [type]="type">
+      [family]="family" [product]="product" [subProduct]="subProduct" [topTypeName]="topTypeName" [type]="type">
       </app-product>
     </ng-container>       
     <mat-action-row (click)="closePanel()"></mat-action-row>

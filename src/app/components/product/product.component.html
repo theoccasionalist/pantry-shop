@@ -1,4 +1,4 @@
-<mat-card *ngIf="!product.typeId" [ngClass]="{'sub-product' : subProduct}">
+<mat-card *ngIf="!subType" [ngClass]="{'sub-product' : subProduct}">
   <mat-card-title>{{product.productName}}</mat-card-title>
   <mat-card-content> 
     <div class="grid-container" [ngClass]="{'sub-product-grid-container' : subProduct}">
@@ -20,5 +20,5 @@
     </div>
   </mat-card-content>
 </mat-card>   
-<app-product-type *ngIf="product.typeId" [family]="family" [type]="product" [subType]="subType"></app-product-type>
+<app-product-type *ngIf="subType" [family]="family" [type]="product.type" [topTypeName]="topTypeName" [subType]="subType"></app-product-type>
 

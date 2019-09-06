@@ -26,7 +26,8 @@ export class ProductComponent implements OnInit {
   prodMaxAmount: number;
   @Input() product: Product;
   @Input() subProduct;
-  subType = true;
+  subType: boolean;
+  @Input() topTypeName: string;
   @Input() type: Type;
   typeAmountProduct: boolean;
 
@@ -45,11 +46,15 @@ export class ProductComponent implements OnInit {
     });
     this.pointProduct = this.isPointProduct();
     this.setProdMaxAmount();
+    this.subType = this.isSubType();
     this.typeAmountProduct = this.isTypeAmountProduct();
-    console.log(this.product);
+    console.log(this.product, this.topTypeName);
   }
 
   addProductToCart() {
+    if (this.topTypeName) {
+      this.type.typeName = this.topTypeName;
+    }
     this.cart.items.push({
         productId: this.product.productId, productName: this.product.productName, amount: 1, typeName: this.type.typeName
     });
@@ -63,7 +68,7 @@ export class ProductComponent implements OnInit {
     }
     this.cartService.updateCart(this.cart);
     this.addOneTypeAmount.emit(true);
-    console.log(this.atTypeMaxAmount);
+    console.log(this.atTypeMaxAmount, this.cart);
   }
 
   addOnePoints() {
@@ -100,6 +105,10 @@ export class ProductComponent implements OnInit {
 
   isProductInCart() {
     return this.cart.items.some(cartItem => cartItem.productId === this.product.productId);
+  }
+
+  isSubType() {
+    return this.product.type ? true : false;
   }
 
   isTypeAmountProduct() {

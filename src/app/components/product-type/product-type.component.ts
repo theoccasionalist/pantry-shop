@@ -16,7 +16,8 @@ export class ProductTypeComponent implements OnInit {
   onlySchoolProducts: boolean;
   schoolIncluded: boolean;
   subProduct: boolean;
-  @Input()subType;
+  @Input() subType: boolean;
+  @Input() topTypeName: string;
   @Input() type: Type;
   typeAmountInCart = 0;
   typeMaxAmount: number = null;
@@ -25,7 +26,7 @@ export class ProductTypeComponent implements OnInit {
 
   ngOnInit() {
     this.schoolIncluded = this.family.schoolChildren > 0;
-    this.setProducts(this.type.products);
+    this.setProducts();
     this.setTypeMaxAmount();
     this.subProduct = this.subType;
     console.log(this.products);
@@ -45,8 +46,11 @@ export class ProductTypeComponent implements OnInit {
     return counter === this.products.length;
   }
 
-  setProducts(products: Product[]) {
-    products.forEach(product => {
+  setProducts() {
+    this.type.products.forEach(product => {
+      if (product.type) {
+        this.topTypeName = this.type.typeName;
+      }
       if (product.prodSizeAmount) {
         product.prodSizeAmount.forEach(mapping => {
           if (mapping.minFamSize <= this.family.familySize
@@ -59,7 +63,7 @@ export class ProductTypeComponent implements OnInit {
       }
     });
     this.onlySchoolProducts = this.isOnlySchoolProducts();
-    // this.sortProductsByName();
+    this.sortProductsByName();
   }
 
   setTypeMaxAmount() {
@@ -70,9 +74,16 @@ export class ProductTypeComponent implements OnInit {
             this.typeMaxAmount = mapping.maxAmount;
           }
       });
-    } else {
-      this.typeMaxAmount = null;
     }
+  }
+
+  sortProductsByName() {
+    this.products.sort((before, after) => {
+      return before.type ?
+        before.type.typeName > after.productName || before.productName > before.type.typeName ? 1 : -1
+      :
+        before.productName > after.productName ? 1 : -1;
+    });
   }
 
   updateTypeAmount(addOne: boolean) {
@@ -84,11 +95,4 @@ export class ProductTypeComponent implements OnInit {
     }
     this.atTypeMaxAmount = this.typeAmountInCart === this.typeMaxAmount;
   }
-
-  // sortProductsByName() {
-  //   this.products.sort((before, after) =>
-  //   before.productName.trim().toLowerCase() >
-  //    after.productName.trim().toLowerCase() ?
-  //    1 : -1);
-  // }
 }

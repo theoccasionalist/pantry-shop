@@ -17,8 +17,8 @@ export class ShopComponent implements OnInit {
   maxPoints: number;
   types: Type[] = [];
 
-  constructor(private familyService: FamilyService,
-              private pointService: PointService, private productService: ProductService, private router: Router) { }
+  constructor(private familyService: FamilyService, private pointService: PointService,
+              private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
     this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
