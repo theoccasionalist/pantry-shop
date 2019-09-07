@@ -8,7 +8,6 @@ export class Product {
         maxFamSize: number;
         maxAmount: number;
     }];
-    type?: Type;
     points?: number;
     school?: boolean;
     infant?: boolean;

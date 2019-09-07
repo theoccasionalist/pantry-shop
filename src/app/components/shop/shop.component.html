@@ -19,7 +19,7 @@
         <mat-toolbar>Click Below to Shop</mat-toolbar>
         <cdk-virtual-scroll-viewport  itemSize="">
             <ng-container *ngFor="let type of types" >
-                <app-product-type [family]="family" [type]="type"></app-product-type>
+                <app-product-type [family]="family" [subTypes]="subTypes" [type]="type"></app-product-type>
             </ng-container>
         </cdk-virtual-scroll-viewport>     
     </main>

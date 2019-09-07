@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule, MatCardModule, MatDatepickerModule, MatExpansionModule,
   MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule, MatTableModule,
-  MatToolbarModule, MatTooltipModule } from '@angular/material';
+  MatToolbarModule } from '@angular/material';
 // import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
@@ -51,7 +51,6 @@ import { ProductTypeComponent } from './components/product-type/product-type.com
     MatSelectModule,
     MatTableModule,
     MatToolbarModule,
-    MatTooltipModule,
     ReactiveFormsModule,
     ScrollingModule
   ],

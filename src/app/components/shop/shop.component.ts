@@ -15,6 +15,7 @@ export class ShopComponent implements OnInit {
   currentPoints: number;
   family: Family;
   maxPoints: number;
+  subTypes: Type[] = [];
   types: Type[] = [];
 
   constructor(private familyService: FamilyService, private pointService: PointService,
@@ -25,8 +26,9 @@ export class ShopComponent implements OnInit {
     this.maxPoints = this.pointService.maxPoints;
     this.pointService.getCurrentPoints().subscribe(currentPoints => this.currentPoints = currentPoints);
     this.productService.getProductsByTypes().subscribe((types: Type[]) => {
-      this.types = types;
+      this.setTypes(types);
       this.sortTypesByName();
+      console.log(this.subTypes);
     });
   }
 
@@ -36,6 +38,12 @@ export class ShopComponent implements OnInit {
 
   onReviewCartClick() {
     this.router.navigate([`/cart`]);
+  }
+
+  setTypes(types: Type[]) {
+    types.forEach((type) => {
+      type.superTypeId ? this.subTypes.push(type) : this.types.push(type);
+    });
   }
 
   sortTypesByName() {

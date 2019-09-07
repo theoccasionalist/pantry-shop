@@ -14,10 +14,11 @@ export class ProductTypeComponent implements OnInit {
   panelOpenState = false;
   products: Product[] = [];
   onlySchoolProducts: boolean;
+  productTypes: any[] = [];
   schoolIncluded: boolean;
-  subProduct: boolean;
-  @Input() subType: boolean;
-  @Input() topTypeName: string;
+  subType: boolean;
+  @Input() subTypes: Type[];
+  @Input() superTypeName: string;
   @Input() type: Type;
   typeAmountInCart = 0;
   typeMaxAmount: number = null;
@@ -26,31 +27,31 @@ export class ProductTypeComponent implements OnInit {
 
   ngOnInit() {
     this.schoolIncluded = this.family.schoolChildren > 0;
-    this.setProducts();
+    this.setOnlySchoolProducts();
+    this.setSubType();
+    this.setSuperTypeName();
+    this.setProductTypes();
     this.setTypeMaxAmount();
-    this.subProduct = this.subType;
-    console.log(this.products);
+    this.sortProductTypesByName();
+    console.log(this.products, this.productTypes);
   }
 
   closePanel() {
     this.panelOpenState = false;
   }
 
-  isOnlySchoolProducts() {
+  setOnlySchoolProducts() {
     let counter = 0;
-    this.products.forEach(product => {
+    this.type.products.forEach(product => {
       if (product.school) {
         counter ++;
       }
     });
-    return counter === this.products.length;
+    this.onlySchoolProducts = counter === this.type.products.length;
   }
 
-  setProducts() {
+  setProductTypes() {
     this.type.products.forEach(product => {
-      if (product.type) {
-        this.topTypeName = this.type.typeName;
-      }
       if (product.prodSizeAmount) {
         product.prodSizeAmount.forEach(mapping => {
           if (mapping.minFamSize <= this.family.familySize
@@ -62,8 +63,20 @@ export class ProductTypeComponent implements OnInit {
         this.products.push(product);
       }
     });
-    this.onlySchoolProducts = this.isOnlySchoolProducts();
-    this.sortProductsByName();
+    if (this.subTypes) {
+      this.subTypes = this.subTypes.filter(subType => subType.superTypeId === this.type.typeId);
+    }
+    this.subTypes ? this.productTypes = [...this.products, ...this.subTypes] : this.productTypes = this.products;
+  }
+
+  setSubType() {
+    this.subType = this.type.superTypeId ? true : false;
+  }
+
+  setSuperTypeName() {
+    if (this.subTypes) {
+      this.superTypeName = this.type.typeName;
+    }
   }
 
   setTypeMaxAmount() {
@@ -77,10 +90,10 @@ export class ProductTypeComponent implements OnInit {
     }
   }
 
-  sortProductsByName() {
-    this.products.sort((before, after) => {
-      return before.type ?
-        before.type.typeName > after.productName || before.productName > before.type.typeName ? 1 : -1
+  sortProductTypesByName() {
+    this.productTypes.sort((before, after) => {
+      return before.typeId ?
+        before.typeName > after.productName || before.productName > before.typeName ? 1 : -1
       :
         before.productName > after.productName ? 1 : -1;
     });

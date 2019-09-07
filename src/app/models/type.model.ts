@@ -9,5 +9,6 @@ export class Type {
         maxAmount: number;
     }];
     products: Product[];
+    superTypeId: string;
     unit?: string;
 }

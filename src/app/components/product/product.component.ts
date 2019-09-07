@@ -20,14 +20,12 @@ export class ProductComponent implements OnInit {
   currentPoints: number;
   @Input() family: Family;
   inCart: boolean;
-  inFamilySize = false;
   pointDisabled: boolean;
   pointProduct: boolean;
   prodMaxAmount: number;
   @Input() product: Product;
-  @Input() subProduct;
-  subType: boolean;
-  @Input() topTypeName: string;
+  subProduct: boolean;
+  @Input() superTypeName: string;
   @Input() type: Type;
   typeAmountProduct: boolean;
 
@@ -44,20 +42,22 @@ export class ProductComponent implements OnInit {
       this.currentPoints = currentPoints;
       this.pointDisabled = this.isPointDisabled();
     });
-    this.pointProduct = this.isPointProduct();
+    this.setPointProduct();
     this.setProdMaxAmount();
-    this.subType = this.isSubType();
-    this.typeAmountProduct = this.isTypeAmountProduct();
-    console.log(this.product, this.topTypeName);
+    this.setSubProduct();
+    this.setTypeAmountProduct();
+    console.log(this.product);
   }
 
   addProductToCart() {
-    if (this.topTypeName) {
-      this.type.typeName = this.topTypeName;
+    let itemTypeName = this.type.typeName;
+    if (this.superTypeName) {
+      itemTypeName = this.superTypeName;
     }
     this.cart.items.push({
-        productId: this.product.productId, productName: this.product.productName, amount: 1, typeName: this.type.typeName
+        productId: this.product.productId, productName: this.product.productName, amount: 1, typeName: itemTypeName
     });
+    console.log(this.cart);
   }
 
   addOne() {
@@ -95,24 +95,12 @@ export class ProductComponent implements OnInit {
     return this.atMaxAmount || this.currentPoints < this.product.points;
   }
 
-  isPointProduct() {
-    return this.product.points ? true : false;
-  }
-
   isProductAtMaxAmount() {
     return this.isProductInCart() ? this.getProductInCart().amount === this.prodMaxAmount : false;
   }
 
   isProductInCart() {
     return this.cart.items.some(cartItem => cartItem.productId === this.product.productId);
-  }
-
-  isSubType() {
-    return this.product.type ? true : false;
-  }
-
-  isTypeAmountProduct() {
-    return this.type.typeSizeAmount ? true : false;
   }
 
   removeOne() {
@@ -138,6 +126,14 @@ export class ProductComponent implements OnInit {
     this.cart.items = this.cart.items.filter(cartItem => cartItem.productId !== this.product.productId);
   }
 
+  setPointProduct() {
+    this.pointProduct = this.product.points ? true : false;
+  }
+
+  setSubProduct() {
+    this.subProduct = this.type.superTypeId ? true : false;
+  }
+
   setProdMaxAmount(school?: boolean) {
     let familyValue: number;
     school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
@@ -148,5 +144,9 @@ export class ProductComponent implements OnInit {
           }
       });
     }
+  }
+
+  setTypeAmountProduct() {
+    this.typeAmountProduct = this.type.typeSizeAmount ? true : false;
   }
 }

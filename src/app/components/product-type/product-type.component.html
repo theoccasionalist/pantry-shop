@@ -19,10 +19,15 @@
           typeAmountInCart + ' ' + type.typeName + ' Product in Cart'
       }}
     </mat-card>
-    <ng-container *ngFor="let product of products">
-      <app-product (addOneTypeAmount)="updateTypeAmount($event)" [atTypeMaxAmount]="atTypeMaxAmount" 
-      [family]="family" [product]="product" [subProduct]="subProduct" [topTypeName]="topTypeName" [type]="type">
-      </app-product>
+    <ng-container *ngFor="let productType of productTypes">
+      <ng-container *ngIf="productType.productId">
+        <app-product (addOneTypeAmount)="updateTypeAmount($event)" [atTypeMaxAmount]="atTypeMaxAmount" 
+        [family]="family" [product]="productType" [superTypeName]="superTypeName" [type]="type">
+        </app-product>
+      </ng-container>
+      <ng-container *ngIf="productType.typeId">    
+        <app-product-type [family]="family" [superTypeName]="superTypeName" [type]="productType"></app-product-type>
+      </ng-container>  
     </ng-container>       
     <mat-action-row (click)="closePanel()"></mat-action-row>
   </mat-expansion-panel>

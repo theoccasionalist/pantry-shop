@@ -1,10 +1,12 @@
-<mat-card *ngIf="!subType" [ngClass]="{'sub-product' : subProduct}">
-  <mat-card-title>{{product.productName}}</mat-card-title>
+<mat-card [ngClass]="{'sub-product' : subProduct}">
+  <mat-card-title [ngClass]="{'sub-mat-card-title' : subProduct}">{{product.productName}}
+      <span class="amount" *ngIf="amountInCart !== 0">{{amountInCart + ' in Cart'}}</span> 
+  </mat-card-title>
   <mat-card-content> 
     <div class="grid-container" [ngClass]="{'sub-product-grid-container' : subProduct}">
       <div class="info-container">
-        <span *ngIf="!typeAmountProduct" class="limit" tooltip="Maximum Allowed in the Cart" tooltipPosition="above">{{'Maximum Amount: ' + prodMaxAmount}}</span>  
-        <span class="amount">{{inCart ? amountInCart + ' in Cart' : 'None in Cart' }}</span> 
+        <div *ngIf="!typeAmountProduct">{{'Maximum Amount: ' + prodMaxAmount}}</div>
+        <div *ngIf="pointProduct">{{'Choice Points: ' + product.points}}</div>    
       </div>
       <div> 
         <ng-container *ngIf="!pointProduct">
@@ -15,10 +17,8 @@
           <button mat-button (click)="removeOnePoints()" [disabled]="!inCart">-</button>
           <button mat-button (click)="addOnePoints()" [disabled]="pointDisabled || atTypeMaxAmount">+</button>
         </ng-container>
-      </div>
-      <div *ngIf="pointProduct" class="points" [ngClass]="{'sub-points' : subProduct}">{{'Choice Points: ' + product.points}}</div>     
+      </div>   
     </div>
   </mat-card-content>
 </mat-card>   
-<app-product-type *ngIf="subType" [family]="family" [type]="product.type" [topTypeName]="topTypeName" [subType]="subType"></app-product-type>
 
