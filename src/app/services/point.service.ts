@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Family } from '../models/family.model';
-import { FamilyService } from '../services/family.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';

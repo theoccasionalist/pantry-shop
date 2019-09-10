@@ -1,6 +1,6 @@
-import { CartItems } from './cart-items.model';
+import { CartItemsByType } from './cart-items-by-type.model';
 
 export class Cart {
     familyName: string;
-    items: CartItems[];
+    cartItemsByType: CartItemsByType[];
 }

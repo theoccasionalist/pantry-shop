@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule, MatCardModule, MatDatepickerModule, MatExpansionModule,
   MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule, MatTableModule,
   MatToolbarModule } from '@angular/material';
-// import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
 import { LoginComponent } from './components/login/login.component';
@@ -23,7 +23,7 @@ import { ProductTypeComponent } from './components/product-type/product-type.com
 @NgModule({
   declarations: [
     AppComponent,
-    // CartComponent,
+    CartComponent,
     ShopComponent,
     FamilyComponent,
     LoginComponent,

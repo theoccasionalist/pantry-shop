@@ -9,7 +9,7 @@ export class CartService {
 
   cart: Cart = {
     familyName: null,
-    items: []
+    cartItemsByType: []
   };
 
   private cartSource = new BehaviorSubject(this.cart);

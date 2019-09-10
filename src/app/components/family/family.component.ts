@@ -53,7 +53,7 @@ export class FamilyComponent implements OnInit {
 
   private initCart(familyName: string) {
     this.cart.familyName = familyName;
-    this.cart.items = [];
+    this.cart.cartItemsByType = [];
     this.cartService.updateCart(this.cart);
   }
 

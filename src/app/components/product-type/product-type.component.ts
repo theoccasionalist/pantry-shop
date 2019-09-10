@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Family } from 'src/app/models/family.model';
 import { Product } from 'src/app/models/product.model';
 import { Type } from 'src/app/models/type.model';
+import { TypeTracker } from 'src/app/models/type-tracker.model';
+import { TypeService } from 'src/app/services/type.service';
 
 @Component({
   selector: 'app-product-type',
@@ -9,7 +11,6 @@ import { Type } from 'src/app/models/type.model';
   styleUrls: ['./product-type.component.css']
 })
 export class ProductTypeComponent implements OnInit {
-  atTypeMaxAmount = false;
   @Input() family: Family;
   panelOpenState = false;
   products: Product[] = [];
@@ -18,22 +19,28 @@ export class ProductTypeComponent implements OnInit {
   schoolIncluded: boolean;
   subType: boolean;
   @Input() subTypes: Type[];
-  @Input() superTypeName: string;
+  @Input() superType: {superTypeId: string, superTypeName: string};
   @Input() type: Type;
-  typeAmountInCart = 0;
   typeMaxAmount: number = null;
+  typeTracker: TypeTracker = {
+    typeId: null,
+    atTypeMaxAmount: null,
+    typeAmountInCart: null
+  };
 
-  constructor() { }
+  constructor(private typeService: TypeService) { }
 
   ngOnInit() {
     this.schoolIncluded = this.family.schoolChildren > 0;
     this.setOnlySchoolProducts();
     this.setSubType();
-    this.setSuperTypeName();
+    this.setSuperType();
     this.setProductTypes();
     this.setTypeMaxAmount();
     this.sortProductTypesByName();
-    console.log(this.products, this.productTypes);
+    this.typeService.getTypeTracker().subscribe(typeTrackers => {
+      this.setTypeTracker(typeTrackers);
+    });
   }
 
   closePanel() {
@@ -73,9 +80,9 @@ export class ProductTypeComponent implements OnInit {
     this.subType = this.type.superTypeId ? true : false;
   }
 
-  setSuperTypeName() {
+  setSuperType() {
     if (this.subTypes) {
-      this.superTypeName = this.type.typeName;
+      this.superType = {superTypeId: this.type.typeId, superTypeName: this.type.typeName};
     }
   }
 
@@ -90,9 +97,18 @@ export class ProductTypeComponent implements OnInit {
     }
   }
 
+  setTypeTracker(typeTrackers: TypeTracker[]) {
+    if (this.type.typeSizeAmount) {
+      typeTrackers.some(typeTracker => typeTracker.typeId === this.type.typeId, this.typeTracker) ?
+        this.typeTracker = typeTrackers.find(typeTracker => typeTracker.typeId === this.type.typeId) :
+        this.typeTracker = {typeId: this.type.typeId, atTypeMaxAmount: false, typeAmountInCart: 0};
+    }
+  }
+
   sortProductTypesByName() {
     this.productTypes.sort((before, after) => {
-      return before.typeId ?
+      return before.typeId
+      ?
         before.typeName > after.productName || before.productName > before.typeName ? 1 : -1
       :
         before.productName > after.productName ? 1 : -1;
@@ -100,12 +116,13 @@ export class ProductTypeComponent implements OnInit {
   }
 
   updateTypeAmount(addOne: boolean) {
-    if (!this.atTypeMaxAmount && addOne) {
-      this.typeAmountInCart++;
+    if (!this.typeTracker.atTypeMaxAmount && addOne) {
+      this.typeTracker.typeAmountInCart++;
     }
-    if (this.typeAmountInCart !== 0 && !addOne) {
-      this.typeAmountInCart--;
+    if (this.typeTracker.typeAmountInCart !== 0 && !addOne) {
+      this.typeTracker.typeAmountInCart--;
     }
-    this.atTypeMaxAmount = this.typeAmountInCart === this.typeMaxAmount;
+    this.typeTracker.atTypeMaxAmount = this.typeTracker.typeAmountInCart === this.typeMaxAmount;
+    this.typeService.updateTypeTracker(this.typeTracker);
   }
 }

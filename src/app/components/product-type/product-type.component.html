@@ -13,20 +13,20 @@
       <br>
       {{'Each item is 1 ' + type.unit  + '.'}}
       <br>
-      {{typeAmountInCart === 0 ? 'None in Cart':
-          typeAmountInCart >= 1 ? 
-          typeAmountInCart + ' ' + type.typeName + ' Products in Cart' : 
-          typeAmountInCart + ' ' + type.typeName + ' Product in Cart'
+      {{typeTracker.typeAmountInCart === 0 ? 'None in Cart':
+          typeTracker.typeAmountInCart >= 1 ? 
+          typeTracker.typeAmountInCart + ' ' + type.typeName + ' Products in Cart' : 
+          typeTracker.typeAmountInCart + ' ' + type.typeName + ' Product in Cart'
       }}
     </mat-card>
     <ng-container *ngFor="let productType of productTypes">
       <ng-container *ngIf="productType.productId">
-        <app-product (addOneTypeAmount)="updateTypeAmount($event)" [atTypeMaxAmount]="atTypeMaxAmount" 
-        [family]="family" [product]="productType" [superTypeName]="superTypeName" [type]="type">
+        <app-product (addOneTypeAmount)="updateTypeAmount($event)" [atTypeMaxAmount]="typeTracker.atTypeMaxAmount" 
+        [family]="family" [product]="productType" [superType]="superType" [type]="type">
         </app-product>
       </ng-container>
       <ng-container *ngIf="productType.typeId">    
-        <app-product-type [family]="family" [superTypeName]="superTypeName" [type]="productType"></app-product-type>
+        <app-product-type [family]="family" [superType]="superType" [type]="productType"></app-product-type>
       </ng-container>  
     </ng-container>       
     <mat-action-row (click)="closePanel()"></mat-action-row>

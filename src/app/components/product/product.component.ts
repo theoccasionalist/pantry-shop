@@ -25,13 +25,17 @@ export class ProductComponent implements OnInit {
   prodMaxAmount: number;
   @Input() product: Product;
   subProduct: boolean;
-  @Input() superTypeName: string;
+  @Input() superType: {superTypeId: string, superTypeName: string};
   @Input() type: Type;
   typeAmountProduct: boolean;
 
   constructor(private cartService: CartService, private pointService: PointService) {}
 
   ngOnInit() {
+    this.setProdMaxAmount();
+    this.setPointProduct();
+    this.setSubProduct();
+    this.setTypeAmountProduct();
     this.cartService.getCart().subscribe(currentCart => {
       this.cart = currentCart;
       this.inCart = this.isProductInCart();
@@ -42,22 +46,19 @@ export class ProductComponent implements OnInit {
       this.currentPoints = currentPoints;
       this.pointDisabled = this.isPointDisabled();
     });
-    this.setPointProduct();
-    this.setProdMaxAmount();
-    this.setSubProduct();
-    this.setTypeAmountProduct();
-    console.log(this.product);
   }
 
   addProductToCart() {
+    let itemTypeId = this.type.typeId;
     let itemTypeName = this.type.typeName;
-    if (this.superTypeName) {
-      itemTypeName = this.superTypeName;
+    if (this.superType) {
+      itemTypeId = this.superType.superTypeId;
+      itemTypeName = this.superType.superTypeName;
     }
-    this.cart.items.push({
-        productId: this.product.productId, productName: this.product.productName, amount: 1, typeName: itemTypeName
-    });
-    console.log(this.cart);
+    this.cart.cartItemsByType.some(itemsByType => itemTypeId === itemsByType.typeId) ?
+      this.getProductTypeInCart().items.push({productId: this.product.productId, productName: this.product.productName, amount: 1}) :
+      this.cart.cartItemsByType.push({typeId: itemTypeId, typeName: itemTypeName,
+        items: [{productId: this.product.productId, productName: this.product.productName, amount: 1}]});
   }
 
   addOne() {
@@ -68,7 +69,6 @@ export class ProductComponent implements OnInit {
     }
     this.cartService.updateCart(this.cart);
     this.addOneTypeAmount.emit(true);
-    console.log(this.atTypeMaxAmount, this.cart);
   }
 
   addOnePoints() {
@@ -88,7 +88,15 @@ export class ProductComponent implements OnInit {
   }
 
   getProductInCart() {
-    return this.cart.items.find(cartItem => cartItem.productId === this.product.productId);
+    if (this.getProductTypeInCart()) {
+      return this.getProductTypeInCart().items.find(item => item.productId === this.product.productId);
+    }
+  }
+
+  getProductTypeInCart() {
+    return this.type.typeId === this.superType.superTypeId ?
+      this.cart.cartItemsByType.find(cartItem => cartItem.typeId === this.type.typeId) :
+      this.cart.cartItemsByType.find(cartItem => cartItem.typeId === this.superType.superTypeId);
   }
 
   isPointDisabled() {
@@ -100,7 +108,7 @@ export class ProductComponent implements OnInit {
   }
 
   isProductInCart() {
-    return this.cart.items.some(cartItem => cartItem.productId === this.product.productId);
+    return this.getProductInCart() ? true : false;
   }
 
   removeOne() {
@@ -123,7 +131,10 @@ export class ProductComponent implements OnInit {
   }
 
   removeProductFromCart() {
-    this.cart.items = this.cart.items.filter(cartItem => cartItem.productId !== this.product.productId);
+    this.getProductTypeInCart().items = this.getProductTypeInCart().items.filter(item => item.productId !== this.product.productId);
+    if (!this.getProductTypeInCart().items.length) {
+      this.cart.cartItemsByType = this.cart.cartItemsByType.filter(type => type.typeId !== this.getProductTypeInCart().typeId);
+    }
   }
 
   setPointProduct() {
