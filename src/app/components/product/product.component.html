@@ -5,7 +5,7 @@
   <mat-card-content> 
     <div class="grid-container" [ngClass]="{'sub-product-grid-container' : subProduct}">
       <div class="info-container">
-        <div *ngIf="!typeAmountProduct">{{'Maximum Amount: ' + prodMaxAmount}}</div>
+        <div *ngIf="prodMaxProduct">{{'Maximum Amount: ' + prodMaxAmount}}</div>
         <div *ngIf="pointProduct">{{'Choice Points: ' + product.points}}</div>    
       </div>
       <div> 

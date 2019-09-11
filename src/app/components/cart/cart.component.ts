@@ -32,7 +32,6 @@ export class CartComponent implements OnInit {
         this.cart = currentCart;
         this.sortCart();
         this.setTotals();
-        console.log(this.totals);
     });
     console.log(this.cart);
   }

@@ -6,6 +6,8 @@ import { Family } from '../../models/family.model';
 import { FamilyService } from '../../services/family.service';
 import { PointService } from 'src/app/services/point.service';
 import { Cart } from 'src/app/models/cart.model';
+import { TypeService } from 'src/app/services/type.service';
+import { TypeTracker } from 'src/app/models/type-tracker.model';
 
 @Component({
   selector: 'app-family',
@@ -13,7 +15,10 @@ import { Cart } from 'src/app/models/cart.model';
   styleUrls: ['./family.component.css']
 })
 export class FamilyComponent implements OnInit {
-  cart: Cart;
+  cart: Cart = {
+    familyName: null,
+    cartItemsByType: []
+  };
   family: Family;
   familyForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -31,13 +36,12 @@ export class FamilyComponent implements OnInit {
   maxDate = new Date(2015, 11, 31);
   pointsMapping: [{minSize: number, maxSize: number, points: number}];
   startDate = new Date(2000, 0);
+  typeTrackers: TypeTracker[] = [];
 
   constructor(private cartService: CartService, private familyService: FamilyService,
-              private pointService: PointService, private router: Router) {}
+              private pointService: PointService, private typeService: TypeService, private router: Router) {}
 
   ngOnInit() {
-    this.cartService.getCart().subscribe(currentCart => this.cart = currentCart);
-    this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
     this.pointService.getPointsMapping().subscribe(pointsMapping => this.pointsMapping = pointsMapping);
   }
 
@@ -55,6 +59,7 @@ export class FamilyComponent implements OnInit {
     this.cart.familyName = familyName;
     this.cart.cartItemsByType = [];
     this.cartService.updateCart(this.cart);
+    this.typeService.resetTypeTracker();
   }
 
   private initPoints(familySize: number) {

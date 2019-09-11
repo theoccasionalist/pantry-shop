@@ -23,6 +23,7 @@ export class ProductComponent implements OnInit {
   pointDisabled: boolean;
   pointProduct: boolean;
   prodMaxAmount: number;
+  prodMaxProduct: boolean;
   @Input() product: Product;
   subProduct: boolean;
   @Input() superType: {superTypeId: string, superTypeName: string};
@@ -34,6 +35,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.setProdMaxAmount();
     this.setPointProduct();
+    this.setProdMaxProduct();
     this.setSubProduct();
     this.setTypeAmountProduct();
     this.cartService.getCart().subscribe(currentCart => {
@@ -155,6 +157,10 @@ export class ProductComponent implements OnInit {
           }
       });
     }
+  }
+
+  setProdMaxProduct() {
+    this.prodMaxProduct = this.product.prodSizeAmount ? true : false;
   }
 
   setTypeAmountProduct() {
