@@ -59,10 +59,12 @@ export class ProductTypeComponent implements OnInit {
 
   setProductTypes() {
     this.type.products.forEach(product => {
+      let familyValue: number;
+      product.school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
       if (product.prodSizeAmount) {
         product.prodSizeAmount.forEach(mapping => {
-          if (mapping.minFamSize <= this.family.familySize
-            && this.family.familySize <= mapping.maxFamSize) {
+          if (mapping.minFamSize <= familyValue
+            && familyValue <= mapping.maxFamSize) {
               this.products.push(product);
           }
         });
@@ -87,14 +89,18 @@ export class ProductTypeComponent implements OnInit {
   }
 
   setTypeMaxAmount() {
-    if (this.type.typeSizeAmount) {
-      this.type.typeSizeAmount.forEach(mapping => {
-        if (mapping.minFamSize <= this.family.familySize
-          && this.family.familySize <= mapping.maxFamSize) {
-            this.typeMaxAmount = mapping.maxAmount;
-          }
-      });
-    }
+    this.type.products.forEach(product => {
+      let familyValue: number;
+      product.school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
+      if (this.type.typeSizeAmount) {
+        this.type.typeSizeAmount.forEach(mapping => {
+          if (mapping.minFamSize <= familyValue
+            && familyValue <= mapping.maxFamSize) {
+              this.typeMaxAmount = mapping.maxAmount;
+            }
+        });
+      }
+    });
   }
 
   setTypeTracker(typeTrackers: TypeTracker[]) {

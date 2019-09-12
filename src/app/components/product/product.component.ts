@@ -33,9 +33,9 @@ export class ProductComponent implements OnInit {
   constructor(private cartService: CartService, private pointService: PointService) {}
 
   ngOnInit() {
+    this.setProdMaxProduct();
     this.setProdMaxAmount();
     this.setPointProduct();
-    this.setProdMaxProduct();
     this.setSubProduct();
     this.setTypeAmountProduct();
     this.cartService.getCart().subscribe(currentCart => {
@@ -147,9 +147,10 @@ export class ProductComponent implements OnInit {
     this.subProduct = this.type.superTypeId ? true : false;
   }
 
-  setProdMaxAmount(school?: boolean) {
+  setProdMaxAmount() {
     let familyValue: number;
-    school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
+    this.product.school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
+    console.log(familyValue);
     if (this.product.prodSizeAmount) {
       this.product.prodSizeAmount.forEach(mapping => {
           if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
