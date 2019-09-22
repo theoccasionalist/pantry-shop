@@ -105,7 +105,7 @@ export class ProductTypeComponent implements OnInit {
 
   setTypeTracker(typeTrackers: TypeTracker[]) {
     if (this.type.typeSizeAmount) {
-      typeTrackers.some(typeTracker => typeTracker.typeId === this.type.typeId, this.typeTracker) ?
+      typeTrackers.some(typeTracker => typeTracker.typeId === this.type.typeId) ?
         this.typeTracker = typeTrackers.find(typeTracker => typeTracker.typeId === this.type.typeId) :
         this.typeTracker = {typeId: this.type.typeId, atTypeMaxAmount: false, typeAmountInCart: 0};
     }
