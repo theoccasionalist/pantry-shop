@@ -5,12 +5,12 @@
     <button mat-raised-button (click)="onBackToCart()">Back to Shop</button>
   </div>
 
-  <mat-card id="empty-cart" *ngIf="!cart.categoryItems.length">
+  <mat-card id="empty-cart" *ngIf="!cart.cartItemsByType.length">
     Cart is empty!<br><br>
     To place an order, please press "back to shop" and add items to the cart.
   </mat-card>
   
-  <div id="cart-container" *ngIf="cart.categoryItems.length">
+  <div id="cart-container" *ngIf="cart.cartItemsByType.length">
 
     <mat-toolbar>
       Cart Overview<br>
@@ -19,136 +19,36 @@
     
     <cdk-virtual-scroll-viewport  [itemSize]="">
 
-      <ng-container *ngIf="viewItems.afterSchool">
-        <mat-toolbar class="items-toolbar top-table">After School Items</mat-toolbar>
-        <table mat-table [dataSource]="viewItems.afterSchool">
-          <ng-container matColumnDef="column1">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{element.name}}</td>
-            <td mat-footer-cell *matFooterCellDef>Total After School Items:</td>
-          </ng-container>
-          <ng-container matColumnDef="column2">
-            <th mat-header-cell *matHeaderCellDef>Amount</th>
-            <td mat-cell *matCellDef="let element">{{element.amount}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{totals.afterSchool}}</td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="columns"></tr>
-          <tr mat-row *matRowDef="let row; columns: columns"></tr>
-          <tr mat-footer-row *matFooterRowDef="columns"></tr>   
-        </table>
-        <div class="items-toolbar bottom-table"></div>
-      </ng-container>
-
-      <ng-container *ngIf="viewItems.bulk">
-        <mat-toolbar class="items-toolbar top-table">Bread and Produce</mat-toolbar>
-        <table mat-table [dataSource]="viewItems.bulk">
-          <ng-container matColumnDef="column1">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            <td mat-footer-cell *matFooterCellDef>Total Bread and Produce Items:</td>
-          </ng-container>
-          <ng-container matColumnDef="column2">
-            <th mat-header-cell *matHeaderCellDef>Amount</th>
-            <td mat-cell *matCellDef="let element">{{element.amount}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{totals.bulk}}</td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="columns"></tr>
-          <tr mat-row *matRowDef="let row; columns: columns"></tr>
-          <tr mat-footer-row *matFooterRowDef="columns"></tr>  
-        </table>
-        <div class="items-toolbar bottom-table"></div>
-      </ng-container>
-
-      <ng-container *ngIf="viewItems.choice">
-        <mat-toolbar class="items-toolbar top-table">Choice Items</mat-toolbar>
-        <table mat-table [dataSource]="viewItems.choice">
-          <ng-container matColumnDef="column1">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{element.name}}</td>
-            <td mat-footer-cell *matFooterCellDef>Total Choice Items:</td>
-          </ng-container>
-          <ng-container matColumnDef="column2">
-            <th mat-header-cell *matHeaderCellDef>Amount</th>
-            <td mat-cell *matCellDef="let element">{{element.amount}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{totals.choice}}</td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="columns"></tr>
-          <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-          <tr mat-footer-row *matFooterRowDef="columns"></tr>   
-        </table>
-        <div class="items-toolbar bottom-table"></div> 
-      </ng-container>
-
-      <ng-container *ngIf="viewItems.dairy">
-        <mat-toolbar class="items-toolbar top-table">Dairy</mat-toolbar>
-        <table mat-table [dataSource]="viewItems.dairy" >
-          <ng-container matColumnDef="column1">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{element.name}}</td>
-            <td mat-footer-cell *matFooterCellDef>Total Dairy Items:</td>
-          </ng-container>
-          <ng-container matColumnDef="column2">
-            <th mat-header-cell *matHeaderCellDef>Amount</th>
-            <td mat-cell *matCellDef="let element">{{element.amount}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{totals.dairy}}</td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="columns"></tr>
-          <tr mat-row *matRowDef="let row; columns: columns"></tr>
-          <tr mat-footer-row *matFooterRowDef="columns"></tr>  
-        </table>
-        <div class="items-toolbar bottom-table"></div>
-      </ng-container>
-
-      <ng-container *ngIf="viewItems.meat">
-          <mat-toolbar class="items-toolbar top-table">Meat</mat-toolbar>
-          <table mat-table [dataSource]="viewItems.meat">
+      <ng-container *ngFor="let type of cart.cartItemsByType">
+          <mat-toolbar class="items-toolbar top-table">{{type.typeName}}</mat-toolbar>
+          <table mat-table [dataSource]="type.items">
             <ng-container matColumnDef="column1">
               <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let element">{{element.name}}</td>
-              <td mat-footer-cell *matFooterCellDef>Total Meat Amount:</td>
-            </ng-container>
-            <ng-container matColumnDef="column2">
-              <th mat-header-cell *matHeaderCellDef>Preference</th>
-              <td mat-cell *matCellDef="let element">{{element.preference}}</td>
-              <td mat-footer-cell *matFooterCellDef>{{totals.meat + ' Pounds'}}</td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="columns"></tr>
-            <tr mat-row *matRowDef="let row; columns: columns"></tr>
-            <tr mat-footer-row *matFooterRowDef="columns"></tr>  
-          </table>
-          <div class="items-toolbar bottom-table"></div> 
-        </ng-container>
-
-        <ng-container *ngIf="viewItems.recipe">
-          <mat-toolbar class="items-toolbar top-table">Recipe</mat-toolbar>
-          <table mat-table [dataSource]="viewItems.recipe">
-            <ng-container matColumnDef="column1">
-              <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let element">{{element.name}}</td>
-              <td mat-footer-cell *matFooterCellDef>Total Recipe Starters:</td>
+              <td mat-cell *matCellDef="let element">{{element.productName}}</td>
+              <!-- <td mat-footer-cell *matFooterCellDef>Total Items:</td> -->
             </ng-container>
             <ng-container matColumnDef="column2">
               <th mat-header-cell *matHeaderCellDef>Amount</th>
-              <td mat-cell *matCellDef="let element">{{totals.recipe}}</td>
-              <td mat-footer-cell *matFooterCellDef>{{totals.recipe}}</td>
+              <td mat-cell *matCellDef="let element">{{element.amount}}</td>
+              <!-- <td mat-footer-cell *matFooterCellDef>{{'Figure Me Out'}}</td> -->
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="columns"></tr>
-            <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-            <tr mat-footer-row *matFooterRowDef="columns"></tr>   
+            <tr mat-row *matRowDef="let row; columns: columns"></tr>
+            <!-- <tr mat-footer-row *matFooterRowDef="columns"></tr>    -->
           </table>
-          <div class="items-toolbar bottom-table"></div> 
-        </ng-container>
+          <div class="items-toolbar bottom-table"></div>
+      </ng-container>
 
-      <mat-card *ngIf="cart.categoryItems.length" id="end-order">End of order</mat-card>  
+      <mat-card id="end-order">End of order</mat-card>  
 
       </cdk-virtual-scroll-viewport>  
     </div>
   
     
-    <div class="button-container" *ngIf=cart.categoryItems.length>
+    <!-- <div class="button-container" *ngIf=cart.categoryItems.length>
         <mat-toolbar>Place Order?</mat-toolbar>
       <button mat-raised-button (click)="onSubmitOrder()">Submit Order</button>
-    </div>
+    </div> -->
 
 </div>  
 

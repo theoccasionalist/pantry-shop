@@ -10,7 +10,7 @@
         <mat-card *ngIf="family.schoolChildren !== 0">{{'School Children: ' + family.schoolChildren}}</mat-card>
         <mat-card>
             Choice Points:
-            <div>{{ remainingPoints + ' / ' + maxPoints}}</div>
+            <div>{{ currentPoints + ' / ' + maxPoints}}</div>
         </mat-card>
         <button mat-raised-button color (click)="onBackToFamilyClick()">Back to Family</button>
     </summary>    
@@ -18,12 +18,9 @@
     <main id="middle">
         <mat-toolbar>Click Below to Shop</mat-toolbar>
         <cdk-virtual-scroll-viewport  itemSize="">
-            <app-after-school-product [family]="family" *ngIf="family.schoolChildren !== 0"></app-after-school-product>
-            <app-bulk-product></app-bulk-product>
-            <app-choice-product [family]="family" (pointEmitter)="receivePoints($event)"></app-choice-product> 
-            <app-dairy-product [family]="family"></app-dairy-product>
-            <app-meat-product [family]="family"></app-meat-product>
-            <app-recipe></app-recipe>
+            <ng-container *ngFor="let type of types" >
+                <app-product-type [family]="family" [subTypes]="subTypes" [type]="type"></app-product-type>
+            </ng-container>
         </cdk-virtual-scroll-viewport>     
     </main>
     

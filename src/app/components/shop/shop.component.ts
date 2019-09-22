@@ -1,16 +1,10 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { BulkProductComponent } from '../bulk-product/bulk-product.component';
-import { AfterSchoolProductComponent } from '../after-school-product/after-school-product.component';
-import { ChoiceProductComponent } from '../choice-product/choice-product.component';
-import { MeatProductComponent } from '../meat-product/meat-product.component';
-import { CartService } from '../../services/cart.service';
 import { Family } from '../../models/family.model';
 import { FamilyService} from '../../services/family.service';
 import { PointService } from '../../services/point.service';
-import { DairyProductComponent } from '../dairy-product/dairy-product.component';
-import { RecipeComponent } from '../recipe/recipe.component';
-import { Cart } from 'src/app/models/cart.model';
+import { ProductService } from 'src/app/services/product.service';
+import { Type } from 'src/app/models/type.model';
 
 @Component({
   selector: 'app-shop',
@@ -18,33 +12,24 @@ import { Cart } from 'src/app/models/cart.model';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
-  @ViewChild(AfterSchoolProductComponent, {static: false})
-  afterSchoolComponent: AfterSchoolProductComponent;
-  @ViewChild(BulkProductComponent, {static: false})
-  bulkComponent: BulkProductComponent;
-  @ViewChild(ChoiceProductComponent, {static: false})
-  choiceComponent: ChoiceProductComponent;
-  @ViewChild(DairyProductComponent, {static: false})
-  dairyComponent: DairyProductComponent;
-  @ViewChild(MeatProductComponent, {static: false})
-  meatComponent: MeatProductComponent;
-  @ViewChild(RecipeComponent, {static: false})
-  recipeComponent: RecipeComponent;
-
-  cart: Cart = {
-    categoryItems: [] = []
-  };
+  currentPoints: number;
   family: Family;
   maxPoints: number;
-  remainingPoints: number;
+  subTypes: Type[] = [];
+  types: Type[] = [];
 
-  constructor(private cartService: CartService, private familyService: FamilyService,
-              private pointService: PointService, private router: Router) { }
+  constructor(private familyService: FamilyService, private pointService: PointService,
+              private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
     this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
-    this.maxPoints = this.pointService.getMaxPoints();
-    this.remainingPoints = this.pointService.getPoints();
+    this.maxPoints = this.pointService.maxPoints;
+    this.pointService.getCurrentPoints().subscribe(currentPoints => this.currentPoints = currentPoints);
+    this.productService.getProductsByTypes().subscribe((types: Type[]) => {
+      this.setTypes(types);
+      this.sortTypesByName();
+      console.log(this.subTypes);
+    });
   }
 
   onBackToFamilyClick() {
@@ -52,36 +37,17 @@ export class ShopComponent implements OnInit {
   }
 
   onReviewCartClick() {
-    this.updateCart();
     this.router.navigate([`/cart`]);
   }
 
-  private updateCart() {
-    const categoryItems = new Map([
-      ['bulk', this.bulkComponent.getBulkComponentCart()],
-      ['choice', this.choiceComponent.getChoiceComponentCart()],
-      ['dairy', this.dairyComponent.getDairyComponentCart()],
-      ['meat', this.meatComponent.getMeatComponentCart()],
-      ['recipe' , this.recipeComponent.getRecipeComponentCart()]
-    ]);
-    if (this.afterSchoolComponent) {
-        categoryItems.set(
-          'afterSchool', this.afterSchoolComponent.getAfterSchoolComponentCart()
-        );
-    }
-    categoryItems.forEach((value, key) => {
-      if (value.length) {
-        this.cart.categoryItems.push({
-          category: key,
-          items: value
-        });
-      }
+  setTypes(types: Type[]) {
+    types.forEach((type) => {
+      type.superTypeId ? this.subTypes.push(type) : this.types.push(type);
     });
-    this.cartService.updateCart(this.cart);
   }
 
-  receivePoints($event) {
-    this.remainingPoints = $event;
+  sortTypesByName() {
+    this.types.sort((before, after) => before.typeName.trim().toLowerCase() > after.typeName.trim().toLowerCase() ? 1 : -1);
   }
 
   @HostListener('window:beforeunload', ['$event'])
