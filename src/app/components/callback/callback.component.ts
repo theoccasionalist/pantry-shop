@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-callback',
@@ -8,14 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
-  async ngOnInit() {
-    const client = await this.authService.getAuth0Client();
-    const result = await client.handleRedirectCallback();
-    const targetRoute = result.appState && result.appState.target ? result.appState.target : '';
-    this.authService.isAuthenticated.next(await client.isAuthenticated());
-    this.authService.profile.next(await client.getUser());
-    this.router.navigate([targetRoute]);
+  ngOnInit() {
+    this.authService.handleAuthCallback();
   }
 }

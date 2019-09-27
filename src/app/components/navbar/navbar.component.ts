@@ -8,31 +8,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isAuthenticated = false;
-  profile: any;
 
-  private auth0Client: Auth0Client;
+  constructor(public authService: AuthService) {}
 
-  constructor(private authService: AuthService) {}
+  ngOnInit() {}
 
-  async ngOnInit() {
-    this.auth0Client = await this.authService.getAuth0Client();
-    this.authService.isAuthenticated.subscribe(value => {
-      this.isAuthenticated = value;
-    });
-    this.authService.profile.subscribe(profile => {
-      this.profile = profile;
-    });
-  }
-
-  async login() {
-    await this.auth0Client.loginWithRedirect({});
-  }
-
-  logout() {
-    this.auth0Client.logout({
-      client_id: this.authService.config.client_id,
-      returnTo: window.location.origin
-    });
-  }
 }

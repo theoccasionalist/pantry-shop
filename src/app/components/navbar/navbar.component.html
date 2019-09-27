@@ -1,4 +1,6 @@
-<header>
-  <button (click)="login()" *ngIf="!isAuthenticated">Log In</button>
-  <button (click)="logout()" *ngIf="isAuthenticated">Log Out</button>
-</header>
+<mat-toolbar>
+  <span>Broad Street Food Pantry</span>
+  <button mat-button>About</button>
+  <button mat-button>Contact</button>
+  <button (click)="authService.logout()" *ngIf="authService.loggedIn">Log Out</button> 
+</mat-toolbar>

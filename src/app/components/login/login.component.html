@@ -1,2 +1,4 @@
-
-<button (click)="toFamily()">To Family</button>
+<button *ngIf="isAuthenticated" (click)="toFamily()">To Family</button>
+<mat-card>Welcome to Broad Street Food Pantry...</mat-card>
+<button (click)="authService.login()" *ngIf="!authService.loggedIn">Log In</button>
+<button (click)="toFamily()" *ngIf="authService.loggedIn">To Family</button>
