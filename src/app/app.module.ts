@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { ScrollingModule, ViewportRuler} from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule, MatCardModule, MatDatepickerModule, MatExpansionModule,
-  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule, MatTableModule,
-  MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
+  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule,
+  MatRadioModule, MatSelectModule, MatSnackBarModule, MatProgressSpinnerModule, MatTableModule,
+  MatToolbarModule} from '@angular/material';
 import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
@@ -19,6 +20,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductTypeComponent } from './components/product-type/product-type.component';
+import { QuestionsModalComponent } from './components/questions-modal/questions-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { ProductTypeComponent } from './components/product-type/product-type.com
     NavbarComponent,
     CallbackComponent,
     ProductComponent,
-    ProductTypeComponent
+    ProductTypeComponent,
+    QuestionsModalComponent
   ],
   imports: [
     AppRoutingModule,
@@ -42,17 +45,23 @@ import { ProductTypeComponent } from './components/product-type/product-type.com
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatExpansionModule,
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
     MatOptionModule,
+    MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
+    MatSnackBarModule,
     MatTableModule,
     MatToolbarModule,
     ReactiveFormsModule,
     ScrollingModule
+  ],
+  entryComponents: [
+    QuestionsModalComponent
   ],
   providers: [ViewportRuler],
   bootstrap: [AppComponent]

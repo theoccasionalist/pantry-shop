@@ -50,17 +50,15 @@ export class AuthService {
     let targetRoute: string;
     const authComplete = this.handleRedirectCallback.pipe(
       tap(cbRes => {
-        // Get and set target redirect route from callback results
         targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
       }),
       concatMap(() => {
-        // Redirect callback complete; get user and login status
         return combineLatest(
           this.isAuthenticated
         );
       })
     );
-    authComplete.subscribe(([user, loggedIn]) => {
+    authComplete.subscribe(([loggedIn]) => {
       this.router.navigate([targetRoute]);
     });
   }

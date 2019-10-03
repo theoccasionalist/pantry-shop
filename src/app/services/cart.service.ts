@@ -21,7 +21,7 @@ export class CartService {
     return this.currentCart;
   }
 
-  updateCart(cart: Cart) {
+  updateCart(cart: Cart): void {
     this.cartSource.next(cart);
   }
 }

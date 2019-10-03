@@ -18,12 +18,12 @@ export class TypeService {
     return this.currentTypeTracker;
   }
 
-  resetTypeTracker() {
+  resetTypeTracker(): void {
     this.typeTrackers = [];
     this.typeTrackerSource.next(this.typeTrackers);
   }
 
-  updateTypeTracker(componentTracker: TypeTracker) {
+  updateTypeTracker(componentTracker: TypeTracker): void {
     this.typeTrackers = this.typeTrackers.filter(typeTracker => typeTracker.typeId !== componentTracker.typeId);
     this.typeTrackers.push(componentTracker);
     this.typeTrackerSource.next(this.typeTrackers);

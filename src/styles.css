@@ -1,16 +1,16 @@
 @import "~@angular/material/prebuilt-themes/purple-green.css";
 body {
+  /* background: #46a8d0; */
   background-image: url(./assets/images/diagonal_waves.png);
 }
 .mat-content {
   justify-content: space-between;
 }
-
 .mat-content > mat-panel-title, .mat-content > mat-panel-description {
 flex: 1;
 }
 .mat-form-field {
-  width: 400px !important;
+  width: 350px !important;
 }
 .mat-focused .mat-form-field-label {
   color: black !important;
@@ -19,19 +19,23 @@ flex: 1;
  background-color: rgb(12, 11, 11) !important;;
 }
 .mat-form-field.ng-touched.ng-invalid .mat-form-field-label {
-  color: rgba(255, 162, 162, 0.897) !important;
-}
-.mat-form-field.ng-touched.ng-invalid .mat-form-field-ripple {
-  background-color: rgba(255, 162, 162, 0.897) !important;
+  color: #A71E2A !important;
 }
 .mat-datepicker-content {
   background:  rgb(18, 122, 117);
   border: solid black .5px;
 }
 .mat-select-panel {
-  background:  rgb(18, 122, 117);
+  background: #065777;
   border: solid black .5px;
 }
-
-
+.mat-dialog-container {
+  background: #71A040;
+  border: solid black .5px;
+  border-radius: 10px;
+}
+.mat-raised-button[disabled][disabled] {
+  background-color: #F6D936;
+  opacity: 0.7;
+}
 

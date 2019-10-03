@@ -1,7 +1,21 @@
 .mat-toolbar {
-    position: fixed;
-    top: 0;
-    z-index: 2;
-    background: #77C9D4;
-    border-bottom: solid black 2px;
-  }
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  background: #603A17;
+  border-bottom: solid black 2px;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+img {
+  border: solid black .1px;
+  border-radius: 10px;
+  margin: .2%;
+}
+button {
+  background-color: #F6D936;
+  border: solid black .5px;
+  border-radius: 5px;
+  color: black;
+}

@@ -113,8 +113,7 @@ export class ProductTypeComponent implements OnInit {
 
   sortProductTypesByName() {
     this.productTypes.sort((before, after) => {
-      return before.typeId
-      ?
+      return before.typeId ?
         before.typeName > after.productName || before.productName > before.typeName ? 1 : -1
       :
         before.productName > after.productName ? 1 : -1;
