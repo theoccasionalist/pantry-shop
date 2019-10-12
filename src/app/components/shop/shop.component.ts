@@ -5,6 +5,8 @@ import { FamilyService} from '../../services/family.service';
 import { PointService } from '../../services/point.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Type } from 'src/app/models/type.model';
+import { MatDialog } from '@angular/material';
+import { BackToFamilyModalComponent } from '../back-to-family-modal/back-to-family-modal.component';
 
 @Component({
   selector: 'app-shop',
@@ -14,11 +16,12 @@ import { Type } from 'src/app/models/type.model';
 export class ShopComponent implements OnInit {
   currentPoints: number;
   family: Family;
+  isLoading: boolean;
   maxPoints: number;
   subTypes: Type[] = [];
   types: Type[] = [];
 
-  constructor(private familyService: FamilyService, private pointService: PointService,
+  constructor(private dialog: MatDialog, private familyService: FamilyService, private pointService: PointService,
               private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
@@ -28,12 +31,13 @@ export class ShopComponent implements OnInit {
     this.productService.getProductsByTypes().subscribe((types: Type[]) => {
       this.setTypes(types);
       this.sortTypesByName();
-      console.log(this.subTypes);
     });
   }
 
   onBackToFamilyClick() {
-    this.router.navigate([`/family`]);
+    this.dialog.open(BackToFamilyModalComponent, {
+      width: '350px'
+    });
   }
 
   onReviewCartClick() {
@@ -50,8 +54,8 @@ export class ShopComponent implements OnInit {
     this.types.sort((before, after) => before.typeName.trim().toLowerCase() > after.typeName.trim().toLowerCase() ? 1 : -1);
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any) {
-    $event.returnValue = true;
-  }
+  // @HostListener('window:beforeunload', ['$event'])
+  // unloadNotification($event: any) {
+  //   $event.returnValue = true;
+  // }
 }

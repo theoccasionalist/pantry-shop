@@ -8,10 +8,8 @@
         {{panelOpenState ? 'close' : 'open'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <mat-card *ngIf="typeMaxAmount != null" [ngClass]="{'sub-type-max-amount' : subType}">
+    <mat-card *ngIf="typeMaxAmount != null" class="max-amount" [ngClass]="{'sub-type-max-amount' : subType}">
       {{'You are allowed ' + typeMaxAmount + ' items from the below products.'}}
-      <!-- <br>
-      {{'Each item is 1 ' + type.unit  + '.'}} -->
       <br>
       {{typeTracker.typeAmountInCart === 0 ? 'None in Cart':
           typeTracker.typeAmountInCart > 1 ? 

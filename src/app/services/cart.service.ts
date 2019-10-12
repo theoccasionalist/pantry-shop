@@ -8,7 +8,6 @@ import { Cart } from '../models/cart.model';
 export class CartService {
 
   cart: Cart = {
-    familyName: null,
     cartItemsByType: []
   };
 
@@ -21,7 +20,7 @@ export class CartService {
     return this.currentCart;
   }
 
-  updateCart(cart: Cart) {
+  updateCart(cart: Cart): void {
     this.cartSource.next(cart);
   }
 }

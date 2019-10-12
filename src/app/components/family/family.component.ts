@@ -16,53 +16,50 @@ import { TypeTracker } from 'src/app/models/type-tracker.model';
 })
 export class FamilyComponent implements OnInit {
   cart: Cart = {
-    familyName: null,
     cartItemsByType: []
   };
   family: Family;
   familyForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    birthDate: new FormControl(''),
-    address: new FormControl(''),
-    zipCode: new FormControl(''),
-    emailAddress: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    familySize: new FormControl('', [Validators.required]),
-    schoolChildren: new FormControl('', [Validators.required])
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    zipCode: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{5}$/)]),
+    emailAddress: new FormControl('', Validators.email),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/)]),
+    familySize: new FormControl('', Validators.required),
+    schoolChildren: new FormControl('', Validators.required),
+    infants: new FormControl('', Validators.required),
+    referral: new FormControl('', Validators.required)
   });
   familyPanelCloseState = true;
-  minDate = new Date(1900, 0);
-  maxDate = new Date(2015, 11, 31);
   pointsMapping: [{minSize: number, maxSize: number, points: number}];
-  startDate = new Date(2000, 0);
   typeTrackers: TypeTracker[] = [];
+  requiredError = 'This field is required.';
 
   constructor(private cartService: CartService, private familyService: FamilyService,
               private pointService: PointService, private typeService: TypeService, private router: Router) {}
 
   ngOnInit() {
+    this.familyService.resetFamily();
     this.pointService.getPointsMapping().subscribe(pointsMapping => this.pointsMapping = pointsMapping);
   }
 
-  onGoShoppingClick() {
-    this.family = this.familyForm.value;
+  onNextClick(): void {
     if (this.familyForm.valid) {
+      this.family = this.familyForm.value;
       this.familyService.updateFamily(this.family);
       this.initPoints(this.family.familySize);
-      this.initCart(this.family.lastName);
-      this.router.navigate([`/shop`]);
+      this.initCart();
+      this.router.navigate([`/pick-up`]);
     }
   }
 
-  private initCart(familyName: string) {
-    this.cart.familyName = familyName;
+  private initCart(): void {
     this.cart.cartItemsByType = [];
     this.cartService.updateCart(this.cart);
     this.typeService.resetTypeTracker();
   }
 
-  private initPoints(familySize: number) {
+  private initPoints(familySize: number): void {
     this.pointsMapping.forEach(mapping => {
       if (mapping.minSize <= familySize && familySize <= mapping.maxSize) {
         this.pointService.setMaxPoints(mapping.points);

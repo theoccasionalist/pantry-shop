@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { AuthService } from 'src/app/services/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { QuestionsModalComponent } from '../questions-modal/questions-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -8,31 +10,33 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isAuthenticated = false;
-  profile: any;
+  buttonContent: string;
+  currentPath: string;
+  routesButtonMap = new Map([
+    ['family', 'Have Questions About Family Information?'],
+    ['pick-up', 'Have Questions about Pick Up?'],
+    ['shop', 'Have Questions About Shopping?'],
+    ['cart', 'Have Questions About the Cart?']
+  ]);
+  constructor(private activatedRoute: ActivatedRoute, public authService: AuthService, private dialog: MatDialog) {}
 
-  private auth0Client: Auth0Client;
+  ngOnInit() {
+    this.activatedRoute.url.subscribe(currentPath => this.currentPath = currentPath[0].path);
+    this.setButtonContent();
+  }
 
-  constructor(private authService: AuthService) {}
-
-  async ngOnInit() {
-    this.auth0Client = await this.authService.getAuth0Client();
-    this.authService.isAuthenticated.subscribe(value => {
-      this.isAuthenticated = value;
-    });
-    this.authService.profile.subscribe(profile => {
-      this.profile = profile;
+  openQuestionsModal() {
+    this.dialog.open(QuestionsModalComponent, {
+      width: '900px',
+      data: this.currentPath
     });
   }
 
-  async login() {
-    await this.auth0Client.loginWithRedirect({});
-  }
-
-  logout() {
-    this.auth0Client.logout({
-      client_id: this.authService.config.client_id,
-      returnTo: window.location.origin
+  setButtonContent() {
+    this.routesButtonMap.forEach((buttonContent, route) => {
+      if (route === this.currentPath) {
+        this.buttonContent = buttonContent;
+      }
     });
   }
 }

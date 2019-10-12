@@ -1,0 +1,49 @@
+<ng-container [ngSwitch]="currentPath">   
+  <ng-container *ngSwitchCase="'cart'">
+      <mat-card-title mat-dialog-title>This is the cart path.</mat-card-title>
+      <mat-card-content mat-dialog-content>
+        Say something about the cart.
+      </mat-card-content>
+    </ng-container>
+    <ng-container *ngSwitchCase="'family'">
+      <h3>Required Fields</h3>
+      <ul>
+        <li>All fields except email address are required.</li>
+      </ul>
+      <h3>Terminology</h3>
+      <ul>
+        <li><b>Family size</b> is the total number of household members <em>aged four or above</em>.</li>
+        <li><b>School aged children</b> are household members between the <em>ages of four and seventeen</em>.</li>
+        <li><b>Infants</b> are household members <em>aged three or below</em>.</li>
+      </ul>
+      <h3>Format Requirements</h3>
+      <ul>
+        <li><b>Zip Code</b> must be in either in <em>five digit format (64789, for example)</em> or <em>nine digit format (64789-4789, for example)</em>.</li>
+        <li><b>Phone Number</b> must include <em>area code</em> and consist of <em>only numbers and dashes (614-789-7548, for example)</em>.</li>
+        <li><b>Email address</b> (if provided) must included the @ symbol.</li>
+      </ul>
+      <h3>CELC</h3>
+      <ul>
+        <li>The (what CELC stands for) directly references some clients to our food pantry.</li>
+        <li>If you were not directly referenced by CELC, please select "No" for the field.</li>
+      </ul>   
+    </ng-container>
+    <ng-container *ngSwitchCase="'pick-up'">
+      <mat-card-title mat-dialog-title>This is the pick up path.</mat-card-title>
+      <mat-card-content mat-dialog-content *ngIf='referral'>
+        Say something about CELC pick up.
+      </mat-card-content>
+      <mat-card-content mat-dialog-content *ngIf='!referral'>
+          Say something about regular pick up.
+      </mat-card-content>
+    </ng-container>     
+    <ng-container *ngSwitchCase="'shop'">
+      <mat-card-title mat-dialog-title>This is the shop path.</mat-card-title>
+      <mat-card-content mat-dialog-content>
+        Say something about the shop.
+      </mat-card-content>
+    </ng-container>
+    <div>
+      <button mat-raised-button (click)="closeModal()"cdkFocusInitial>{{buttonContent}}</button>
+    </div>    
+    </ng-container>    

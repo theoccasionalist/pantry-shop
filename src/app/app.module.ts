@@ -7,18 +7,22 @@ import { AppComponent } from './app.component';
 import { ScrollingModule, ViewportRuler} from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule, MatCardModule, MatDatepickerModule, MatExpansionModule,
-  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule, MatTableModule,
-  MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
+  MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule,
+  MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatTableModule,
+  MatToolbarModule} from '@angular/material';
 import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
 import { LoginComponent } from './components/login/login.component';
-import { SubmissionComponent } from './components/submission/submission.component';
+import { SubmitModalComponent } from './components/submit-modal/submit-modal.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductTypeComponent } from './components/product-type/product-type.component';
+import { QuestionsModalComponent } from './components/questions-modal/questions-modal.component';
+import { BackToFamilyModalComponent } from './components/back-to-family-modal/back-to-family-modal.component';
+import { PickUpComponent } from './components/pick-up/pick-up.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +31,14 @@ import { ProductTypeComponent } from './components/product-type/product-type.com
     ShopComponent,
     FamilyComponent,
     LoginComponent,
-    SubmissionComponent,
+    SubmitModalComponent,
     NavbarComponent,
     CallbackComponent,
     ProductComponent,
-    ProductTypeComponent
+    ProductTypeComponent,
+    QuestionsModalComponent,
+    BackToFamilyModalComponent,
+    PickUpComponent
   ],
   imports: [
     AppRoutingModule,
@@ -42,17 +49,23 @@ import { ProductTypeComponent } from './components/product-type/product-type.com
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatExpansionModule,
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
     MatOptionModule,
+    MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
     MatTableModule,
     MatToolbarModule,
     ReactiveFormsModule,
     ScrollingModule
+  ],
+  entryComponents: [
+    BackToFamilyModalComponent,
+    QuestionsModalComponent
   ],
   providers: [ViewportRuler],
   bootstrap: [AppComponent]

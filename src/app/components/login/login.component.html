@@ -1,2 +1,10 @@
-
-<button (click)="toFamily()">To Family</button>
+<div id="grid-container"> 
+    <mat-card>   
+    <img id="logo" src="../../../assets/images/bsfp-logo-login.png" alt="bsfp-logo-login">
+    <div id="message-button-container">
+        <mat-card-content>Welcome Message</mat-card-content>  
+        <button mat-raised-button (click)="authService.login()" *ngIf="!authService.loggedIn">Log In</button>
+        <button mat-raised-button (click)="toFamily()" *ngIf="authService.loggedIn">To Family</button>
+    </div>   
+    </mat-card>
+</div>    

@@ -10,8 +10,12 @@ export class FamilyService {
   family: Family = {
     firstName: null,
     lastName: null,
+    zipcode: null,
+    phoneNumber: null,
     familySize: null,
-    schoolChildren: null
+    schoolChildren: null,
+    infants: null,
+    referral: null
   };
 
   private familySource = new BehaviorSubject(this.family);
@@ -21,6 +25,10 @@ export class FamilyService {
 
   getFamily(): Observable<Family> {
     return this.currentFamily;
+  }
+
+  resetFamily() {
+    this.familySource.next(this.family);
   }
 
   updateFamily(family: Family) {

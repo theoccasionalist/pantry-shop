@@ -32,8 +32,8 @@ export class CartComponent implements OnInit {
         this.cart = currentCart;
         this.sortCart();
         this.setTotals();
+        console.log(this.cart);
     });
-    console.log(this.cart);
   }
 
   sortCart() {
@@ -53,22 +53,25 @@ export class CartComponent implements OnInit {
     this.router.navigate([`/shop`]);
   }
 
-//   createOrder() {
-//       const order = new Order();
-//       order.family = this.family;
-//       order.cart = this.cart.categoryItems;
-//       order.pickUpDate = 'whenever';
-//       console.log(order);
-//       return order;
-//   }
+  createOrder() {
+      const order = new Order();
+      order.family = this.family;
+      order.cart = this.cart;
+      order.pickUpDate = 'whenever';
+      console.log(order);
+      return order;
+  }
 
-//   onSubmitOrder() {
-//     console.log(this.httpClient.post(`${this.uri}/orders`, this.createOrder()));
-//     this.httpClient.post(`${this.uri}/orders`, this.createOrder()).subscribe(() =>
-//       this.router.navigate([`/`])
-//     );
-//     this.cartService.resetCart();
-//   }
+  onSubmitOrder() {
+    console.log(this.httpClient.post(`${this.uri}/orders`, this.createOrder()));
+    this.httpClient.post(`${this.uri}/orders`, {order: this.createOrder()}).subscribe(() =>
+      this.router.navigate([`/`])
+    );
+    this.cart = {
+      cartItemsByType: []
+    };
+    this.cartService.updateCart(this.cart);
+  }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {

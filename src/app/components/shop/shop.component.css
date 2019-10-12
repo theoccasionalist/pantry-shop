@@ -6,35 +6,59 @@
     justify-content: space-between;
 }
 .mat-toolbar {
-    background: lightseagreen;
+    background: #065777;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: solid black .5px;
     justify-content: center;
+    color: white;
 }
-.button-container {
+.mat-card {
+    background: #46a8d0;
+    border: solid black 1px;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top: none;
+}
+.mat-raised-button {
+    background-color: #F6D936;
+    border: solid black .5px;
+    border-radius: 5px;
+    color: black;
+}
+.family-container {
+    background: #46a8d0;
+    border: solid black 1px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 20%;
-    background: rgba(33, 38, 39, 0.7);
     border-radius: 10px;
-    height: 15%;
+    height: 100%;
     min-width: 200px;
 }
+.family-container .mat-card {
+    border: solid black 1px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#family-button-container {
+    display: flex;
+    justify-content: center;
+    align-content: center
+}
+#family-button {
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
 #left .mat-card {
-    background: rgb(160, 6, 160);
+    background: #D47B28;
     margin: 5%;
 }
-#right {
-    height: 125px;
-}
 #middle {
-    /* display: flex;
-    flex-direction: column; */
-    /* justify-content: space-around; */
-    /* width: 55%; */
-    background: rgba(33, 38, 39, 0.7);
+    background: #46a8d0;
+    border: solid black 1px;
     border-radius: 10px;
     min-width: 700px;
 }
@@ -46,21 +70,17 @@
 .cdk-virtual-scroll-content-wrapper {
     height: 70vh;
 }
-button {
-    width: auto;
-    height: auto;
-    background-color: goldenrod;
-    border: solid black .5px;
-    border-radius: 5px;
-    margin: 5%;
+#points {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
 }
-#fruit {
-    position: fixed;
-    z-index: -1;
-    top: 40%;
-    right: -12%;
-    overflow: hidden;
+#cart-button-container {
+    display: flex;
+    justify-content: center;
 }
-
-
+#points-order-container {
+    display: grid;
+    grid-template-rows: 30% 70%;   
+}
   
