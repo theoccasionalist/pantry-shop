@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
   currentPath: string;
   routesButtonMap = new Map([
     ['family', 'Have Questions About Family Information?'],
+    ['pick-up', 'Have Questions about Pick Up?'],
     ['shop', 'Have Questions About Shopping?'],
     ['cart', 'Have Questions About the Cart?']
   ]);

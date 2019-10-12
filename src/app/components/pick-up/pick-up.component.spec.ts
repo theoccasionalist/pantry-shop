@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubmissionComponent } from './submission.component';
+import { PickUpComponent } from './pick-up.component';
 
-describe('SubmissionComponent', () => {
-  let component: SubmissionComponent;
-  let fixture: ComponentFixture<SubmissionComponent>;
+describe('PickUpDateModalComponent', () => {
+  let component: PickUpComponent;
+  let fixture: ComponentFixture<PickUpComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmissionComponent ]
+      declarations: [ PickUpComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubmissionComponent);
+    fixture = TestBed.createComponent(PickUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

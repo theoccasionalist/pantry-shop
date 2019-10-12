@@ -7,13 +7,17 @@ import { CallbackComponent } from './components/callback/callback.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FamilyGuard } from './guards/family.guard';
 import { LoginComponent } from './components/login/login.component';
+import { PickUpComponent } from './components/pick-up/pick-up.component';
 
 const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'family', component: FamilyComponent, canActivate: [AuthGuard]},
-  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard, FamilyGuard]},
-  {path: 'cart', component: CartComponent, canActivate: [AuthGuard, FamilyGuard]},
+  {path: 'pick-up', component: PickUpComponent, canActivate: [AuthGuard]},
+  // {path: 'shop', component: ShopComponent, canActivate: [AuthGuard, FamilyGuard]},
+  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard]},
+  // {path: 'cart', component: CartComponent, canActivate: [AuthGuard, FamilyGuard]},
+  {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

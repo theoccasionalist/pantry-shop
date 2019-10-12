@@ -27,6 +27,15 @@
         <li>The (what CELC stands for) directly references some clients to our food pantry.</li>
         <li>If you were not directly referenced by CELC, please select "No" for the field.</li>
       </ul>   
+    </ng-container>
+    <ng-container *ngSwitchCase="'pick-up'">
+      <mat-card-title mat-dialog-title>This is the pick up path.</mat-card-title>
+      <mat-card-content mat-dialog-content *ngIf='referral'>
+        Say something about CELC pick up.
+      </mat-card-content>
+      <mat-card-content mat-dialog-content *ngIf='!referral'>
+          Say something about regular pick up.
+      </mat-card-content>
     </ng-container>     
     <ng-container *ngSwitchCase="'shop'">
       <mat-card-title mat-dialog-title>This is the shop path.</mat-card-title>

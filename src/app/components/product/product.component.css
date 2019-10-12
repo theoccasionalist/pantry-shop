@@ -6,11 +6,12 @@
   display: grid;
   grid-template-rows: auto;
 }
-.mat-button {
+.mat-raised-button {
   border: solid black .5px;
   border-radius: 5px;
-  background-color: goldenrod;
-  font-size: 22px;
+  background-color: #F6D936;
+  color: black;
+  font-size: 1.5rem;
   margin-left: 10%;
 }
 .mat-card-title {
@@ -21,7 +22,8 @@
   font-size: 1rem;
 }
 .mat-card {
-  background: rgb(12, 36, 100);
+  background: #71A040;
+  border: solid black 1px;
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -30,8 +32,7 @@
   grid-template-columns: 78.8% 21.2%;
 }
 .sub-product {
-  background: rgb(43, 126, 235);
-
+  background: #603A17;
 }
 .sub-product-grid-container {
   display: grid;

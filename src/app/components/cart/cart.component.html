@@ -26,16 +26,13 @@
             <ng-container matColumnDef="column1">
               <th mat-header-cell *matHeaderCellDef>Name</th>
               <td mat-cell *matCellDef="let element">{{element.productName}}</td>
-              <!-- <td mat-footer-cell *matFooterCellDef>Total Items:</td> -->
             </ng-container>
             <ng-container matColumnDef="column2">
               <th mat-header-cell *matHeaderCellDef>Amount</th>
               <td mat-cell *matCellDef="let element">{{element.amount}}</td>
-              <!-- <td mat-footer-cell *matFooterCellDef>{{'Figure Me Out'}}</td> -->
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="columns"></tr>
             <tr mat-row *matRowDef="let row; columns: columns"></tr>
-            <!-- <tr mat-footer-row *matFooterRowDef="columns"></tr>    -->
           </table>
           <div class="items-toolbar bottom-table"></div>
       </ng-container>
@@ -46,14 +43,11 @@
     </div>
   
     
-    <!-- <div class="button-container" *ngIf=cart.categoryItems.length>
-        <mat-toolbar>Place Order?</mat-toolbar>
-      <button mat-raised-button (click)="onSubmitOrder()">Submit Order</button>
-    </div> -->
-
+    <div class="button-container" *ngIf=cart.cartItemsByType.length>
+        <mat-toolbar>Finalize Order?</mat-toolbar>
+      <button mat-raised-button (click)="onSubmitOrder()">Finalize Order</button>
+    </div>
 </div>  
-
-
 
 <mat-select required>
   <mat-label>Something here</mat-label>

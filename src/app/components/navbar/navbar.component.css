@@ -13,7 +13,7 @@ img {
   border-radius: 10px;
   margin: .2%;
 }
-button {
+.mat-raised-button {
   background-color: #F6D936;
   border: solid black .5px;
   border-radius: 5px;

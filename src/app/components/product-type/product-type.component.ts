@@ -34,6 +34,7 @@ export class ProductTypeComponent implements OnInit {
     this.schoolIncluded = this.family.schoolChildren > 0;
     this.setOnlySchoolProducts();
     this.setSubType();
+    this.setSubTypePanelOpen();
     this.setSuperType();
     this.setProductTypes();
     this.setTypeMaxAmount();
@@ -80,6 +81,10 @@ export class ProductTypeComponent implements OnInit {
 
   setSubType() {
     this.subType = this.type.superTypeId ? true : false;
+  }
+
+  setSubTypePanelOpen() {
+    this.subType ? this.panelOpenState = true : this.panelOpenState = false;
   }
 
   setSuperType() {

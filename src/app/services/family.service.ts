@@ -27,6 +27,10 @@ export class FamilyService {
     return this.currentFamily;
   }
 
+  resetFamily() {
+    this.familySource.next(this.family);
+  }
+
   updateFamily(family: Family) {
     this.familySource.next(family);
   }

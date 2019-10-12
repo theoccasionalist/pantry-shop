@@ -8,7 +8,6 @@ import { PointService } from 'src/app/services/point.service';
 import { Cart } from 'src/app/models/cart.model';
 import { TypeService } from 'src/app/services/type.service';
 import { TypeTracker } from 'src/app/models/type-tracker.model';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-family',
@@ -17,7 +16,6 @@ import { MatSnackBar } from '@angular/material';
 })
 export class FamilyComponent implements OnInit {
   cart: Cart = {
-    familyName: null,
     cartItemsByType: []
   };
   family: Family;
@@ -38,25 +36,24 @@ export class FamilyComponent implements OnInit {
   requiredError = 'This field is required.';
 
   constructor(private cartService: CartService, private familyService: FamilyService,
-              private pointService: PointService, private snackBar: MatSnackBar,
-              private typeService: TypeService, private router: Router) {}
+              private pointService: PointService, private typeService: TypeService, private router: Router) {}
 
   ngOnInit() {
+    this.familyService.resetFamily();
     this.pointService.getPointsMapping().subscribe(pointsMapping => this.pointsMapping = pointsMapping);
   }
 
-  onGoShoppingClick(): void {
+  onNextClick(): void {
     if (this.familyForm.valid) {
       this.family = this.familyForm.value;
       this.familyService.updateFamily(this.family);
       this.initPoints(this.family.familySize);
-      this.initCart(this.family.lastName);
-      this.router.navigate([`/shop`]);
+      this.initCart();
+      this.router.navigate([`/pick-up`]);
     }
   }
 
-  private initCart(familyName: string): void {
-    this.cart.familyName = familyName;
+  private initCart(): void {
     this.cart.cartItemsByType = [];
     this.cartService.updateCart(this.cart);
     this.typeService.resetTypeTracker();

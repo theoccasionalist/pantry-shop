@@ -8,7 +8,6 @@ import { Cart } from '../models/cart.model';
 export class CartService {
 
   cart: Cart = {
-    familyName: null,
     cartItemsByType: []
   };
 
