@@ -1,5 +1,7 @@
 .mat-expansion-panel {
-  background: #603A17;
+  /* background: #603A17; */
+  /* background: #d47b28; */
+  background: #71a040;
   margin: 2%;
   border: solid black 1px;
 } 
@@ -11,7 +13,6 @@
   border-top: 0;
   color: rgba(255,255,255,.7);
   cursor: pointer;
-  justify-content: center;
 }
 .sub-type {
   background: #71A040;

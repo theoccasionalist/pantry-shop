@@ -1,30 +1,34 @@
 .flex-grid {
-    margin: 5%;
-    margin-top: 7%;
+    /* margin: 5%; */
+    margin-top: 6%;
     display: flex;
     justify-content: space-evenly;
 }
 .mat-toolbar {
-    background: #065777;
+    /* background: #065777; */
+    background: #603a17;
     border: solid black 1px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     border-bottom: solid black .5px;
     justify-content: center;
     color: white;
 }
 #family-form {
-    justify-content: space-evenly; 
+    /* justify-content: space-evenly;  */
 }
 .mat-card {
     border: solid black 1px;
-    border-radius: 10px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    border-radius: 5px;
+    /* border-top-left-radius: 0px;
+    border-top-right-radius: 0px; */
     border-top: none;
 }
 #family-form .mat-card {
-    background: #46a8d0;
+    /* background: #46a8d0; */
+    background: #a2d16e;
+    /* background: #90643f; */
+    color: black
 }
 .mat-raised-button {
     background-color: #F6D936;
@@ -32,10 +36,11 @@
     border-radius: 5px;
     color: black;
 }
-#button-space {
+.button-space {
     display: flex;
     justify-content: space-between;
 }
 .mat-error {
     color: black;
 }
+

@@ -1,12 +1,13 @@
 .flex-grid {
     margin: 5%;
-    margin-top: 6%;
+    margin-top: 7%;
     margin-bottom: 0;
     display: flex;
     justify-content: space-between;
 }
 .mat-toolbar {
-    background: #065777;
+    /* background: #065777; */
+    background: #603a17;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: solid black .5px;
@@ -14,7 +15,7 @@
     color: white;
 }
 .mat-card {
-    background: #46a8d0;
+    /* background: #46a8d0; */
     border: solid black 1px;
     border-radius: 10px;
     border-top-left-radius: 0px;
@@ -23,13 +24,19 @@
 }
 .mat-raised-button {
     background-color: #F6D936;
+    /* background: #ffab57; */
     border: solid black .5px;
     border-radius: 5px;
     color: black;
 }
-.family-container {
-    background: #46a8d0;
+.aside-container {
+    /* background: #46a8d0; */
+    /* background: #a2d16e; */
+    /* background: white; */
+    /* background: #ffff6c; */
+    background: #ffab57;
     border: solid black 1px;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -38,26 +45,11 @@
     height: 100%;
     min-width: 200px;
 }
-.family-container .mat-card {
-    border: solid black 1px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-#family-button-container {
-    display: flex;
-    justify-content: center;
-    align-content: center
-}
-#family-button {
-    margin-top: 5%;
-    margin-bottom: 10%;
-}
-#left .mat-card {
-    background: #D47B28;
-    margin: 5%;
-}
-#middle {
-    background: #46a8d0;
+#shop {
+    /* background: #46a8d0; */
+    /* background: #a2d16e; */
+    /* background: white; */
+    background: #ffab57;
     border: solid black 1px;
     border-radius: 10px;
     min-width: 700px;
@@ -72,15 +64,13 @@
 }
 #points {
     display: flex;
+    color: white;
     justify-content: center;
     font-size: 1.5rem;
+    margin: 7%;
 }
-#cart-button-container {
+#review {
     display: flex;
     justify-content: center;
+    margin: 5%;
 }
-#points-order-container {
-    display: grid;
-    grid-template-rows: 30% 70%;   
-}
-  

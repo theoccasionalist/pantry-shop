@@ -1,25 +1,93 @@
 <app-navbar></app-navbar>
-<div id="grid-container">  
+<div id="flex-grid">  
   
-  <div class="button-container">
-    <mat-toolbar>Change Items?</mat-toolbar>
-    <button mat-raised-button (click)="onBackToCart()">Back to Shop</button>
-  </div>
+  <aside class="button-container">
+    <mat-toolbar>Change Cart Items?</mat-toolbar>
+    <div class="button-div">
+      <button mat-raised-button (click)="onBackToShopClick()">Back to Shop</button>
+    </div>  
+  </aside>
 
-  <mat-card id="empty-cart" *ngIf="!cart.cartItemsByType.length">
-    Cart is empty!<br><br>
-    To place an order, please press "back to shop" and add items to the cart.
-  </mat-card>
-  
-  <div id="cart-container" *ngIf="cart.cartItemsByType.length">
+  <main id="overview">
 
-    <mat-toolbar>
-      Cart Overview<br>
-      Please review order below
-    </mat-toolbar>
-    
+    <mat-toolbar>Order Overview</mat-toolbar>
     <cdk-virtual-scroll-viewport  [itemSize]="">
 
+    <mat-expansion-panel (opened) ="contactPanelOpenState = true" (closed)="contactPanelOpenState = false" [expanded]="contactPanelOpenState">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Contact Information
+        </mat-panel-title>
+        <mat-panel-description>
+          {{contactPanelOpenState ? 'close' : 'open'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="info-container">
+        <mat-card >{{'First Name: ' + family.firstName}}</mat-card>
+        <mat-card >{{'Last Name: ' + family.lastName}}</mat-card>
+        <mat-card>{{'Phone Number: ' + family.phoneNumber}}</mat-card>
+        <mat-card>{{'Zip Code: ' + family.zipCode}}</mat-card>
+        <mat-card *ngIf="family.emailAddress">{{'Email Address: ' + family.emailAddress}}</mat-card>
+        <div class="update-button-div">
+          <button mat-raised-button (click)="openUpdateContactModal()">Update Contact</button>
+        </div>
+      </div>
+    <mat-action-row (click)="contactPanelOpenState = false"></mat-action-row>    
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened) ="householdPanelOpenState = true" (closed)="householdPanelOpenState = false" [expanded]="householdPanelOpenState">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Household Information
+        </mat-panel-title>
+        <mat-panel-description>
+          {{householdPanelOpenState ? 'close' : 'open'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="info-container">
+        <mat-card> {{'Family Size: ' + family.familySize}}</mat-card>
+        <mat-card *ngIf="family.schoolChildren !== 0">{{'School Children: ' + family.schoolChildren}}</mat-card>
+        <mat-card *ngIf="family.infants">Infants: Included</mat-card>
+        <div class="update-button-div">
+          <button mat-raised-button (click)="openUpdateHouseholdModal()">Update Household</button>  
+        </div>
+      </div>
+    <mat-action-row (click)="householdPanelOpenState = false"></mat-action-row>  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened) ="pickUpPanelOpenState = true" (closed)="pickUpPanelOpenState = false" [expanded]="pickUpPanelOpenState">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Pick Up Information
+        </mat-panel-title>
+        <mat-panel-description>
+          {{pickUpPanelOpenState ? 'close' : 'open'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="info-container">
+        <mat-card>{{family.referral ? 'Pick Up Location: CELC' : 'Pick Up Location: Broad Street Food Pantry'}}</mat-card>
+        <mat-card>{{'Pick Up Date: ' + family.pickUpDate}}</mat-card>
+        <div class="update-button-div">
+          <button mat-raised-button (click)="openUpdatePickUpModal()">Update Pick Up</button>
+        </div>
+      </div>
+    <mat-action-row (click)="pickUpPanelOpenState = false"></mat-action-row>  
+    </mat-expansion-panel>
+    
+    <mat-expansion-panel (opened) ="cartPanelOpenState = true" (closed)="cartPanelOpenState = false" [expanded]="cartPanelOpenState">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Cart Details
+      </mat-panel-title>
+      <mat-panel-description>
+        {{cartPanelOpenState ? 'close' : 'open'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card id="empty-cart" *ngIf="!cart.cartItemsByType.length">
+        Cart is empty!<br><br>
+        To place an order, please press "Update" and add items to the cart.
+    </mat-card>
+    <ng-container *ngIf="cart.cartItemsByType.length">
       <ng-container *ngFor="let type of cart.cartItemsByType">
           <mat-toolbar class="items-toolbar top-table">{{type.typeName}}</mat-toolbar>
           <table mat-table [dataSource]="type.items">
@@ -36,20 +104,18 @@
           </table>
           <div class="items-toolbar bottom-table"></div>
       </ng-container>
-
-      <mat-card id="end-order">End of order</mat-card>  
-
-      </cdk-virtual-scroll-viewport>  
-    </div>
-  
+      <mat-card id="end-order">Cart End</mat-card>  
+    </ng-container>
+    <mat-action-row (click)="cartPanelOpenState = false"></mat-action-row>  
+    </mat-expansion-panel>
     
-    <div class="button-container" *ngIf=cart.cartItemsByType.length>
-        <mat-toolbar>Finalize Order?</mat-toolbar>
-      <button mat-raised-button (click)="onSubmitOrder()">Finalize Order</button>
-    </div>
+    </cdk-virtual-scroll-viewport>    
+  </main>
+    
+  <aside class="button-container">
+    <mat-toolbar>Ready to Submit?</mat-toolbar>
+    <div class="button-div">
+      <button mat-raised-button (click)="onSubmitOrder()" [disabled]="!cart.cartItemsByType.length">Submit Order</button>
+    </div>  
+  </aside>
 </div>  
-
-<mat-select required>
-  <mat-label>Something here</mat-label>
-  <mat-option [value]="pickUpDate">Whenever</mat-option>
-</mat-select>

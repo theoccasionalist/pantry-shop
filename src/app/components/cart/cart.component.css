@@ -1,48 +1,84 @@
-#grid-container {
-    display: grid;
-    grid-template-columns: 20% auto 20%;
-    column-gap: 2%;
-    margin-left: 5%;
-    margin-right: 5%;
+#flex-grid {
+    margin: 5%;
     margin-top: 7%;
-    min-width: 1100px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
 }
 .button-container {
-    position: sticky;
-    top: 95px;
+    background: #46a8d0;
+    border: solid black 1px;
     display: flex;
     flex-direction: column;
-    background: rgba(33, 38, 39, 0.7);
     border-radius: 10px;
-    height: 125px;
+    height: 70%;
     min-width: 200px;
+    width: 20%;
 }
+.button-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.mat-raised-button { 
+    background-color: #F6D936;
+    border: solid black .5px;
+    border-radius: 5px;
+    color: black;
+    height: auto;
+    margin: 5%;
+    width: 10rem;
+}
+#overview {
+    background: #46a8d0;
+    border: solid black 1px;
+    border-radius: 10px;
+    min-width: 700px;
+}
+.mat-expansion-panel {
+    background: #603A17;
+    margin: 5%;
+    border: solid black 1px;
+}
+.info-container .mat-card {
+    background: #71A040;
+    border: solid black 1px;
+    margin: 2%;
+}
+.info-container button {
+    margin-top: 2%;
+    margin-bottom: 0;
+}
+.update-button-div {
+    display: flex;
+    justify-content: center;
+}
+.mat-action-row {
+    border-top: 0;
+    cursor: pointer;
+}  
 #empty-cart {
-    background: rgba(33, 38, 39, 0.7);
+    background: rgba(167,30,42,.8);
     border: solid black .5px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
-    margin-left: 10%;
-    height: 70vh;
 }
 .cdk-virtual-scroll-viewport {
-    background: rgba(33, 38, 39, 0.7);
-    border-radius: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
     height: 70vh;
     width: 100%;
 }
 .mat-toolbar {
-    background: lightseagreen;
+    background: #065777;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: solid black .5px;
+    display: flex;
     justify-content: center;
-    text-align: center;
+    color: white;
 }
 .items-toolbar {
     background-color: rgb(43, 126, 235);;
@@ -67,16 +103,8 @@
 tr.mat-footer-row {
     font-weight: bold;
 }
-button {
-    width: auto;
-    height: auto;
-    background-color: goldenrod;
-    border: solid black .5px;
-    border-radius: 5px;
-    margin: 5%;
-}
 #end-order {
-    background: transparent;
+    background: rgba(167,30,42,.3);
     box-shadow: 0px 10px 10px rgb(0, 0, 0, .3);
     text-align: center;
     margin-bottom: 2%;

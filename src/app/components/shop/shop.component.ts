@@ -6,7 +6,6 @@ import { PointService } from '../../services/point.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Type } from 'src/app/models/type.model';
 import { MatDialog } from '@angular/material';
-import { BackToFamilyModalComponent } from '../back-to-family-modal/back-to-family-modal.component';
 
 @Component({
   selector: 'app-shop',
@@ -16,12 +15,11 @@ import { BackToFamilyModalComponent } from '../back-to-family-modal/back-to-fami
 export class ShopComponent implements OnInit {
   currentPoints: number;
   family: Family;
-  isLoading: boolean;
   maxPoints: number;
   subTypes: Type[] = [];
   types: Type[] = [];
 
-  constructor(private dialog: MatDialog, private familyService: FamilyService, private pointService: PointService,
+  constructor(private familyService: FamilyService, private pointService: PointService,
               private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
@@ -34,13 +32,7 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  onBackToFamilyClick() {
-    this.dialog.open(BackToFamilyModalComponent, {
-      width: '350px'
-    });
-  }
-
-  onReviewCartClick() {
+  onReviewOrderClick() {
     this.router.navigate([`/cart`]);
   }
 

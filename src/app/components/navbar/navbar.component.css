@@ -2,15 +2,17 @@
   position: fixed;
   top: 0;
   z-index: 2;
-  background: #603A17;
+  /* background: #603A17; */
+  /* background: #A71e2a; */
+  background: #065777;
   border-bottom: solid black 2px;
   height: auto;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 10% 70% 10% 10%;
 }
 img {
   border: solid black .1px;
-  border-radius: 10px;
+  border-radius: 2px;
   margin: .2%;
 }
 .mat-raised-button {
@@ -18,4 +20,5 @@ img {
   border: solid black .5px;
   border-radius: 5px;
   color: black;
+  margin: 5%;
 }

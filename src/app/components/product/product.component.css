@@ -22,7 +22,8 @@
   font-size: 1rem;
 }
 .mat-card {
-  background: #71A040;
+  /* background: #71A040; */
+  background: #90643f;
   border: solid black 1px;
   margin-top: 1em;
   margin-bottom: 1em;

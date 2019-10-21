@@ -1,5 +1,6 @@
 <mat-toolbar>
   <img src="../../../assets/images/bsfp-logo-navbar.png" alt="bsfp-logo-navbar">
+  <span></span>
   <button mat-raised-button (click)="openQuestionsModal()">{{buttonContent}}</button> 
   <button mat-raised-button (click)="authService.logout()" *ngIf="authService.loggedIn">Log Out</button>
 </mat-toolbar>

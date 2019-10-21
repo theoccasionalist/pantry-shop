@@ -12,9 +12,9 @@ import { TypeService } from 'src/app/services/type.service';
 })
 export class ProductTypeComponent implements OnInit {
   @Input() family: Family;
+  onlySchoolProducts: boolean;
   panelOpenState = false;
   products: Product[] = [];
-  onlySchoolProducts: boolean;
   productTypes: any[] = [];
   schoolIncluded: boolean;
   subType: boolean;
@@ -99,8 +99,7 @@ export class ProductTypeComponent implements OnInit {
       product.school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
       if (this.type.typeSizeAmount) {
         this.type.typeSizeAmount.forEach(mapping => {
-          if (mapping.minFamSize <= familyValue
-            && familyValue <= mapping.maxFamSize) {
+          if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
               this.typeMaxAmount = mapping.maxAmount;
             }
         });

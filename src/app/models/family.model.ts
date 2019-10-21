@@ -1,11 +1,12 @@
 export class Family {
     firstName: string;
     lastName: string;
-    zipcode: string;
+    zipCode: string;
     emailAddress?: string;
     phoneNumber: string;
     familySize: number;
     schoolChildren: number;
     infants: boolean;
     referral: boolean;
+    pickUpDate: string;
 }

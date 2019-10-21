@@ -2,9 +2,13 @@
     <mat-card>   
     <img id="logo" src="../../../assets/images/bsfp-logo-login.png" alt="bsfp-logo-login">
     <div id="message-button-container">
-        <mat-card-content>Welcome Message</mat-card-content>  
-        <button mat-raised-button (click)="authService.login()" *ngIf="!authService.loggedIn">Log In</button>
-        <button mat-raised-button (click)="toFamily()" *ngIf="authService.loggedIn">To Family</button>
+        <mat-toolbar>Welcome!</mat-toolbar>  
+        <mat-card>
+            Welcome to Broad Street Food Pantry's Online Ordering Sytstem.<br><br> We are adding information here shortly.
+            <br><br> 
+            <button mat-raised-button (click)="authService.login()" *ngIf="!authService.loggedIn">Log In</button>
+            <button mat-raised-button (click)="toFamily()" *ngIf="authService.loggedIn">To Family</button>
+        </mat-card>
     </div>   
     </mat-card>
 </div>    
