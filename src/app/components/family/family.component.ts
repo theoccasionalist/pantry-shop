@@ -88,22 +88,6 @@ export class FamilyComponent implements OnInit {
     this.family.pickUpDate = this.pickUpForm.get('pickUpDate').value;
   }
 
-  // setFamiily() {
-  //   this.family.firstName = this.contactForm.get('firstName').value;
-  //   this.family.lastName = this.contactForm.get('lastName').value;
-  //   this.family.phoneNumber = this.contactForm.get('phoneNumber').value;
-  //   this.family.zipCode = this.contactForm.get('zipCode').value;
-  //   if (this.contactForm.get('emailAddress').value) {
-  //     this.family.emailAddress = this.contactForm.get('emailAddress').value;
-  //   }
-  //   this.family.familySize = this.householdForm.get('familySize').value;
-  //   this.family.schoolChildren = this.householdForm.get('schoolChildren').value;
-  //   this.family.infants = this.householdForm.get('infants').value;
-  //   this.family.referral = this.pickUpForm.get('referral').value;
-  //   this.family.pickUpDate = this.pickUpForm.get('pickUpDate').value;
-  //   this.familyService.updateFamily(this.family);
-  // }
-
   setPickUpDateOptions(referral: boolean) {
     this.pickUpForm.controls.pickUpDate.reset();
     this.pickUpDateOptions = this.pickUpDateService.getPickUpDateOptions(referral);

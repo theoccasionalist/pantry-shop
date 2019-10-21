@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FamilyService } from 'src/app/services/family.service';
-import { Family } from 'src/app/models/family.model';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { PointService } from 'src/app/services/point.service';
-import { Cart } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { TypeService } from 'src/app/services/type.service';
 import { Router } from '@angular/router';
@@ -53,10 +51,6 @@ export class UpdateModalComponent extends FamilyComponent implements OnInit {
     this.pointService.getPointsMapping().subscribe(pointsMapping => this.pointsMapping = pointsMapping);
   }
 
-  getPickUp() {
-    this.pickUpDateOptions.find(pickUpDate => this.family.pickUpDate === pickUpDate);
-  }
-
   onCancelClick() {
     this.dialogRef.close();
   }
@@ -97,25 +91,4 @@ export class UpdateModalComponent extends FamilyComponent implements OnInit {
       this.dialogRef.close();
     }
   }
-
-  // private setContactInfo() {
-  //   this.family.firstName =     this.family.firstName = this.contactForm.get('firstName').value;
-  //   this.family.lastName = this.contactForm.get('lastName').value;
-  //   this.family.phoneNumber = this.contactForm.get('phoneNumber').value;
-  //   this.family.zipCode = this.contactForm.get('zipCode').value;
-  //   if (this.contactForm.get('emailAddress').value) {
-  //     this.family.emailAddress = this.contactForm.get('emailAddress').value;
-  //   }
-  // }
-
-  // private setHouseholdInfo() {
-  //   this.family.familySize = this.householdForm.get('familySize').value;
-  //   this.family.schoolChildren = this.householdForm.get('schoolChildren').value;
-  //   this.family.infants = this.householdForm.get('infants').value;
-  // }
-
-  // private setPickUpInfo() {
-  //   this.family.referral = this.pickUpForm.get('referral').value;
-  //   this.family.pickUpDate = this.pickUpForm.get('pickUpDate').value;
-  // }
 }
