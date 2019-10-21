@@ -3,6 +3,8 @@
     border: solid black .5px;
     border-radius: 5px;
     color: black;
-    display: block;
-    margin: auto;
+}
+.button-div {
+    display: flex;
+    justify-content: space-between;
 }

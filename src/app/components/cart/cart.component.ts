@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
 import { HttpClient } from '@angular/common/http';
 import { CartItemsByType } from 'src/app/models/cart-items-by-type.model';
+import { MatDialog } from '@angular/material';
+import { UpdateModalComponent } from '../update-modal/update-modal.component';
 
 @Component({
   selector: 'app-cart',
@@ -18,22 +20,32 @@ export class CartComponent implements OnInit {
   cartTypes: any[] = [];
   columns: string[] = ['column1', 'column2'];
   family: Family;
-  @Input() pickUpDate;
-  panelOpenState = false;
+  contactPanelOpenState = false;
+  householdPanelOpenState = false;
+  pickUpPanelOpenState = false;
+  cartDetailsPanelOpenState = false;
   uri = 'http://localhost:4000';
   totals = [];
 
-  constructor(private cartService: CartService, private familyService: FamilyService,
-              private httpClient: HttpClient,  private router: Router) { }
+  constructor(private cartService: CartService, private dialog: MatDialog, private familyService: FamilyService,
+              private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.familyService.getFamily().subscribe(currentFamily => this.family = currentFamily);
-    this.cartService.getCart().subscribe(currentCart => {
-        this.cart = currentCart;
+    this.familyService.getFamily().subscribe(family => this.family = family);
+    this.cartService.getCart().subscribe(cart => {
+        this.cart = cart;
         this.sortCart();
         this.setTotals();
         console.log(this.cart);
     });
+  }
+
+  createOrder() {
+    const order = new Order();
+    order.family = this.family;
+    order.cart = this.cart;
+    console.log(order);
+    return order;
   }
 
   sortCart() {
@@ -49,18 +61,11 @@ export class CartComponent implements OnInit {
     });
   }
 
-  onBackToCart() {
+  onBackToShopClick() {
     this.router.navigate([`/shop`]);
   }
 
-  createOrder() {
-      const order = new Order();
-      order.family = this.family;
-      order.cart = this.cart;
-      order.pickUpDate = 'whenever';
-      console.log(order);
-      return order;
-  }
+
 
   onSubmitOrder() {
     console.log(this.httpClient.post(`${this.uri}/orders`, this.createOrder()));
@@ -71,6 +76,30 @@ export class CartComponent implements OnInit {
       cartItemsByType: []
     };
     this.cartService.updateCart(this.cart);
+  }
+
+  openUpdateContactModal() {
+    this.dialog.open(UpdateModalComponent, {
+      width: '34rem',
+      disableClose: true,
+      data: 'contact'
+    });
+  }
+
+  openUpdateHouseholdModal() {
+    this.dialog.open(UpdateModalComponent, {
+      width: '34rem',
+      disableClose: true,
+      data: 'household'
+    });
+  }
+
+  openUpdatePickUpModal() {
+    this.dialog.open(UpdateModalComponent, {
+      width: '34rem',
+      disableClose: true,
+      data: 'pick-up'
+    });
   }
 
   @HostListener('window:beforeunload', ['$event'])

@@ -10,12 +10,13 @@ export class FamilyService {
   family: Family = {
     firstName: null,
     lastName: null,
-    zipcode: null,
+    zipCode: null,
     phoneNumber: null,
     familySize: null,
     schoolChildren: null,
     infants: null,
-    referral: null
+    referral: null,
+    pickUpDate: null
   };
 
   private familySource = new BehaviorSubject(this.family);

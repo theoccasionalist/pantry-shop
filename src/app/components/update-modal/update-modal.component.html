@@ -1,0 +1,118 @@
+<form [formGroup]="contactForm" *ngIf="modal === 'contact'"> 
+  <div>
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" [value]="family.firstName">
+      <mat-error *ngIf="contactForm.get('firstName').hasError('required')">{{requiredError}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" [value]="family.lastName">
+      <mat-error *ngIf="contactForm.get('lastName').hasError('required')">{{requiredError}}</mat-error>
+    </mat-form-field>
+  </div>  
+  <div>
+    <mat-form-field>
+      <mat-label>Zip Code</mat-label>
+      <input matInput formControlName="zipCode" [value]="family.zipCode">
+      <mat-error *ngIf="contactForm.get('zipCode').hasError('pattern')">Zipcode must be exactly five digits (example: 64359).</mat-error>
+      <mat-error *ngIf="contactForm.get('zipCode').hasError('required')">{{requiredError}}</mat-error>
+    </mat-form-field>  
+  </div>
+  <div>
+    <mat-form-field> 
+    <mat-label>Phone Number</mat-label>
+    <input matInput formControlName="phoneNumber" [value]="family.phoneNumber">
+    <mat-error *ngIf="contactForm.get('phoneNumber').hasError('pattern')">Phone number must be in the following format: 555-555-5555.</mat-error>
+    <mat-error *ngIf="contactForm.get('phoneNumber').hasError('required')">{{requiredError}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>  
+    <mat-form-field>
+      <mat-label>Email Address (optional)</mat-label>
+      <input matInput formControlName="emailAddress" [value]="family.emailAddress ? family.emailAddress : ''">
+      <mat-error *ngIf="contactForm.get('emailAddress').hasError('email')">Email address must include the @ symbol.</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="button-div">
+    <button mat-raised-button (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button [disabled]="!contactForm.valid || !contactForm.dirty" (click)="onUpdateContactClick()">Update</button>
+  </div>
+</form>
+
+<form [formGroup]="householdForm" *ngIf="modal === 'household'">
+  <div>  
+    <mat-form-field>
+      <mat-label>Family Size</mat-label>
+      <mat-select matInput formControlName="familySize" [value]="family.familySize">
+        <mat-option [value]=1>1</mat-option>
+        <mat-option [value]=2>2</mat-option>
+        <mat-option [value]=3>3</mat-option>
+        <mat-option [value]=4>4</mat-option>
+        <mat-option [value]=5>5</mat-option>
+        <mat-option [value]=6>6</mat-option>
+        <mat-option [value]=7>7</mat-option>
+        <mat-option [value]=8>8</mat-option>
+        <mat-option [value]=9>9+</mat-option>
+      </mat-select>
+      <mat-error *ngIf="householdForm.get('familySize').hasError('required')">{{requiredError}}</mat-error>  
+    </mat-form-field>
+  </div>
+  <div>  
+    <mat-form-field>
+      <mat-label>School Aged Children</mat-label>
+      <mat-select matInput formControlName="schoolChildren" [value]="family.schoolChildren">
+        <mat-option [value]=0>0</mat-option>
+        <mat-option [value]=1>1</mat-option>
+        <mat-option [value]=2>2</mat-option>
+        <mat-option [value]=3>3</mat-option>
+        <mat-option [value]=4>4</mat-option>
+        <mat-option [value]=5>5</mat-option>
+        <mat-option [value]=6>6+</mat-option>
+      </mat-select>
+      <mat-error *ngIf="householdForm.get('schoolChildren').hasError('required')">{{requiredError}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>  
+    <mat-form-field>
+      <mat-label>Any Infants in the Family?</mat-label>
+      <mat-select matInput formControlName="infants" [value]="family.infants">
+        <mat-option [value]=true>Yes</mat-option>
+        <mat-option [value]=false>No</mat-option>
+      </mat-select>
+      <mat-error *ngIf="householdForm.get('infants').hasError('required')">{{requiredError}}</mat-error>  
+    </mat-form-field>  
+  </div>
+  <div class="button-div">
+    <button mat-raised-button (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button [disabled]="!householdForm.valid || !householdForm.dirty" (click)="onUpdateHouseholdClick()">Update and Shop</button>
+  </div>  
+</form>
+
+<form [formGroup]="pickUpForm" *ngIf="modal === 'pick-up'">
+  <div>
+    <mat-form-field>
+      <mat-label>Were you referred by CELC?</mat-label>
+      <mat-select matInput formControlName="referral" [value]="family.referral" (selectionChange)="setPickUpDateOptions($event.value)">
+        <mat-option [value]=true>Yes</mat-option>
+        <mat-option [value]=false>No</mat-option>
+      </mat-select>
+      <mat-error *ngIf="pickUpForm.get('referral').hasError('required')">{{requiredError}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Pick Up Dates:</mat-label>
+      <mat-select matInput formControlName="pickUpDate" [value]="pickUpDate">
+        <mat-option *ngFor="let pickUpDate of pickUpDateOptions" [value]="pickUpDate">{{pickUpDate}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="pickUpForm.get('pickUpDate').hasError('required')">This field is required.</mat-error>  
+    </mat-form-field>
+  </div>
+  <div class="button-div">
+    <button mat-raised-button (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button [disabled]="!pickUpForm.valid || !pickUpForm.dirty" (click)="onUpdatePickUpClick()">Update</button>
+  </div>
+</form>  

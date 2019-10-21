@@ -27,7 +27,7 @@ export class QuestionsModalComponent implements OnInit {
     this.setButtonContent();
   }
 
-  closeModal() {
+  onCloseClick() {
     this.dialogRef.close();
   }
 

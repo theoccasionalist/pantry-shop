@@ -1,42 +1,81 @@
 import { Injectable } from '@angular/core';
+import { first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PickUpDateService {
-  pickUpDate: string;
+  daysOfTheWeek = new Map([
+    [0, 'Sunday'],
+    [1, 'Monday'],
+    [2, 'Tuesday'],
+    [3, 'Wednesday'],
+    [4, 'Thursday'],
+    [5, 'Friday'],
+    [6, 'Saturday']
+  ]);
+  now = new Date();
   pickUpDateOptions: string[];
+
   constructor() { }
 
-  private formatDate(date: Date, weekDay: string) {
+  private formatDate(date: Date) {
+    const weekDay = this.daysOfTheWeek.get(date.getDay());
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    return weekDay + ': ' + month + '/' + day + '/' + year;
+    return weekDay + ' (' + month + '/' + day + '/' + year + ')';
   }
 
-  getPickUpDateOptions() {
-    this.pickUpDateOptions = [];
-    const today = new Date();
-    if (today.getDay() === 6) {
-      today.setDate(today.getDate() + 1);
-    }
-    for (let i = today.getDay(); i < 6; i++) {
-      let formattedDate: string;
-      if (i === 3 || i === 5) {
-        let weekDay: string;
-        i === 3 ? weekDay = 'Thursday' : weekDay = 'Saturday';
-        const difference = (i + 1) - today.getDay();
-        const pickUpDate = new Date();
-        pickUpDate.setDate(today.getDate() + difference);
-        formattedDate = this.formatDate(pickUpDate, weekDay);
-        this.pickUpDateOptions.push(formattedDate);
+  getPickUpDateOptions(referral: boolean) {
+    if (!referral) {
+      let secondThursday = this.findNthWeekdayOfMonth(4, 2, false);
+      let secondSaturday = this.findNthWeekdayOfMonth(6, 2, false);
+      if (this.now > secondThursday && this.now > secondSaturday) {
+        secondThursday = this.findNthWeekdayOfMonth(4, 2, true);
+        secondSaturday = this.findNthWeekdayOfMonth(6, 2, true);
       }
+      if (this.now < secondThursday && this.now > secondSaturday) {
+        this.orderAndPush(secondThursday);
+      } else if (this.now > secondThursday && this.now < secondSaturday) {
+        this.orderAndPush(secondSaturday);
+      } else {
+        this.orderAndPush(secondThursday, secondSaturday);
+      }
+    } else {
+      let thirdWednesday = this.findNthWeekdayOfMonth(3, 3, false);
+      if (this.now > thirdWednesday) {
+        thirdWednesday = this.findNthWeekdayOfMonth(3, 3, true);
+      }
+      this.orderAndPush(thirdWednesday);
     }
     return this.pickUpDateOptions;
   }
 
-  setPickUpDate(pickUpDate: string) {
-    this.pickUpDate = pickUpDate;
+  private findNthWeekdayOfMonth(weekday: number, n: number, nextMonth: boolean) {
+    let pickUpDate = new Date();
+    let firstOfTheMonth = new Date(this.now.getFullYear(), this.now.getMonth(), 1);
+    if (nextMonth) {
+      pickUpDate = new Date(this.now.getFullYear(), this.now.getMonth() + 1);
+      firstOfTheMonth = new Date(this.now.getFullYear(), this.now.getMonth() + 1, 1);
+    }
+    const add = (weekday - firstOfTheMonth.getDay() + 7) % 7 + (n - 1) * 7;
+    pickUpDate.setDate(1 + add);
+    return pickUpDate;
+  }
+
+  private orderAndPush(firstDay: Date, secondDay?: Date) {
+    this.pickUpDateOptions = [];
+    if (firstDay && secondDay) {
+      if (firstDay < secondDay) {
+        this.pickUpDateOptions.push(this.formatDate(firstDay));
+        this.pickUpDateOptions.push(this.formatDate(secondDay));
+      } else {
+        this.pickUpDateOptions.push(this.formatDate(secondDay));
+        this.pickUpDateOptions.push(this.formatDate(firstDay));
+      }
+    } else {
+      this.pickUpDateOptions.push(this.formatDate(firstDay));
+    }
   }
 }

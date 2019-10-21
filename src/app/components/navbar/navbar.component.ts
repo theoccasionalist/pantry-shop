@@ -13,10 +13,10 @@ export class NavbarComponent implements OnInit {
   buttonContent: string;
   currentPath: string;
   routesButtonMap = new Map([
-    ['family', 'Have Questions About Family Information?'],
-    ['pick-up', 'Have Questions about Pick Up?'],
-    ['shop', 'Have Questions About Shopping?'],
-    ['cart', 'Have Questions About the Cart?']
+    ['family', 'Form Help'],
+    ['pick-up', 'Pick Up Help'],
+    ['shop', 'Shop Help'],
+    ['cart', 'Order Help']
   ]);
   constructor(private activatedRoute: ActivatedRoute, public authService: AuthService, private dialog: MatDialog) {}
 

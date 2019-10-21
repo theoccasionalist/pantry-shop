@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
   MatInputModule, MatFormFieldModule, MatNativeDateModule, MatOptionModule,
-  MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatTableModule,
+  MatRadioModule, MatSelectModule, MatProgressSpinnerModule, MatSnackBarModule, MatStepperModule, MatIconModule, MatTableModule,
   MatToolbarModule} from '@angular/material';
 import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
@@ -21,8 +21,7 @@ import { CallbackComponent } from './components/callback/callback.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductTypeComponent } from './components/product-type/product-type.component';
 import { QuestionsModalComponent } from './components/questions-modal/questions-modal.component';
-import { BackToFamilyModalComponent } from './components/back-to-family-modal/back-to-family-modal.component';
-import { PickUpComponent } from './components/pick-up/pick-up.component';
+import { UpdateModalComponent } from './components/update-modal/update-modal.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +36,7 @@ import { PickUpComponent } from './components/pick-up/pick-up.component';
     ProductComponent,
     ProductTypeComponent,
     QuestionsModalComponent,
-    BackToFamilyModalComponent,
-    PickUpComponent
+    UpdateModalComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -51,6 +49,7 @@ import { PickUpComponent } from './components/pick-up/pick-up.component';
     MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
+    MatIconModule,
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
@@ -58,14 +57,16 @@ import { PickUpComponent } from './components/pick-up/pick-up.component';
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
+    MatSnackBarModule,
+    MatStepperModule,
     MatTableModule,
     MatToolbarModule,
     ReactiveFormsModule,
     ScrollingModule
   ],
   entryComponents: [
-    BackToFamilyModalComponent,
-    QuestionsModalComponent
+    QuestionsModalComponent,
+    UpdateModalComponent
   ],
   providers: [ViewportRuler],
   bootstrap: [AppComponent]

@@ -1,23 +1,13 @@
 <app-navbar></app-navbar>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
-<div class="flex-grid" *ngIf="!isLoading">                
+<div class="flex-grid">                
     
-    <summary class="family-container" id="left">
-        <mat-toolbar>Family Info</mat-toolbar>
-        <mat-card >
-            Family Name: 
-            <div>{{family.lastName}}</div>
-        </mat-card>
-        <mat-card> {{'Family Size: ' + family.familySize}}</mat-card>
-        <mat-card *ngIf="family.schoolChildren !== 0">{{'School Children: ' + family.schoolChildren}}</mat-card>
-        <mat-card *ngIf="family.infants">Infants: Included</mat-card>
-        <div id="family-button-container">
-            <button mat-raised-button id="family-button" (click)="onBackToFamilyClick()">Back to Family</button>
-        </div>
-    </summary>    
+    <aside class="aside-container">
+        <mat-toolbar>Choice Points</mat-toolbar>
+        <div id="points">{{ currentPoints + ' / ' + maxPoints}}</div>
+    </aside>    
     
-    <main id="middle">
-        <mat-toolbar>Click Below to Shop</mat-toolbar>
+    <main id="shop">
+        <mat-toolbar>Shop</mat-toolbar>
         <cdk-virtual-scroll-viewport  itemSize="">
             <ng-container *ngFor="let type of types" >
                 <app-product-type [family]="family" [subTypes]="subTypes" [type]="type"></app-product-type>
@@ -25,17 +15,11 @@
         </cdk-virtual-scroll-viewport>     
     </main>
 
-    <aside id="points-order-container">
-        <aside>
-            <mat-toolbar>Choice Points</mat-toolbar>
-            <mat-card id="points">{{ currentPoints + ' / ' + maxPoints}}</mat-card>
-        </aside>
-        <nav>
-            <mat-toolbar>Ready to Place Order?</mat-toolbar>
-            <mat-card id="cart-button-container">
-                <button mat-raised-button  (click)="onReviewCartClick()">Review Cart</button>
-            </mat-card>
-        </nav>
+    <aside class="aside-container">
+        <mat-toolbar>Ready to Order?</mat-toolbar>
+        <div id="review">
+            <button mat-raised-button  (click)="onReviewOrderClick()">Review Order</button>
+        </div>
     </aside>  
 
 </div>
