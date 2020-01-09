@@ -6,7 +6,6 @@ import { Family } from '../models/family.model';
   providedIn: 'root'
 })
 export class FamilyService {
-
   family: Family = {
     firstName: null,
     lastName: null,
@@ -16,7 +15,6 @@ export class FamilyService {
     schoolChildren: null,
     infants: null,
     referral: null,
-    pickUpDate: null
   };
 
   private familySource = new BehaviorSubject(this.family);
@@ -29,7 +27,17 @@ export class FamilyService {
   }
 
   resetFamily() {
-    this.familySource.next(this.family);
+    const defaultFamily: Family = {
+      firstName: null,
+      lastName: null,
+      zipCode: null,
+      phoneNumber: null,
+      familySize: null,
+      schoolChildren: null,
+      infants: null,
+      referral: null,
+    };
+    this.familySource.next(defaultFamily);
   }
 
   updateFamily(family: Family) {

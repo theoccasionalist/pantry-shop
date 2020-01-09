@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-submit-modal',
@@ -7,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubmitModalComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthService, public dialogRef: MatDialogRef<SubmitModalComponent>,
+              @Inject (MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   }
-
 }

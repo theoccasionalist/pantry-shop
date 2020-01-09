@@ -18,12 +18,12 @@
       }}
     </mat-card>
     <ng-container *ngFor="let productType of productTypes">
-      <ng-container *ngIf="productType.productId">
+      <ng-container *ngIf="productType.productName">
         <app-product (addOneTypeAmount)="updateTypeAmount($event)" [atTypeMaxAmount]="typeTracker.atTypeMaxAmount" 
         [family]="family" [product]="productType" [superType]="superType" [type]="type">
         </app-product>
       </ng-container>
-      <ng-container *ngIf="productType.typeId">    
+      <ng-container *ngIf="productType.typeName">    
         <app-product-type [family]="family" [superType]="superType" [type]="productType"></app-product-type>
       </ng-container>  
     </ng-container>       

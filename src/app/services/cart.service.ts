@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Cart } from '../models/cart.model';
+import { CartItemsByType } from '../models/cart-items-by-type.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  cart: Cart = {
-    cartItemsByType: []
-  };
+  cart: CartItemsByType[] = [];
 
   private cartSource = new BehaviorSubject(this.cart);
   currentCart = this.cartSource.asObservable();
 
   constructor() { }
 
-  getCart(): Observable<Cart> {
+  getCart(): Observable<CartItemsByType[]> {
     return this.currentCart;
   }
 
-  updateCart(cart: Cart): void {
+  resetCart() {
+    const defaultCart: CartItemsByType[] = [];
+    this.cartSource.next(defaultCart);
+  }
+
+  updateCart(cart: CartItemsByType[]): void {
     this.cartSource.next(cart);
   }
 }

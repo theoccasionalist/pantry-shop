@@ -1,7 +1,8 @@
 import { Type } from './type.model';
 
 export class Product {
-    productId: string;
+    // tslint:disable-next-line:variable-name
+    _id: string;
     productName: string;
     prodSizeAmount?: {
         minFamSize: number;

@@ -1,5 +1,6 @@
-<form [formGroup]="contactForm" *ngIf="modal === 'contact'"> 
+<form [formGroup]="contactForm" *ngIf="data.modal === 'contact'"> 
   <div>
+    <header><div>Update Contact Information</div></header>
     <mat-form-field>
       <mat-label>First Name</mat-label>
       <input matInput formControlName="firstName" [value]="family.firstName">
@@ -42,11 +43,16 @@
   </div>
 </form>
 
-<form [formGroup]="householdForm" *ngIf="modal === 'household'">
-  <div>  
+<form [formGroup]="householdForm" *ngIf="data.modal === 'household'">
+  <div>
+    <header><div>Update Household Information</div></header>
+    <div id="household-caution">
+      <span>Since household information determines shopping options, updating it will reset your cart and return you to the shopping screen.</span>
+    </div>
+    <br>  
     <mat-form-field>
       <mat-label>Family Size</mat-label>
-      <mat-select matInput formControlName="familySize" [value]="family.familySize">
+      <mat-select formControlName="familySize" [(value)]="family.familySize">
         <mat-option [value]=1>1</mat-option>
         <mat-option [value]=2>2</mat-option>
         <mat-option [value]=3>3</mat-option>
@@ -91,8 +97,9 @@
   </div>  
 </form>
 
-<form [formGroup]="pickUpForm" *ngIf="modal === 'pick-up'">
+<form [formGroup]="pickUpForm" *ngIf="data.modal === 'pick-up'">
   <div>
+    <header><div>Update Pick Up Information</div></header>
     <mat-form-field>
       <mat-label>Were you referred by CELC?</mat-label>
       <mat-select matInput formControlName="referral" [value]="family.referral" (selectionChange)="setPickUpDateOptions($event.value)">

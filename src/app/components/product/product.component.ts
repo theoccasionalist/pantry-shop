@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { PointService } from 'src/app/services/point.service';
-import { Cart } from 'src/app/models/cart.model';
 import { Family } from 'src/app/models/family.model';
 import { Product } from 'src/app/models/product.model';
 import { Type } from 'src/app/models/type.model';
+import { CartItemsByType } from 'src/app/models/cart-items-by-type.model';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +16,7 @@ export class ProductComponent implements OnInit {
   amountInCart: number;
   atMaxAmount: boolean;
   @Input() atTypeMaxAmount: boolean;
-  cart: Cart;
+  cart: CartItemsByType[];
   currentPoints: number;
   @Input() family: Family;
   inCart: boolean;
@@ -51,16 +51,16 @@ export class ProductComponent implements OnInit {
   }
 
   addProductToCart() {
-    let itemTypeId = this.type.typeId;
+    let itemTypeId = this.type._id;
     let itemTypeName = this.type.typeName;
     if (this.superType) {
       itemTypeId = this.superType.superTypeId;
       itemTypeName = this.superType.superTypeName;
     }
-    this.cart.cartItemsByType.some(itemsByType => itemTypeId === itemsByType.typeId) ?
-      this.getProductTypeInCart().items.push({productId: this.product.productId, productName: this.product.productName, amount: 1}) :
-      this.cart.cartItemsByType.push({typeId: itemTypeId, typeName: itemTypeName,
-        items: [{productId: this.product.productId, productName: this.product.productName, amount: 1}]});
+    this.cart.some(itemsByType => itemTypeId === itemsByType._id) ?
+      this.getProductTypeInCart().items.push({_id: this.product._id, productName: this.product.productName, amount: 1}) :
+      this.cart.push({_id: itemTypeId, typeName: itemTypeName,
+        items: [{_id: this.product._id, productName: this.product.productName, amount: 1}]});
   }
 
   addOne() {
@@ -91,14 +91,14 @@ export class ProductComponent implements OnInit {
 
   getProductInCart() {
     if (this.getProductTypeInCart()) {
-      return this.getProductTypeInCart().items.find(item => item.productId === this.product.productId);
+      return this.getProductTypeInCart().items.find(item => item._id === this.product._id);
     }
   }
 
   getProductTypeInCart() {
-    return this.type.typeId === this.superType.superTypeId ?
-      this.cart.cartItemsByType.find(cartItem => cartItem.typeId === this.type.typeId) :
-      this.cart.cartItemsByType.find(cartItem => cartItem.typeId === this.superType.superTypeId);
+    return this.type._id === this.superType.superTypeId ?
+      this.cart.find(cartItem => cartItem._id === this.type._id) :
+      this.cart.find(cartItem => cartItem._id === this.superType.superTypeId);
   }
 
   isPointDisabled() {
@@ -133,9 +133,9 @@ export class ProductComponent implements OnInit {
   }
 
   removeProductFromCart() {
-    this.getProductTypeInCart().items = this.getProductTypeInCart().items.filter(item => item.productId !== this.product.productId);
+    this.getProductTypeInCart().items = this.getProductTypeInCart().items.filter(item => item._id !== this.product._id);
     if (!this.getProductTypeInCart().items.length) {
-      this.cart.cartItemsByType = this.cart.cartItemsByType.filter(type => type.typeId !== this.getProductTypeInCart().typeId);
+      this.cart = this.cart.filter(type => type._id !== this.getProductTypeInCart()._id);
     }
   }
 

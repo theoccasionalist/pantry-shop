@@ -12,6 +12,11 @@ import createAuth0Client from '@auth0/auth0-spa-js';
 })
 export class AuthService {
   loggedIn: boolean = null;
+
+  logOutClick = false;
+  private logOutClickSource = new BehaviorSubject(this.logOutClick);
+  currentLogOutClick = this.logOutClickSource.asObservable();
+
   auth0Client = (from(createAuth0Client(authConfig)) as Observable<Auth0Client>).pipe(
     shareReplay(1),
     catchError(err => throwError(err))
@@ -70,5 +75,13 @@ export class AuthService {
         returnTo: `${window.location.origin}`
       });
     });
+  }
+
+  getLogOutClicked(): Observable<boolean> {
+    return this.currentLogOutClick;
+  }
+
+  logOutClicked() {
+    this.logOutClickSource.next(true);
   }
 }

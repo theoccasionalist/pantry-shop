@@ -1,0 +1,22 @@
+div {
+    display: flex;
+    justify-content: center;
+}
+#success {
+    font-size: x-large;
+    margin-bottom: 2%;
+}
+.mat-card {
+    background: #065777;
+    border: .5px black solid;
+}
+#log-out {
+    font-size: large;
+    margin: 2%;
+}
+.mat-raised-button {
+    background-color: #F6D936;
+    border: solid black .5px;
+    border-radius: 5px;
+    color: black;
+}

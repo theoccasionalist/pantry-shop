@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { TypeTrackerService } from './type-tracker.service';
 
-import { TypeService } from './type.service';
-
-describe('TypeService', () => {
+describe('TypeTrackerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TypeService = TestBed.get(TypeService);
+    const service: TypeTrackerService = TestBed.get(TypeTrackerService);
     expect(service).toBeTruthy();
   });
 });

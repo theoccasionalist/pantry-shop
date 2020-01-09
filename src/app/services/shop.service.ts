@@ -5,15 +5,15 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
-
+export class ShopService {
   uri = 'http://localhost:4000';
 
   constructor(private httpClient: HttpClient) {}
 
-  getProductsByTypes() {
-    return this.httpClient.get(`${this.uri}/products-by-types`).pipe(
-      map(result => result[0].productsByTypes)
+  getShop() {
+    return this.httpClient.get(`${this.uri}/shop`)
+    .pipe(
+      map(result => result[0].shop)
     );
   }
 }

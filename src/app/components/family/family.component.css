@@ -14,15 +14,16 @@
     justify-content: center;
     color: white;
 }
-#family-form {
-    /* justify-content: space-evenly;  */
-}
 .mat-card {
     border: solid black 1px;
     border-radius: 5px;
     /* border-top-left-radius: 0px;
     border-top-right-radius: 0px; */
     border-top: none;
+}
+#intro-card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 #family-form .mat-card {
     /* background: #46a8d0; */
@@ -39,6 +40,7 @@
 .button-space {
     display: flex;
     justify-content: space-between;
+    margin-top: 3%;
 }
 .mat-error {
     color: black;
