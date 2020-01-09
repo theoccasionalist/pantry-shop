@@ -8,5 +8,4 @@ export class Family {
     schoolChildren: number;
     infants: boolean;
     referral: boolean;
-    pickUpDate: string;
 }

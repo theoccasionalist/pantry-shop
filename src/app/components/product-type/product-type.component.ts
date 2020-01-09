@@ -3,7 +3,7 @@ import { Family } from 'src/app/models/family.model';
 import { Product } from 'src/app/models/product.model';
 import { Type } from 'src/app/models/type.model';
 import { TypeTracker } from 'src/app/models/type-tracker.model';
-import { TypeService } from 'src/app/services/type.service';
+import { TypeTrackerService } from 'src/app/services/type-tracker.service';
 
 @Component({
   selector: 'app-product-type',
@@ -23,12 +23,12 @@ export class ProductTypeComponent implements OnInit {
   @Input() type: Type;
   typeMaxAmount: number = null;
   typeTracker: TypeTracker = {
-    typeId: null,
+    _id: null,
     atTypeMaxAmount: null,
     typeAmountInCart: null
   };
 
-  constructor(private typeService: TypeService) { }
+  constructor(private typeTrackerService: TypeTrackerService) { }
 
   ngOnInit() {
     this.schoolIncluded = this.family.schoolChildren > 0;
@@ -39,7 +39,7 @@ export class ProductTypeComponent implements OnInit {
     this.setProductTypes();
     this.setTypeMaxAmount();
     this.sortProductTypesByName();
-    this.typeService.getTypeTracker().subscribe(typeTrackers => {
+    this.typeTrackerService.getTypeTracker().subscribe(typeTrackers => {
       this.setTypeTracker(typeTrackers);
     });
   }
@@ -74,7 +74,7 @@ export class ProductTypeComponent implements OnInit {
       }
     });
     if (this.subTypes) {
-      this.subTypes = this.subTypes.filter(subType => subType.superTypeId === this.type.typeId);
+      this.subTypes = this.subTypes.filter(subType => subType.superTypeId === this.type._id);
     }
     this.subTypes ? this.productTypes = [...this.products, ...this.subTypes] : this.productTypes = this.products;
   }
@@ -89,7 +89,7 @@ export class ProductTypeComponent implements OnInit {
 
   setSuperType() {
     if (this.subTypes) {
-      this.superType = {superTypeId: this.type.typeId, superTypeName: this.type.typeName};
+      this.superType = {superTypeId: this.type._id, superTypeName: this.type.typeName};
     }
   }
 
@@ -109,15 +109,15 @@ export class ProductTypeComponent implements OnInit {
 
   setTypeTracker(typeTrackers: TypeTracker[]) {
     if (this.type.typeSizeAmount) {
-      typeTrackers.some(typeTracker => typeTracker.typeId === this.type.typeId) ?
-        this.typeTracker = typeTrackers.find(typeTracker => typeTracker.typeId === this.type.typeId) :
-        this.typeTracker = {typeId: this.type.typeId, atTypeMaxAmount: false, typeAmountInCart: 0};
+      typeTrackers.some(typeTracker => typeTracker._id === this.type._id) ?
+        this.typeTracker = typeTrackers.find(typeTracker => typeTracker._id === this.type._id) :
+        this.typeTracker = {_id: this.type._id, atTypeMaxAmount: false, typeAmountInCart: 0};
     }
   }
 
   sortProductTypesByName() {
     this.productTypes.sort((before, after) => {
-      return before.typeId ?
+      return before._id ?
         before.typeName > after.productName || before.productName > before.typeName ? 1 : -1
       :
         before.productName > after.productName ? 1 : -1;
@@ -132,6 +132,6 @@ export class ProductTypeComponent implements OnInit {
       this.typeTracker.typeAmountInCart--;
     }
     this.typeTracker.atTypeMaxAmount = this.typeTracker.typeAmountInCart === this.typeMaxAmount;
-    this.typeService.updateTypeTracker(this.typeTracker);
+    this.typeTrackerService.updateTypeTracker(this.typeTracker);
   }
 }

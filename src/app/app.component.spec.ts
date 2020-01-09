@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
 import {MatCardModule, MatExpansionModule, MatRadioModule} from '@angular/material';
-import { BulkProductComponent } from './components/bulk-product/bulk-product.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -24,7 +23,6 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        BulkProductComponent
       ],
     }).compileComponents();
   }));

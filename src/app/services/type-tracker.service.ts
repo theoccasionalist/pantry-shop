@@ -5,7 +5,7 @@ import { TypeTracker } from '../models/type-tracker.model';
 @Injectable({
   providedIn: 'root'
 })
-export class TypeService {
+export class TypeTrackerService {
 
   constructor() { }
 
@@ -19,12 +19,12 @@ export class TypeService {
   }
 
   resetTypeTracker(): void {
-    this.typeTrackers = [];
-    this.typeTrackerSource.next(this.typeTrackers);
+    const defaultTypeTrackers: TypeTracker[] = [];
+    this.typeTrackerSource.next(defaultTypeTrackers);
   }
 
   updateTypeTracker(componentTracker: TypeTracker): void {
-    this.typeTrackers = this.typeTrackers.filter(typeTracker => typeTracker.typeId !== componentTracker.typeId);
+    this.typeTrackers = this.typeTrackers.filter(typeTracker => typeTracker._id !== componentTracker._id);
     this.typeTrackers.push(componentTracker);
     this.typeTrackerSource.next(this.typeTrackers);
   }

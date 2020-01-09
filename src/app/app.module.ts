@@ -65,6 +65,7 @@ import { UpdateModalComponent } from './components/update-modal/update-modal.com
     ScrollingModule
   ],
   entryComponents: [
+    SubmitModalComponent,
     QuestionsModalComponent,
     UpdateModalComponent
   ],

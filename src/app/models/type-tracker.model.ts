@@ -1,5 +1,6 @@
 export class TypeTracker {
-    typeId: string;
+    // tslint:disable-next-line:variable-name
+    _id: string;
     atTypeMaxAmount: boolean;
     typeAmountInCart: number;
 }

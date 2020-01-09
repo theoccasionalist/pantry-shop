@@ -2,6 +2,9 @@
 body {
   background-image: url(./assets/images/diagonal_waves.png);
 }
+.dark-back-drop {
+  background: rgba(0,0,0,.95);
+}
 .mat-content {
   justify-content: space-between;
 }

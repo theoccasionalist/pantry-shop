@@ -18,11 +18,16 @@ export class NavbarComponent implements OnInit {
     ['shop', 'Shop Help'],
     ['cart', 'Order Help']
   ]);
-  constructor(private activatedRoute: ActivatedRoute, public authService: AuthService, private dialog: MatDialog) {}
+  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.activatedRoute.url.subscribe(currentPath => this.currentPath = currentPath[0].path);
     this.setButtonContent();
+  }
+
+  onLogOutClick() {
+    this.authService.logOutClicked();
+    this.authService.logout();
   }
 
   openQuestionsModal() {

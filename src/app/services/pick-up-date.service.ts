@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,10 @@ export class PickUpDateService {
   now = new Date();
   pickUpDateOptions: string[];
 
+  pickUpDate: string = null;
+  private pickUpDateSource = new BehaviorSubject(this.pickUpDate);
+  currentPickUpDate = this.pickUpDateSource.asObservable();
+
   constructor() { }
 
   private formatDate(date: Date) {
@@ -25,6 +29,10 @@ export class PickUpDateService {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return weekDay + ' (' + month + '/' + day + '/' + year + ')';
+  }
+
+  getPickUpDate(): Observable<string> {
+    return this.currentPickUpDate;
   }
 
   getPickUpDateOptions(referral: boolean) {
@@ -77,5 +85,14 @@ export class PickUpDateService {
     } else {
       this.pickUpDateOptions.push(this.formatDate(firstDay));
     }
+  }
+
+  resetPickUpDate() {
+    const defaultPickUpDate: string = null;
+    this.pickUpDateSource.next(defaultPickUpDate);
+  }
+
+  updatePickUpDate(pickUpDate: string) {
+    this.pickUpDateSource.next(pickUpDate);
   }
 }
