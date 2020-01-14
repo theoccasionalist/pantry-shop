@@ -8,6 +8,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { FamilyGuard } from './guards/family.guard';
 import { LoginComponent } from './components/login/login.component';
 import { NoFamilyGuard } from './guards/no-family.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './services/interceptor.service';
 
 const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
@@ -22,6 +24,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ]
 })
 export class AppRoutingModule {}

@@ -1,4 +1,4 @@
-<ng-container *ngIf="!onlySchoolProducts || schoolIncluded"> 
+<ng-container *ngIf="(!onlySchoolProducts || schoolIncluded) && (!onlyInfantProducts || infantsIncluded)"> 
   <mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState" [ngClass]="{'sub-type' : subType}">
     <mat-expansion-panel-header>
       <mat-panel-title>

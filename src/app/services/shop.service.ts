@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class ShopService {
   getShop() {
     return this.httpClient.get(`${this.uri}/shop`)
     .pipe(
+      tap(result => console.log(result)),
       map(result => result[0].shop)
     );
   }
