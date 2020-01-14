@@ -12,6 +12,8 @@ import { TypeTrackerService } from 'src/app/services/type-tracker.service';
 })
 export class ProductTypeComponent implements OnInit {
   @Input() family: Family;
+  infantsIncluded: boolean;
+  onlyInfantProducts: boolean;
   onlySchoolProducts: boolean;
   panelOpenState = false;
   products: Product[] = [];
@@ -31,7 +33,9 @@ export class ProductTypeComponent implements OnInit {
   constructor(private typeTrackerService: TypeTrackerService) { }
 
   ngOnInit() {
+    this.infantsIncluded = this.family.infants ? true : false;
     this.schoolIncluded = this.family.schoolChildren > 0;
+    this.setOnlyInfantProducts();
     this.setOnlySchoolProducts();
     this.setSubType();
     this.setSubTypePanelOpen();
@@ -46,6 +50,16 @@ export class ProductTypeComponent implements OnInit {
 
   closePanel() {
     this.panelOpenState = false;
+  }
+
+  setOnlyInfantProducts() {
+    let counter = 0;
+    this.type.products.forEach(product => {
+      if (product.infant) {
+        counter ++;
+      }
+    });
+    this.onlyInfantProducts = counter === this.type.products.length;
   }
 
   setOnlySchoolProducts() {

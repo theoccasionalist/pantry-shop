@@ -31,6 +31,12 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
+  getTokenSilently$(options?): Observable<string> {
+    return this.auth0Client.pipe(
+      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
+    );
+  }
+
   localAuthSetup() {
     const checkAuth = this.isAuthenticated.pipe(
       concatMap((loggedIn: boolean) => {
