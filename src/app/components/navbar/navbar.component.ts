@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { QuestionsModalComponent } from '../questions-modal/questions-modal.component';
 
 @Component({
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
     ['shop', 'Shop Help'],
     ['cart', 'Order Help']
   ]);
-  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService, private dialog: MatDialog) {}
+  constructor(private activatedRoute: ActivatedRoute, public authService: AuthService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.activatedRoute.url.subscribe(currentPath => this.currentPath = currentPath[0].path);

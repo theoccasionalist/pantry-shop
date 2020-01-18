@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
 import { HttpClient } from '@angular/common/http';
 import { CartItemsByType } from 'src/app/models/cart-items-by-type.model';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 import { PickUpDateService } from 'src/app/services/pick-up-date.service';
 import { SubmitModalComponent } from '../submit-modal/submit-modal.component';
@@ -23,7 +24,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CartComponent implements OnInit {
   cart: CartItemsByType[];
-  cartDetailsPanelOpenState = false;
+  cartPanelOpenState = false;
   cartTypes: any[] = [];
   columns: string[] = ['column1', 'column2'];
   contactPanelOpenState = false;

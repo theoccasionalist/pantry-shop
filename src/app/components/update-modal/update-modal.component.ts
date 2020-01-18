@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FamilyService } from 'src/app/services/family.service';
-import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PointService } from 'src/app/services/point.service';
 import { CartService } from 'src/app/services/cart.service';
 import { TypeTrackerService } from 'src/app/services/type-tracker.service';
