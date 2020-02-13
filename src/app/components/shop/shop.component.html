@@ -1,19 +1,21 @@
 <app-navbar></app-navbar>
-<div class="flex-grid">                
-    <aside class="aside-container">
-        <mat-toolbar>Choice Points</mat-toolbar>
-        <div id="points">{{ currentPoints + ' / ' + maxPoints}}</div>
-    </aside>    
+<div class="top-grid">                
     <main id="shop">
-        <mat-toolbar>Shop</mat-toolbar>
+        <mat-toolbar>Welcome to our Shop</mat-toolbar>
         <cdk-virtual-scroll-viewport  itemSize="">
-            <ng-container *ngFor="let type of types" >
-                <app-product-type [family]="family" [subTypes]="subTypes" [type]="type"></app-product-type>
+            <ng-container *ngFor="let type of types">
+                <app-type *ngIf="nonLimitedTypes.includes(type)" 
+                    [allSubTypes]="allSubTypes" [cart]="cart" [family]="family" [type]="type">
+                </app-type>
+                <app-limited-type *ngIf="limitedTypes.includes(type)" 
+                    [allSubTypes]="allSubTypes" [cart]="cart" [family]="family" [type]="type">
+                </app-limited-type>
+                <!-- <app-product-type [family]="family" [subTypes]="subTypes" [type]="type"></app-product-type> -->
             </ng-container>
         </cdk-virtual-scroll-viewport>     
     </main>
     <aside class="aside-container">
-        <mat-toolbar>Ready to Order?</mat-toolbar>
+        <mat-toolbar>Ready to Review?</mat-toolbar>
         <div id="review">
             <button mat-raised-button  (click)="onReviewOrderClick()">Review Order</button>
         </div>

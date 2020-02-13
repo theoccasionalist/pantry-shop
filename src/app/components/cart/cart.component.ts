@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Family } from '../../models/family.model';
 import { FamilyService } from '../../services/family.service';
@@ -31,6 +31,7 @@ export class CartComponent implements OnInit {
   family: Family;
   householdPanelOpenState = false;
   logOutClicked: boolean;
+  MODAL_WIDTH = '35rem';
   orderReceived = false;
   pickUpDate: string;
   pickUpPanelOpenState = false;
@@ -68,7 +69,7 @@ export class CartComponent implements OnInit {
     this.pickUpDateService.resetPickUpDate();
     this.pointService.setMaxPoints(0);
     this.pointService.updatePoints(0);
-    this.typeTrackerService.resetTypeTracker();
+    this.typeTrackerService.resetTypeTrackers();
   }
 
   private createOrder() {
@@ -83,7 +84,7 @@ export class CartComponent implements OnInit {
   private sortCart() {
     this.cart.sort((before, after) => before.typeName.trim().toLowerCase() > after.typeName.trim().toLowerCase() ? 1 : -1);
     this.cart.forEach(type => {
-      type.items.sort((before, after) => before.productName.trim().toLowerCase() > after.productName.trim().toLowerCase() ? 1 : -1);
+      type.products.sort((before, after) => before.productName.trim().toLowerCase() > after.productName.trim().toLowerCase() ? 1 : -1);
     });
   }
 
@@ -98,7 +99,7 @@ export class CartComponent implements OnInit {
         let dialogWidth;
         this.family.referral ? dialogWidth = '37rem' : dialogWidth = '45rem';
         this.dialog.open(SubmitModalComponent, {
-          backdropClass: 'dark-back-drop',
+          backdropClass: 'darkest-back-drop',
           width: dialogWidth,
           disableClose: true,
           data: {
@@ -109,10 +110,16 @@ export class CartComponent implements OnInit {
         this.clearSession();
       } else {
         if (this.submitErrorCount < 4) {
-          this.snackBar.open('Submission failed. Please try again', 'Dismiss');
+          this.snackBar.open('Submission failed. Please try again', 'Dismiss', {
+            duration: 2000,
+            panelClass: ['red-snackbar']
+          });
           this.submitErrorCount++;
         } else {
-          this.snackBar.open('Terminal Error.', 'Dismiss');
+          this.snackBar.open('Terminal Error.', 'Dismiss', {
+            duration: 2000,
+            panelClass: ['red-snackbar']
+          });
           this.router.navigate([`/`]);
         }
       }
@@ -121,35 +128,38 @@ export class CartComponent implements OnInit {
 
   openUpdateContactModal() {
     this.dialog.open(UpdateModalComponent, {
-      width: '34rem',
-      disableClose: true,
+      backdropClass: 'darker-back-drop',
       data: {
         modal: 'contact',
         family: this.family
-      }
+      },
+      disableClose: true,
+      width: this.MODAL_WIDTH
     });
   }
 
   openUpdateHouseholdModal() {
     this.dialog.open(UpdateModalComponent, {
-      width: '34rem',
-      disableClose: true,
+      backdropClass: 'darker-back-drop',
       data: {
         modal: 'household',
         family: this.family
-      }
+      },
+      disableClose: true,
+      width: this.MODAL_WIDTH
     });
   }
 
   openUpdatePickUpModal() {
     this.dialog.open(UpdateModalComponent, {
-      width: '34rem',
-      disableClose: true,
+      backdropClass: 'darker-back-drop',
       data: {
         modal: 'pick-up',
         family: this.family,
         pickUpDate: this.pickUpDate
-      }
+      },
+      disableClose: true,
+      width: this.MODAL_WIDTH
     });
   }
 

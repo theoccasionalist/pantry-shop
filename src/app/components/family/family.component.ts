@@ -12,11 +12,15 @@ import { CartItemsByType } from 'src/app/models/cart-items-by-type.model';
 import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-family',
   templateUrl: './family.component.html',
-  styleUrls: ['./family.component.css']
+  styleUrls: ['./family.component.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 })
 export class FamilyComponent implements OnInit {
   cart: CartItemsByType[];
@@ -55,7 +59,7 @@ export class FamilyComponent implements OnInit {
     this.pickUpDateService.resetPickUpDate();
     this.pointService.setMaxPoints(0);
     this.pointService.updatePoints(0);
-    this.typeTrackerService.resetTypeTracker();
+    this.typeTrackerService.resetTypeTrackers();
     forkJoin(
       this.authService.getLogOutClicked().pipe(
         tap((logOutClicked: boolean) => this.logOutClicked = logOutClicked)

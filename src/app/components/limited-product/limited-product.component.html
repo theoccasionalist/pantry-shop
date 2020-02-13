@@ -1,0 +1,34 @@
+
+<mat-card>
+    <div class="product-name">{{product.productName}}</div>
+    <div class=icon-button-container>
+        <div>
+            <div class="info-container">
+                <div class="icon-container">
+                    <mat-icon class="icon-badge" [matBadge]="limit">add_box</mat-icon>
+                    <div>Limit</div>
+                </div>
+                <div *ngIf="points" class="icon-container">
+                    <mat-icon class="icon-badge" [matBadge]="points">attach_money</mat-icon>
+                    <div>Points</div>
+                </div>
+            </div>
+        </div>
+        <div></div>
+        <div class=amount-button-container>
+            <div class="icon-container">
+                <mat-icon class="badge-cart" [matBadge]="amountInCart">shopping_cart</mat-icon>
+                <div>Amount in Cart</div>
+            </div>
+            <span class="button-container">
+                <button mat-raised-button (click)="subtractOneProduct()" [disabled]="!inCart">-</button>
+                <button mat-raised-button (click)="addOneProduct()" [disabled]="addBtnDisabled">+</button>
+            </span>
+        </div>
+    </div>     
+</mat-card>
+<!-- <div class="limit-reached-container">
+    <span *ngIf="!isProductUnderLimit()" class="limit-info-sub" [style.background-color]="'red'">Limit Reached</span>
+    <span></span>
+    <span *ngIf="currentPoints === 0" class="limit-info-sub" [style.background-color]="currentPoints === 0 ? 'red' : 'dodgerblue'">No Points Remaining</span>
+</div>        -->

@@ -1,29 +1,27 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Family } from 'src/app/models/family.model';
-import { FamilyService } from 'src/app/services/family.service';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-questions-modal',
   templateUrl: './questions-modal.component.html',
-  styleUrls: ['./questions-modal.component.css']
+  styleUrls: ['./questions-modal.component.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 })
 export class QuestionsModalComponent implements OnInit {
   buttonContent: string;
-  family: Family;
-  referral: boolean;
   routesButtonMap = new Map([
-    ['family', 'Return to Family Information'],
-    ['pick-up', 'Return to Pick Up'],
+    ['family', 'Return to Form'],
     ['shop', 'Return to Shopping'],
-    ['cart', 'Return to Cart Overview']
+    ['order', 'Return to Order Overview']
   ]);
 
   constructor(public dialogRef: MatDialogRef<QuestionsModalComponent>,
-              @Inject (MAT_DIALOG_DATA) public currentPath: string, private familyService: FamilyService) { }
+              @Inject (MAT_DIALOG_DATA) public currentPath: string) { }
 
   ngOnInit() {
-    this.familyService.getFamily().subscribe(family => this.referral = family.referral);
     this.setButtonContent();
   }
 

@@ -11,6 +11,7 @@ import { TypeTrackerService } from 'src/app/services/type-tracker.service';
   styleUrls: ['./product-type.component.css']
 })
 export class ProductTypeComponent implements OnInit {
+  atTypeMaxAmount: boolean;
   @Input() family: Family;
   infantsIncluded: boolean;
   onlyInfantProducts: boolean;
@@ -23,12 +24,8 @@ export class ProductTypeComponent implements OnInit {
   @Input() subTypes: Type[];
   @Input() superType: {superTypeId: string, superTypeName: string};
   @Input() type: Type;
-  typeMaxAmount: number = null;
-  typeTracker: TypeTracker = {
-    _id: null,
-    atTypeMaxAmount: null,
-    typeAmountInCart: null
-  };
+  typeMaxAmount: number;
+  typeTracker: TypeTracker;
 
   constructor(private typeTrackerService: TypeTrackerService) { }
 
@@ -43,13 +40,18 @@ export class ProductTypeComponent implements OnInit {
     this.setProductTypes();
     this.setTypeMaxAmount();
     this.sortProductTypesByName();
-    this.typeTrackerService.getTypeTracker().subscribe(typeTrackers => {
-      this.setTypeTracker(typeTrackers);
+    this.typeTrackerService.getTypeTrackers().subscribe(typeTrackers => {
+      console.log(typeTrackers);
+      // this.setTypeTracker(typeTrackers);
     });
   }
 
   closePanel() {
     this.panelOpenState = false;
+  }
+
+  setAtTypeMaxAmount() {
+    this.typeTracker ? this.atTypeMaxAmount = this.typeTracker.atTypeMaxAmount : this.atTypeMaxAmount = false;
   }
 
   setOnlyInfantProducts() {
@@ -121,31 +123,39 @@ export class ProductTypeComponent implements OnInit {
     });
   }
 
-  setTypeTracker(typeTrackers: TypeTracker[]) {
-    if (this.type.typeSizeAmount) {
-      typeTrackers.some(typeTracker => typeTracker._id === this.type._id) ?
-        this.typeTracker = typeTrackers.find(typeTracker => typeTracker._id === this.type._id) :
-        this.typeTracker = {_id: this.type._id, atTypeMaxAmount: false, typeAmountInCart: 0};
-    }
-  }
+  // setTypeTracker(typeTrackers: TypeTracker[]) {
+  //   if (this.type.typeSizeAmount) {
+  //     this.typeTracker ?
+  //       this.typeTracker = typeTrackers.find(typeTracker => typeTracker._id === this.type._id) :
+  //       this.typeTracker = {_id: this.type._id, atTypeMaxAmount: false, typeAmountInCart: 0};
+  //     typeTrackers.some(typeTracker => typeTracker._id === this.type._id) ?
+  //       this.typeTracker = typeTrackers.find(typeTracker => typeTracker._id === this.type._id) :
+  //       this.typeTracker = {_id: this.type._id, atTypeMaxAmount: false, typeAmountInCart: 0};
+  //   }
+  //   console.log(this.typeTracker);
+  // }
 
   sortProductTypesByName() {
     this.productTypes.sort((before, after) => {
-      return before._id ?
-        before.typeName > after.productName || before.productName > before.typeName ? 1 : -1
+      return before.typeName ?
+        before.typeName > after.productName || before.productName > before.typeName
+        || before.typeName > after.typeName ? 1 : -1
       :
         before.productName > after.productName ? 1 : -1;
     });
   }
 
   updateTypeAmount(addOne: boolean) {
-    if (!this.typeTracker.atTypeMaxAmount && addOne) {
-      this.typeTracker.typeAmountInCart++;
+    if (this.typeTracker) {
+      if (!this.typeTracker.atTypeMaxAmount && addOne) {
+        this.typeTracker.typeAmountInCart++;
+      }
+      if (this.typeTracker.typeAmountInCart !== 0 && !addOne) {
+        this.typeTracker.typeAmountInCart--;
+      }
+      this.typeTracker.atTypeMaxAmount = this.typeTracker.typeAmountInCart === this.typeMaxAmount;
+      this.atTypeMaxAmount = this.typeTracker.atTypeMaxAmount;
+      this.typeTrackerService.updateTypeTrackers(this.typeTracker);
     }
-    if (this.typeTracker.typeAmountInCart !== 0 && !addOne) {
-      this.typeTracker.typeAmountInCart--;
-    }
-    this.typeTracker.atTypeMaxAmount = this.typeTracker.typeAmountInCart === this.typeMaxAmount;
-    this.typeTrackerService.updateTypeTracker(this.typeTracker);
   }
 }

@@ -1,9 +1,9 @@
 export class CartItemsByType {
     // tslint:disable-next-line:variable-name
-    _id: string;
+    typeId: string;
     typeName: string;
-    items: {
-        _id: string;
+    products: {
+        productId: string;
         productName: string;
         amount: number;
     }[];

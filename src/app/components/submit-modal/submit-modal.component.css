@@ -1,4 +1,17 @@
-div {
+#top-container {
+    background-color: #46a8d0;
+}
+.mat-toolbar {
+    background-color: #065777;
+    border: solid black 1px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    font-size: large;
+    justify-content: center;
+    margin-bottom: 2%;
+}
+#buttons {
     display: flex;
     justify-content: center;
 }
@@ -6,17 +19,21 @@ div {
     font-size: x-large;
     margin-bottom: 2%;
 }
-.mat-card {
-    background: #065777;
-    border: .5px black solid;
+.smile {
+    font-size: 3rem;
+    margin-left: -14.5rem;
+    margin-top: -.7rem;
+    position: fixed;
 }
-#log-out {
-    font-size: large;
-    margin: 2%;
+.location-message {
+    background: #D47B28;
+    border: 1px black solid;
+    border-radius: 5px;
 }
 .mat-raised-button {
     background-color: #F6D936;
     border: solid black .5px;
     border-radius: 5px;
     color: black;
+    margin-top: 3%;
 }

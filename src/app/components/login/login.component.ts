@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { AuthService } from 'src/app/services/auth.service';
+import { FamilyService } from 'src/app/services/family.service';
+import { MatDialog } from '@angular/material/dialog';
+import { IntroModalComponent } from '../intro-modal/intro-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +12,17 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private dialog: MatDialog, private familyService: FamilyService, private router: Router) { }
 
   ngOnInit() {
+    this.familyService.resetFamily();
+  }
+
+  openIntroModal() {
+    this.dialog.open(IntroModalComponent, {
+      backdropClass: 'darker-back-drop',
+      width: '35rem',
+    });
   }
 
   toFamily() {

@@ -15,9 +15,9 @@ const routes: Routes = [
   {path: 'callback', component: CallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'family', component: FamilyComponent, canActivate: [AuthGuard, NoFamilyGuard]},
-  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard, FamilyGuard]},
-  // {path: 'shop', component: ShopComponent, canActivate: [AuthGuard]},
-  {path: 'cart', component: CartComponent, canActivate: [AuthGuard, FamilyGuard]},
+  // {path: 'shop', component: ShopComponent, canActivate: [AuthGuard, FamilyGuard]},
+  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard]},
+  {path: 'order', component: CartComponent, canActivate: [AuthGuard, FamilyGuard]},
   // {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];

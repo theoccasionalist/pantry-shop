@@ -1,7 +1,5 @@
 .mat-expansion-panel {
-  /* background: #603A17; */
-  /* background: #d47b28; */
-  background: #71a040;
+  background:  #603A17;
   margin: 2%;
   border: solid black 1px;
 } 
@@ -16,14 +14,16 @@
 }
 .sub-type {
   background: #71A040;
-  margin: 0;
+  margin-left: 0;
   width: 100%;
 }
 .max-amount {
-  background:  #71A040;
+  background:  #D47B28;
   border: solid black 1px;
+  color: black;
 }
 .sub-type-max-amount {
-  background: #603A17;
+  background: #D47B28;
   border: solid black 1px;
+  color:black;
 }

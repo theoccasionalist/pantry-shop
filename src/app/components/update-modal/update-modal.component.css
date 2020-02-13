@@ -1,3 +1,7 @@
+form {
+    background-color: #46a8d0;
+    padding: 1rem;
+}
 .mat-raised-button {
     background-color: #F6D936;
     border: solid black .5px;
@@ -14,11 +18,25 @@ header {
     justify-content: center;
     margin-bottom: 2%;
 }
+.mat-toolbar {
+    background-color: #065777;
+    border: solid black 1px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    font-size: large;
+    justify-content: center;
+    margin-bottom: 2%;
+}
 #household-caution {
-    background: #a93610;
+    background: #A71E2A;
     border: 1px black solid;
     border-radius: 5px;
+    color: white;
     display: flex;
     flex-direction: column;
     padding: 2%;
+}
+.mat-error {
+    color: black;
 }

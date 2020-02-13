@@ -1,0 +1,54 @@
+<!-- <div class="product-name">
+    
+    <div *ngIf="!atTypeLimit" class="type-limit-container">
+        <div>{{typeName + ' Limit: ' + typeLimit}}</div>
+     
+    </div>
+    <div *ngIf="atTypeLimit" class="type-limit-container">
+        <div>Limit Reached</div>
+
+    </div>
+</div> -->
+<!-- <div class="type-container">
+    <div class="type-name">{{typeName}}</div>
+    <div class="type-limit">{{'Limit ' + typeLimit}}</div>
+</div> -->
+<mat-expansion-panel>
+    <mat-expansion-panel-header>{{typeName}}</mat-expansion-panel-header>
+    <div class="type-info"><div>Limit:</div><div>{{typeLimit}}</div></div>
+    <div class="type-info"><div>In Cart:</div><div>{{typeAmountInCart}}</div></div>
+</mat-expansion-panel>
+ <mat-card>
+    <div class="product-name">{{product.productName}}</div>
+    <div class=icon-button-container>
+        <div>
+            <div class="info-container">
+
+                <div *ngIf="limit" class="icon-container">
+                    <mat-icon class="icon-badge" [matBadge]="limit">add_box</mat-icon>
+                    <div>Limit</div>
+                </div>
+                <div *ngIf="points" class="icon-container">
+                    <mat-icon class="icon-badge" [matBadge]="points">attach_money</mat-icon>
+                    <div>Points</div>
+                </div>
+            </div>
+        </div>
+        <div></div>
+        <div class=amount-button-container>
+            <div class="icon-container">
+                <mat-icon class="badge-cart" [matBadge]="amountInCart">shopping_cart</mat-icon>
+                <div>Amount in Cart</div>
+            </div>
+            <span class="button-container">
+                <button mat-raised-button (click)="subtractOneTypeLimitProduct()" [disabled]="!inCart">-</button>
+                <button mat-raised-button (click)="addOneTypeLimitProduct()" [disabled]="addBtnDisabled">+</button>
+            </span>
+        </div>
+    </div>
+</mat-card>   
+<!-- <div class="type-info-container">
+    <span class="type-info-sub" [style.background-color]="atTypeLimit ? 'red' : 'dodgerblue'">{{typeName + ' Limit: ' + typeLimit}}</span>
+    <span></span>
+    <span class="type-info-sub" [style.background-color]="atTypeLimit ? 'red' : 'dodgerblue'">{{typeName + ' in Cart: ' + typeAmountInCart}}</span>
+</div>   -->

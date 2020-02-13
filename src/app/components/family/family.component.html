@@ -1,15 +1,8 @@
 <app-navbar></app-navbar>
 <div class="flex-grid">
-  <div>
-    <mat-toolbar>Let's get started!</mat-toolbar>  
-    <mat-card id="intro-card">Some content here.  Do we still need the form help button?</mat-card>
-  </div>
   <mat-card id="family-form">
     <mat-horizontal-stepper linear labelPosition="bottom">
-      <ng-template matStepperIcon="edit">
-        <mat-icon>done</mat-icon>
-      </ng-template>
-      <mat-step [formGroup]="contactForm" [completed]="contactForm.status === 'VALID'">
+      <mat-step [formGroup]="contactForm" state="contact" [completed]="contactForm.status === 'VALID'">
       <ng-template matStepLabel>Contact Information</ng-template>  
         <div>  
           <mat-form-field>
@@ -41,19 +34,19 @@
           <mat-error *ngIf="contactForm.get('phoneNumber').hasError('required')">{{requiredError}}</mat-error>
           </mat-form-field>
         </div>
-        <div>  
+        <!-- <div>  
           <mat-form-field>
             <mat-label>Email Address (optional)</mat-label>
             <input matInput formControlName="emailAddress">
             <mat-error *ngIf="contactForm.get('emailAddress').hasError('email')">Email address must include the @ symbol.</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <div class="button-space">
           <div></div>
           <button mat-raised-button matStepperNext [disabled]="!contactForm.valid">Next</button>
         </div>
         </mat-step>
-        <mat-step [formGroup]="householdForm" [completed]="householdForm.status === 'VALID'">  
+        <mat-step [formGroup]="householdForm" state="household" [completed]="householdForm.status === 'VALID'">  
         <ng-template matStepLabel>Household Information</ng-template>    
         <div>
           <mat-form-field>
@@ -102,7 +95,7 @@
           <button mat-raised-button matStepperNext [disabled]="!householdForm.valid">Next</button>
         </div>
         </mat-step>
-        <mat-step [formGroup]="pickUpForm" [completed]="pickUpForm.status === 'VALID'">
+        <mat-step [formGroup]="pickUpForm" state="pick-up" [completed]="pickUpForm.status === 'VALID'">
         <ng-template matStepLabel>Pick Up Options</ng-template>  
         <div>
           <mat-form-field>
@@ -128,6 +121,15 @@
           <button mat-raised-button matStepperNext [disabled]="!pickUpForm.valid" (click)="onShopClick()">Shop!</button>
         </div>
       </mat-step>
+      <ng-template matStepperIcon="contact">
+        <mat-icon>person</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="household">
+        <mat-icon>house</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="pick-up">
+        <mat-icon>directions_car</mat-icon>
+      </ng-template>
     </mat-horizontal-stepper>
   </mat-card>  
 </div>

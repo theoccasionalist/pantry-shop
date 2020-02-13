@@ -1,6 +1,7 @@
-<form [formGroup]="contactForm" *ngIf="data.modal === 'contact'"> 
+
+<form [formGroup]="contactForm" *ngIf="data.modal === 'contact'">
+  <mat-toolbar>Update Contact Information</mat-toolbar> 
   <div>
-    <header><div>Update Contact Information</div></header>
     <mat-form-field>
       <mat-label>First Name</mat-label>
       <input matInput formControlName="firstName" [value]="family.firstName">
@@ -30,13 +31,13 @@
     <mat-error *ngIf="contactForm.get('phoneNumber').hasError('required')">{{requiredError}}</mat-error>
     </mat-form-field>
   </div>
-  <div>  
+  <!-- <div>  
     <mat-form-field>
       <mat-label>Email Address (optional)</mat-label>
       <input matInput formControlName="emailAddress" [value]="family.emailAddress ? family.emailAddress : ''">
       <mat-error *ngIf="contactForm.get('emailAddress').hasError('email')">Email address must include the @ symbol.</mat-error>
     </mat-form-field>
-  </div>
+  </div> -->
   <div class="button-div">
     <button mat-raised-button (click)="onCancelClick()">Cancel</button>
     <button mat-raised-button [disabled]="!contactForm.valid || !contactForm.dirty" (click)="onUpdateContactClick()">Update</button>
@@ -44,10 +45,10 @@
 </form>
 
 <form [formGroup]="householdForm" *ngIf="data.modal === 'household'">
+  <mat-toolbar>Update Household Information</mat-toolbar> 
   <div>
-    <header><div>Update Household Information</div></header>
     <div id="household-caution">
-      <span>Since household information determines shopping options, updating it will reset your cart and return you to the shopping screen.</span>
+      <span>Since household information determines shopping options, an update will reset your cart and return you to the shopping screen.</span>
     </div>
     <br>  
     <mat-form-field>
@@ -98,8 +99,8 @@
 </form>
 
 <form [formGroup]="pickUpForm" *ngIf="data.modal === 'pick-up'">
+  <mat-toolbar>Update Pick Up Information</mat-toolbar> 
   <div>
-    <header><div>Update Pick Up Information</div></header>
     <mat-form-field>
       <mat-label>Were you referred by CELC?</mat-label>
       <mat-select matInput formControlName="referral" [value]="family.referral" (selectionChange)="setPickUpDateOptions($event.value)">
