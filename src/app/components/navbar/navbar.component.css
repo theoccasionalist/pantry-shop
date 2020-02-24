@@ -1,14 +1,17 @@
-.mat-toolbar {
+#header {
   position: fixed;
   top: 0;
   z-index: 2;
-  /* background: #603A17; */
-  /* background: #A71e2a; */
-  background: #065777;
+  background-color: rgba(113,58,23,1);
   border-bottom: solid black 2px;
   height: auto;
   display: grid;
   grid-template-columns: 10% 70% 10% 10%;
+  min-width: 1020px;
+}
+a, p {
+  color: rgb(65, 63, 63);
+  font-size: medium;
 }
 img {
   border: solid black .1px;
@@ -21,4 +24,15 @@ img {
   border-radius: 5px;
   color: black;
   margin: 5%;
+}
+#footer {
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  background-color: rgba(177, 177, 177, 0.8);
+  border-top: solid  rgba(177, 177, 177, 0.9) 2px;
+  height: 5vh;
 }

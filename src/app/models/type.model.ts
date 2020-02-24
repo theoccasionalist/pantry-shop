@@ -11,5 +11,4 @@ export class Type {
     } [];
     products: Product[];
     superTypeId?: string;
-    unit?: string;
 }

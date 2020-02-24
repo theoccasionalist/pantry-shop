@@ -1,49 +1,88 @@
-<ng-container [ngSwitch]="currentPath">   
-  <ng-container *ngSwitchCase="'cart'">
-      <mat-card-title mat-dialog-title>This is the cart path.</mat-card-title>
-      <mat-card-content mat-dialog-content>
-        Say something about the cart.
-      </mat-card-content>
-    </ng-container>
+<div class="questions">
+  <ng-container [ngSwitch]="currentPath">
+
     <ng-container *ngSwitchCase="'family'">
-      <h3>Required Fields</h3>
-      <ul>
-        <li>All fields except email address are required.</li>
-      </ul>
-      <h3>Terminology</h3>
-      <ul>
-        <li><b>Family size</b> is the total number of household members <em>aged four or above</em>.</li>
-        <li><b>School aged children</b> are household members between the <em>ages of four and seventeen</em>.</li>
-        <li><b>Infants</b> are household members <em>aged three or below</em>.</li>
-      </ul>
-      <h3>Format Requirements</h3>
-      <ul>
-        <li><b>Zip Code</b> must be in either in <em>five digit format (64789, for example)</em> or <em>nine digit format (64789-4789, for example)</em>.</li>
-        <li><b>Phone Number</b> must include <em>area code</em> and consist of <em>only numbers and dashes (614-789-7548, for example)</em>.</li>
-        <li><b>Email address</b> (if provided) must included the @ symbol.</li>
-      </ul>
-      <h3>CELC</h3>
-      <ul>
-        <li>The (what CELC stands for) directly references some clients to our food pantry.</li>
-        <li>If you were not directly referenced by CELC, please select "No" for the field.</li>
-      </ul>   
+      <mat-toolbar>Form Help</mat-toolbar>
+      <mat-horizontal-stepper labelPosition="bottom">
+        <mat-step label="Contact" state="contact" completed="false">
+          <mat-card>[Contact Help Goes Here]</mat-card>
+        </mat-step>
+        <mat-step label="Household" state="household" completed="false">
+          <mat-card>[Household Help Goes Here]</mat-card>
+        </mat-step>
+        <mat-step label="Pick Up" state="pick-up" completed="false">
+          <mat-card>[Pick Up Help Goes Here]</mat-card>
+        </mat-step>
+        <ng-template matStepperIcon="contact">
+          <mat-icon>person</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="household">
+          <mat-icon>house</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="pick-up">
+          <mat-icon>directions_car</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="edit">
+          <mat-icon>help</mat-icon>
+        </ng-template>
+      </mat-horizontal-stepper>
     </ng-container>
-    <ng-container *ngSwitchCase="'pick-up'">
-      <mat-card-title mat-dialog-title>This is the pick up path.</mat-card-title>
-      <mat-card-content mat-dialog-content *ngIf='referral'>
-        Say something about CELC pick up.
-      </mat-card-content>
-      <mat-card-content mat-dialog-content *ngIf='!referral'>
-          Say something about regular pick up.
-      </mat-card-content>
-    </ng-container>     
+
     <ng-container *ngSwitchCase="'shop'">
-      <mat-card-title mat-dialog-title>This is the shop path.</mat-card-title>
-      <mat-card-content mat-dialog-content>
-        Say something about the shop.
-      </mat-card-content>
+      <mat-toolbar>Shop Help</mat-toolbar>
+      <mat-horizontal-stepper labelPosition="bottom">
+        <mat-step label="Choice Points" state="choice-points" completed="false">
+          <mat-card>[Choice Points Help Goes Here]</mat-card>
+        </mat-step>
+        <mat-step label="Limits" state="limits" completed="false">
+          <mat-card>[Limits Help Goes Here]</mat-card>
+        </mat-step>
+        <mat-step label="Shop Options" state="shop-options" completed="false">
+          <mat-card>[Shop Options Help Goes Here]</mat-card>
+        </mat-step>
+        <ng-template matStepperIcon="choice-points">
+          <mat-icon>attach_money</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="limits">
+          <mat-icon>add</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="shop-options">
+          <mat-icon>storefront</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="edit">
+          <mat-icon>help</mat-icon>
+        </ng-template>
+      </mat-horizontal-stepper>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'order'">
+      <mat-toolbar>Order Help</mat-toolbar>
+      <mat-horizontal-stepper labelPosition="bottom">
+        <mat-step label="Updates" state="updates" completed="false">
+          <mat-card>[Update Help Goes Here]</mat-card>
+        </mat-step>
+        <mat-step label="Your Cart" state="cart" completed="false">
+          <mat-card>[Cart Help Goes Here]</mat-card>
+        </mat-step>
+        <mat-step label="Submitting" state="submit" completed="false">
+          <mat-card>[Submit Help Goes Here]</mat-card>
+        </mat-step>
+        <ng-template matStepperIcon="updates">
+          <mat-icon>create</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="cart">
+          <mat-icon>shopping_cart</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="submit">
+          <mat-icon>send</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="edit">
+          <mat-icon>help</mat-icon>
+        </ng-template>
+      </mat-horizontal-stepper>
     </ng-container>
     <div>
-      <button mat-raised-button (click)="onCloseClick()"cdkFocusInitial>{{buttonContent}}</button>
+      <button id="return" mat-raised-button (click)="onCloseClick()"cdkFocusInitial>{{buttonContent}}</button>
     </div>    
-    </ng-container>    
+  </ng-container>    
+</div>

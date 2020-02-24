@@ -1,9 +1,32 @@
 @import "~@angular/material/prebuilt-themes/purple-green.css";
 body {
-  background-image: url(./assets/images/diagonal_waves.png);
+  background-color: #71A040;
+  background-image: url("./assets/images/woven-light.png");
 }
-.dark-back-drop {
+.darkest-back-drop {
   background: rgba(0,0,0,.95);
+}
+.darker-back-drop {
+  background: rgba(0,0,0,.8);
+}
+.green-snackbar {
+  background-color: #71A040;
+}
+.green-snackbar button {
+  background-color: #F6D936;
+  border: solid black .5px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  color: black;
+}
+.red-snackbar {
+  background-color: #A71E2A;
+  color: white;
+}
+.red-snackbar button {
+  background-color: #F6D936;
+  border: solid black .5px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  color: black;
 }
 .mat-content {
   justify-content: space-between;
@@ -23,18 +46,52 @@ flex: 1;
 .mat-form-field.ng-touched.ng-invalid .mat-form-field-label {
   color: black !important;
 }
-.mat-datepicker-content {
-  background:  rgb(18, 122, 117);
-  border: solid black .5px;
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: white;
+}
+.mat-horizontal-stepper-header::before, .mat-horizontal-stepper-header::after, .mat-stepper-horizontal-line {
+  border-top-color: black;
+}
+.mat-step-header .mat-step-icon {
+  background-color: black;
+}
+.mat-step-header .mat-step-icon-selected {
+  background-color: #A71E2A;
+}
+.mat-step-header .mat-step-label{
+  color: black;
+}
+.mat-step-header .mat-step-label.mat-step-label-active {
+  color: black;
+}
+.mat-form-field-underline {
+  width: 30rem;
+}
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: black;
+}
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: black;
+}
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: black;
+}
+.mat-select-arrow {
+  color: black;
+}
+.mat-select-value {
+  color: black;
 }
 .mat-select-panel {
   background: #065777;
   border: solid black .5px;
 }
 .mat-dialog-container {
-  background: #71A040;
-  border: solid black .5px;
+  background: #065777;
+  background-image: url(./assets/images/wavecut.png);
+  border: solid black 1px;
   border-radius: 10px;
+  color: black;
 }
 .mat-raised-button[disabled][disabled] {
   color: #202020;
@@ -45,7 +102,7 @@ flex: 1;
   cursor: not-allowed;
 }
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: orange;
+  color: white;
 }
 .mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
   color: black;
@@ -53,8 +110,16 @@ flex: 1;
 .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
   color: black;
 }
-.mat-horizontal-stepper-content {
-  /* margin-left: 5%; */
-  /* margin-right: 10%; */
+.icon-badge .mat-badge-content {
+  background: #A71E2A;
+  color: white;
+}
+.badge-cart .mat-badge-content {
+  background: #065777;
+  color: white;
+}
+.badge-points-remaining .mat-badge-content {
+  background: mediumblue;
+  color: white;
 }
 

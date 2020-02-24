@@ -1,0 +1,55 @@
+<ng-container *ngIf="(!schoolType || schoolIncluded) && (!infantType || infantsIncluded)"> 
+    <mat-expansion-panel (opened) ="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{type.typeName}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{panelOpenState ? 'close' : 'open'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-card *ngIf="panelOpenState" class="icon-top-container" >
+        <div *ngIf="hasPoints" class="icon-sub-container">
+          <div class="label-container">
+            <div>{{currentPoints}}</div>
+            <div class="label">
+              <span>Points Remaining</span>
+              <span class="icon-container">
+                <mat-icon>attach_money</mat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="icon-sub-container">
+          <div class="label-container">
+            <div>{{typeLimit}}</div>
+            <div class="label">
+              <span>{{type.typeName + ' Limit'}}</span>
+              <span class="icon-container">
+                <mat-icon>add_box</mat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="icon-sub-container">
+          <div class="label-container">
+            <div>{{typeAmountInCart}}</div>
+            <div class="label">
+              <span>{{type.typeName + ' in Cart'}}</span>
+              <span class="icon-container">
+                <mat-icon>shopping_cart</mat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+      <div class="product-card-container" *ngIf="panelOpenState">
+        <div *ngFor="let product of products" class="product-card">
+          <app-type-limited-product 
+            [cart]="cart" [family]="family" [product]="product" [type]="type" [typeLimit]="typeLimit">
+          </app-type-limited-product>
+        </div>
+      </div>
+      <mat-action-row (click)="closePanel()"></mat-action-row>
+    </mat-expansion-panel>
+  </ng-container>   

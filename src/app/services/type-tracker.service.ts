@@ -12,20 +12,27 @@ export class TypeTrackerService {
   typeTrackers: TypeTracker[] = [];
 
   private typeTrackerSource = new BehaviorSubject(this.typeTrackers);
-  currentTypeTracker = this.typeTrackerSource.asObservable();
+  currentTypeTrackers = this.typeTrackerSource.asObservable();
 
-  getTypeTracker(): Observable<Array<TypeTracker>> {
-    return this.currentTypeTracker;
+  addTypeTracker(typeIdToAdd: string) {
+    if (!this.typeTrackers.some((typeTracker: TypeTracker) => typeIdToAdd === typeTracker.typeId)) {
+      this.typeTrackers.push({typeId: typeIdToAdd, atTypeMaxAmount: false, typeAmountInCart: 0});
+      this.typeTrackerSource.next(this.typeTrackers);
+    }
   }
 
-  resetTypeTracker(): void {
-    const defaultTypeTrackers: TypeTracker[] = [];
-    this.typeTrackerSource.next(defaultTypeTrackers);
+  getTypeTrackers(): Observable<Array<TypeTracker>> {
+    return this.currentTypeTrackers;
   }
 
-  updateTypeTracker(componentTracker: TypeTracker): void {
-    this.typeTrackers = this.typeTrackers.filter(typeTracker => typeTracker._id !== componentTracker._id);
-    this.typeTrackers.push(componentTracker);
+  resetTypeTrackers() {
+    this.typeTrackers = [];
+    this.typeTrackerSource.next(this.typeTrackers);
+  }
+
+  updateTypeTrackers(componentTracker: TypeTracker) {
+    const index = this.typeTrackers.findIndex((typeTracker: TypeTracker) => typeTracker.typeId === componentTracker.typeId);
+    this.typeTrackers[index] = componentTracker;
     this.typeTrackerSource.next(this.typeTrackers);
   }
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ScrollingModule, ViewportRuler} from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
@@ -22,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ClickOutsideModule } from 'ng-click-outside';
 import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
@@ -29,10 +31,15 @@ import { LoginComponent } from './components/login/login.component';
 import { SubmitModalComponent } from './components/submit-modal/submit-modal.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductTypeComponent } from './components/product-type/product-type.component';
 import { QuestionsModalComponent } from './components/questions-modal/questions-modal.component';
 import { UpdateModalComponent } from './components/update-modal/update-modal.component';
+import { IntroModalComponent } from './components/intro-modal/intro-modal.component';
+import { TypeComponent } from './components/type/type.component';
+import { LimitedTypeComponent } from './components/limited-type/limited-type.component';
+import { BaseProductComponent } from './components/base-product/base-product.component';
+import { LimitedProductComponent } from './components/limited-product/limited-product.component';
+import { TypeLimitedProductComponent } from './components/type-limited-product/type-limited-product.component';
+import { SubTypeProductComponent } from './components/sub-type-product/sub-type-product.component';
 
 @NgModule({
   declarations: [
@@ -44,18 +51,25 @@ import { UpdateModalComponent } from './components/update-modal/update-modal.com
     SubmitModalComponent,
     NavbarComponent,
     CallbackComponent,
-    ProductComponent,
-    ProductTypeComponent,
     QuestionsModalComponent,
     UpdateModalComponent,
+    IntroModalComponent,
+    TypeComponent,
+    LimitedTypeComponent,
+    BaseProductComponent,
+    LimitedProductComponent,
+    TypeLimitedProductComponent,
+    SubTypeProductComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    ClickOutsideModule,
     FormsModule,
     HttpClientModule,
     MatButtonModule,
+    MatBadgeModule,
     MatCardModule,
     MatDatepickerModule,
     MatDialogModule,
@@ -76,6 +90,7 @@ import { UpdateModalComponent } from './components/update-modal/update-modal.com
     ScrollingModule
   ],
   entryComponents: [
+    IntroModalComponent,
     SubmitModalComponent,
     QuestionsModalComponent,
     UpdateModalComponent

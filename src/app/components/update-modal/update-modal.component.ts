@@ -7,11 +7,8 @@ import { PointService } from 'src/app/services/point.service';
 import { CartService } from 'src/app/services/cart.service';
 import { TypeTrackerService } from 'src/app/services/type-tracker.service';
 import { Router } from '@angular/router';
-import { FamilyComponent } from '../family/family.component';
+import { FamilyComponent } from 'src/app/components/family/family.component';
 import { PickUpDateService } from 'src/app/services/pick-up-date.service';
-import { forkJoin } from 'rxjs';
-import { Family } from 'src/app/models/family.model';
-import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -50,8 +47,9 @@ export class UpdateModalComponent extends FamilyComponent implements OnInit {
     if (this.contactForm.valid) {
       this.setContactInfo();
       this.familyService.updateFamily(this.family);
-      this.snackBar.open('Contact Information Updated', '', {
+      this.snackBar.open('Contact Information Updated.', 'Dismiss', {
         duration: 2000,
+        panelClass: ['green-snackbar', 'mat-raised-button']
       });
       this.dialogRef.close();
     }
@@ -63,10 +61,11 @@ export class UpdateModalComponent extends FamilyComponent implements OnInit {
       this.familyService.updateFamily(this.family);
       this.initPoints(this.family.familySize);
       this.cartService.resetCart();
-      this.typeTrackerService.resetTypeTracker();
+      this.typeTrackerService.resetTypeTrackers();
       this.dialogRef.close();
-      this.snackBar.open('Household Information Updated and Cart Reset', '', {
+      this.snackBar.open('Household Information Updated and Cart Reset.', 'Dismiss', {
         duration: 2000,
+        panelClass: ['green-snackbar']
       });
       this.router.navigate([`/shop`]);
     }
@@ -76,8 +75,9 @@ export class UpdateModalComponent extends FamilyComponent implements OnInit {
     if (this.pickUpForm.valid) {
       this.setPickUpInfo();
       this.familyService.updateFamily(this.family);
-      this.snackBar.open('Pick Up Information Updated', '', {
+      this.snackBar.open('Pick Up Information Updated.', 'Dismiss', {
         duration: 2000,
+        panelClass: ['green-snackbar']
       });
       this.dialogRef.close();
     }

@@ -1,15 +1,16 @@
-<div id="success">
-  <span>Success!</span>
-</div>
-<mat-card *ngIf="!data.family.referral">
-  {{'Your order will be ready for pick on ' + data.pickUpDate + ' at the Broad Street Food Pantry.'}}
-</mat-card>
-<mat-card *ngIf="data.family.referral">
-  {{'Your order will be delivered on ' + data.pickUpDate + ' by CELC.'}}
-</mat-card>
-<div id="log-out">
-  <span>Please don't forget to log out.</span>
-</div>
-<div>
-  <button mat-raised-button (click)="authService.logout()">Log Out</button>
-</div>
+<mat-card id="top-container">
+  <mat-toolbar id="success">
+    <mat-icon class="smile">sentiment_satisfied_alt</mat-icon>
+    <span>Success</span> 
+  </mat-toolbar>
+  <mat-card class="location-message" *ngIf="!data.family.referral">
+    {{'Your order will be ready for pick on ' + data.pickUpDate + ' at the Broad Street Food Pantry.'}}
+  </mat-card>
+  <mat-card class="location-message" *ngIf="data.family.referral">
+    {{'Your order will be delivered on ' + data.pickUpDate + ' by CELC.'}}
+  </mat-card>
+  <div id="buttons">
+    <button mat-raised-button (click)="authService.logout()">Log Out</button>
+  </div>
+</mat-card>  
+

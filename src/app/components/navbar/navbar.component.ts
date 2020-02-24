@@ -14,14 +14,13 @@ export class NavbarComponent implements OnInit {
   currentPath: string;
   routesButtonMap = new Map([
     ['family', 'Form Help'],
-    ['pick-up', 'Pick Up Help'],
     ['shop', 'Shop Help'],
-    ['cart', 'Order Help']
+    ['order', 'Order Help']
   ]);
   constructor(private activatedRoute: ActivatedRoute, public authService: AuthService, private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.activatedRoute.url.subscribe(currentPath => this.currentPath = currentPath[0].path);
+    this.activatedRoute.url.subscribe(([currentPath]) => this.currentPath = currentPath.path);
     this.setButtonContent();
   }
 
@@ -32,8 +31,9 @@ export class NavbarComponent implements OnInit {
 
   openQuestionsModal() {
     this.dialog.open(QuestionsModalComponent, {
-      width: '900px',
-      data: this.currentPath
+      backdropClass: 'darker-back-drop',
+      data: this.currentPath,
+      width: '35rem',
     });
   }
 

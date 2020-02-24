@@ -1,14 +1,20 @@
-<div id="grid-container"> 
-    <mat-card>   
+<div id="top-container"> 
+    <mat-card id="card-container"> 
     <img id="logo" src="../../../assets/images/bsfp-logo-login.png" alt="bsfp-logo-login">
-    <div id="message-button-container">
-        <mat-toolbar>Welcome!</mat-toolbar>  
-        <mat-card>
-            Welcome to Broad Street Food Pantry's Online Ordering Sytstem.<br><br> We are adding information here shortly.
-            <br><br> 
-            <button mat-raised-button (click)="authService.login()" *ngIf="!authService.loggedIn">Log In</button>
-            <button mat-raised-button (click)="toFamily()" *ngIf="authService.loggedIn">To Family</button>
-        </mat-card>
-    </div>   
+    <div id="message-button-container" class="center">
+        <button mat-fab (click)="openIntroModal()">First visit?<br>Click here.</button> 
+        <div id="message-button-middle">
+            <mat-toolbar>Welcome Neighbor!</mat-toolbar>  
+            <mat-card>
+                <div class="center">
+                    <button mat-raised-button (click)="authService.login()" *ngIf="!authService.loggedIn">Log In</button>
+                    <button mat-raised-button (click)="toFamily()" *ngIf="authService.loggedIn">Let's Begin!</button>
+                </div> 
+            </mat-card>
+        </div> 
+    </div>  
     </mat-card>
+</div>
+<div id="cookie-message" class="center">
+    <mat-card >[Cookie Message]</mat-card>
 </div>    

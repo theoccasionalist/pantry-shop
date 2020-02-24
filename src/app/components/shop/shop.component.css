@@ -1,13 +1,11 @@
-.flex-grid {
+.top-grid {
     margin: 5%;
-    margin-top: 7%;
     margin-bottom: 0;
     display: flex;
     justify-content: space-between;
 }
 .mat-toolbar {
-    /* background: #065777; */
-    background: #603a17;
+    background: #065777;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: solid black .5px;
@@ -15,7 +13,6 @@
     color: white;
 }
 .mat-card {
-    /* background: #46a8d0; */
     border: solid black 1px;
     border-radius: 10px;
     border-top-left-radius: 0px;
@@ -24,21 +21,18 @@
 }
 .mat-raised-button {
     background-color: #F6D936;
-    /* background: #ffab57; */
     border: solid black .5px;
     border-radius: 5px;
     color: black;
 }
 .aside-container {
-    /* background: #46a8d0; */
-    /* background: #a2d16e; */
-    /* background: white; */
-    /* background: #ffff6c; */
-    background: #ffab57;
+    background: #46a8d0;
+    background-image: url("https://www.transparenttextures.com/patterns/wavecut.png");
     border: solid black 1px;
     color: black;
     display: flex;
     flex-direction: column;
+    flex: 0 0 10%;
     justify-content: space-between;
     width: 20%;
     border-radius: 10px;
@@ -46,28 +40,20 @@
     min-width: 200px;
 }
 #shop {
-    /* background: #46a8d0; */
-    /* background: #a2d16e; */
-    /* background: white; */
-    background: #ffab57;
+    background: #46a8d0;
+    background-image: url("https://www.transparenttextures.com/patterns/wavecut.png");
     border: solid black 1px;
     border-radius: 10px;
+    flex: 0 0 80%;
     min-width: 700px;
 }
 .cdk-virtual-scroll-viewport {
     display: flex;
-    height: 73vh;
+    height: 70vh;
     width: 100%;
 }
 .cdk-virtual-scroll-content-wrapper {
-    height: 70vh;
-}
-#points {
-    display: flex;
-    color: white;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin: 7%;
+    /* height: 70vh; */
 }
 #review {
     display: flex;

@@ -1,0 +1,57 @@
+.mat-expansion-panel {
+    background:  #603A17;
+    margin: 2%;
+    border: solid black 1px;
+} 
+.mat-expansion-panel-header-title {
+    font-size: large;
+}
+.mat-card {
+    border: solid black 1px;
+}
+.icon-top-container {
+    background-color:  #D47B28;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 2rem;
+}
+.icon-sub-container {
+    background-color: #71A040;
+    border: 1px black solid;
+    border-radius: 4px;
+    padding: 16px;
+}
+.icon-container {
+    background: dodgerblue;
+    border: 1px black solid;
+    border-radius: 100px;
+    color: white;
+    font-size: xx-large;
+    margin-left: -8px;
+    margin-top: -55px;
+    padding: 12px;
+    position: fixed;
+}
+.label-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: large;
+}
+.label {
+    margin-top: .25rem;
+}
+.product-card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.product-card {
+    flex-shrink: 0;
+    margin-bottom: 2rem;
+  }
+.mat-action-row {
+    border-top: 0;
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+}

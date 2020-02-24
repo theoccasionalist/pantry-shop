@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
@@ -9,16 +9,19 @@ import { TypeTrackerService } from 'src/app/services/type-tracker.service';
 import { TypeTracker } from 'src/app/models/type-tracker.model';
 import { PickUpDateService } from 'src/app/services/pick-up-date.service';
 import { CartItemsByType } from 'src/app/models/cart-items-by-type.model';
-import { forkJoin } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Subscription, combineLatest } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-family',
   templateUrl: './family.component.html',
-  styleUrls: ['./family.component.css']
+  styleUrls: ['./family.component.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 })
-export class FamilyComponent implements OnInit {
+export class FamilyComponent implements OnInit, OnDestroy {
   cart: CartItemsByType[];
   contactForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -44,6 +47,7 @@ export class FamilyComponent implements OnInit {
   pointsMapping: [{minSize: number, maxSize: number, points: number}];
   typeTrackers: TypeTracker[] = [];
   requiredError = 'This field is required.';
+  subscription = new Subscription();
 
   constructor(protected authService: AuthService, protected cartService: CartService, protected familyService: FamilyService,
               protected pickUpDateService: PickUpDateService, protected pointService: PointService, protected router: Router,
@@ -55,18 +59,22 @@ export class FamilyComponent implements OnInit {
     this.pickUpDateService.resetPickUpDate();
     this.pointService.setMaxPoints(0);
     this.pointService.updatePoints(0);
-    this.typeTrackerService.resetTypeTracker();
-    forkJoin(
-      this.authService.getLogOutClicked().pipe(
-        tap((logOutClicked: boolean) => this.logOutClicked = logOutClicked)
-      ),
-      this.familyService.getFamily().pipe(
-        tap((family: Family) => this.family = family)
-      ),
-      this.pointService.getPointsMapping().pipe(
-        tap(pointsMapping => this.pointsMapping = pointsMapping)
-      )
-    ).subscribe();
+    this.typeTrackerService.resetTypeTrackers();
+    this.subscription.add(
+      combineLatest([
+        this.authService.getLogOutClicked(),
+        this.familyService.getFamily(),
+        this.pointService.getPointsMapping()
+      ]).subscribe(([logOutClicked, family, pointsMapping]) => {
+        this.logOutClicked = logOutClicked;
+        this.family = family;
+        this.pointsMapping = pointsMapping;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   initPoints(familySize: number) {

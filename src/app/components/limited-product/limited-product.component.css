@@ -1,0 +1,61 @@
+ .mat-raised-button {
+    border: solid black .5px;
+    border-radius: 5px;
+    background-color: #F6D936;
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 10%;
+  }
+  .mat-card {
+    background: #71A040;
+    border: solid black 1px;
+    margin-bottom: 2%;
+  }
+  .icon-button-container {
+    display: grid;
+    grid-template-columns: 6rem 4rem 10rem;
+    margin-top: 1rem;
+  }
+  .product-name {
+    background: #065777;
+    border: 1px black solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px black;
+    display: inline-block;
+    font-size: large;
+    margin-left: -2rem;
+    padding: .5rem;
+  }
+  .amount-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+  }
+  .info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  .icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .button-container {
+      display: flex;
+  }
+  .limit-reached-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+  }
+  .limit-info-sub {
+    border: solid black .5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  
