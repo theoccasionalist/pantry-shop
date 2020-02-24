@@ -12,6 +12,7 @@ import { TypeTracker } from 'src/app/models/type-tracker.model';
   styleUrls: ['./sub-type-product.component.css']
 })
 export class SubTypeProductComponent extends TypeLimitedProductComponent implements OnInit, OnDestroy {
+  panelOpenState = false;
   typeAmountInCart: number;
   typeId: string;
   typeLimit: number;
@@ -33,10 +34,10 @@ export class SubTypeProductComponent extends TypeLimitedProductComponent impleme
     this.inCart = this.isProductInCart();
     this.typeTrackerService.addTypeTracker(this.typeId);
     this.subscription.add(
-      combineLatest(
+      combineLatest([
       this.pointService.getCurrentPoints(),
       this.typeTrackerService.getTypeTrackers()
-    ).subscribe(([currentPoints, typeTrackers]) => {
+      ]).subscribe(([currentPoints, typeTrackers]) => {
       this.currentPoints = currentPoints;
       this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.typeId);
       this.atTypeLimit = this.typeTracker.atTypeMaxAmount;

@@ -13,7 +13,6 @@ export class ShopService {
   getShop() {
     return this.httpClient.get(`${this.uri}/shop`)
     .pipe(
-      tap(result => console.log(result)),
       map(result => result[0].shop)
     );
   }

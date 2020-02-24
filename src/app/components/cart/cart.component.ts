@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Family } from '../../models/family.model';
 import { FamilyService } from '../../services/family.service';
@@ -13,8 +13,7 @@ import { PickUpDateService } from 'src/app/services/pick-up-date.service';
 import { SubmitModalComponent } from '../submit-modal/submit-modal.component';
 import { TypeTrackerService } from 'src/app/services/type-tracker.service';
 import { PointService } from 'src/app/services/point.service';
-import { forkJoin } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Subscription, combineLatest } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -22,7 +21,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   cart: CartItemsByType[];
   cartPanelOpenState = false;
   cartTypes: any[] = [];
@@ -36,6 +35,7 @@ export class CartComponent implements OnInit {
   pickUpDate: string;
   pickUpPanelOpenState = false;
   submitErrorCount = 0;
+  subscription = new Subscription();
   uri = 'http://localhost:4000';
 
   constructor(private authService: AuthService, private cartService: CartService, private dialog: MatDialog,
@@ -44,23 +44,23 @@ export class CartComponent implements OnInit {
               private typeTrackerService: TypeTrackerService) { }
 
   ngOnInit() {
-    forkJoin(
-      this.authService.getLogOutClicked().pipe(
-        tap((logOutClicked: boolean) => this.logOutClicked = logOutClicked)
-      ),
-      this.familyService.getFamily().pipe(
-        tap((family: Family) => this.family = family)
-      ),
-      this.cartService.getCart().pipe(
-        tap((cart: CartItemsByType[]) => {
-          this.cart = cart;
-          this.sortCart();
-        })
-      ),
-      this.pickUpDateService.getPickUpDate().pipe(
-        tap((pickUpDate: string) => this.pickUpDate = pickUpDate)
-      )
-    ).subscribe();
+    this.subscription.add(
+      combineLatest([
+      this.authService.getLogOutClicked(),
+      this.familyService.getFamily(),
+      this.cartService.getCart(),
+      this.pickUpDateService.getPickUpDate()
+      ]).subscribe(([logOutClicked, family, cart, pickUpDate]) => {
+      this.logOutClicked = logOutClicked;
+      this.family = family;
+      this.cart = cart;
+      this.sortCart();
+      this.pickUpDate = pickUpDate;
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   private clearSession() {

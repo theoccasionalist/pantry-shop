@@ -41,6 +41,20 @@
     margin: 5%;
     border: solid black 1px;
 }
+.mat-icon {
+    margin-right: .5rem;
+}
+.icon-title {
+    display: flex;
+}
+.icon {
+    margin-right: .5rem;
+}
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .info-container .mat-card {
     background: #71A040;
     border: solid black 1px;

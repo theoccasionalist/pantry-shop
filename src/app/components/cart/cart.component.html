@@ -16,7 +16,10 @@
     <mat-expansion-panel (opened) ="contactPanelOpenState = true" (closed)="contactPanelOpenState = false" [expanded]="contactPanelOpenState">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Contact Information
+          <div class="icon-title">
+            <mat-icon class="icon">person</mat-icon>
+            <div class="title">Contact Information</div>
+          </div>
         </mat-panel-title>
         <mat-panel-description>
           {{contactPanelOpenState ? 'close' : 'open'}}
@@ -25,8 +28,8 @@
       <div class="info-container">
         <mat-card >{{'First Name: ' + family.firstName}}</mat-card>
         <mat-card >{{'Last Name: ' + family.lastName}}</mat-card>
-        <mat-card>{{'Phone Number: ' + family.phoneNumber}}</mat-card>
         <mat-card>{{'Zip Code: ' + family.zipCode}}</mat-card>
+        <mat-card>{{'Phone Number: ' + family.phoneNumber}}</mat-card>
         <mat-card *ngIf="family.emailAddress">{{'Email Address: ' + family.emailAddress}}</mat-card>
         <div class="update-button-div">
           <button mat-raised-button (click)="openUpdateContactModal()">Update Contact</button>
@@ -38,7 +41,10 @@
     <mat-expansion-panel (opened) ="householdPanelOpenState = true" (closed)="householdPanelOpenState = false" [expanded]="householdPanelOpenState">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Household Information
+          <div class="icon-title">
+            <mat-icon class="icon">house</mat-icon>
+            <div class="title">Household Information</div>
+          </div>
         </mat-panel-title>
         <mat-panel-description>
           {{householdPanelOpenState ? 'close' : 'open'}}
@@ -58,7 +64,10 @@
     <mat-expansion-panel (opened) ="pickUpPanelOpenState = true" (closed)="pickUpPanelOpenState = false" [expanded]="pickUpPanelOpenState">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Pick Up Information
+          <div class="icon-title">
+            <mat-icon class="icon">directions_car</mat-icon>
+            <div class="title">Pick Up Information</div>
+          </div>
         </mat-panel-title>
         <mat-panel-description>
           {{pickUpPanelOpenState ? 'close' : 'open'}}
@@ -77,7 +86,10 @@
     <mat-expansion-panel (opened) ="cartPanelOpenState = true" (closed)="cartPanelOpenState = false" [expanded]="cartPanelOpenState">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Your Cart
+        <div class="icon-title">
+          <mat-icon>shopping_cart</mat-icon>
+          <div class="title">Your Cart</div>
+        </div>
       </mat-panel-title>
       <mat-panel-description>
         {{cartPanelOpenState ? 'close' : 'open'}}

@@ -23,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ClickOutsideModule } from 'ng-click-outside';
 import { CartComponent } from './components/cart/cart.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FamilyComponent } from './components/family/family.component';
@@ -30,8 +31,6 @@ import { LoginComponent } from './components/login/login.component';
 import { SubmitModalComponent } from './components/submit-modal/submit-modal.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CallbackComponent } from './components/callback/callback.component';
-// import { ProductComponent } from './components/product/product.component';
-import { ProductTypeComponent } from './components/product-type/product-type.component';
 import { QuestionsModalComponent } from './components/questions-modal/questions-modal.component';
 import { UpdateModalComponent } from './components/update-modal/update-modal.component';
 import { IntroModalComponent } from './components/intro-modal/intro-modal.component';
@@ -52,8 +51,6 @@ import { SubTypeProductComponent } from './components/sub-type-product/sub-type-
     SubmitModalComponent,
     NavbarComponent,
     CallbackComponent,
-    // ProductComponent,
-    ProductTypeComponent,
     QuestionsModalComponent,
     UpdateModalComponent,
     IntroModalComponent,
@@ -68,6 +65,7 @@ import { SubTypeProductComponent } from './components/sub-type-product/sub-type-
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    ClickOutsideModule,
     FormsModule,
     HttpClientModule,
     MatButtonModule,

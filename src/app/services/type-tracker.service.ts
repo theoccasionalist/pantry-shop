@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TypeTracker } from '../models/type-tracker.model';
-import { Type } from '../models/type.model';
 
 @Injectable({
   providedIn: 'root'

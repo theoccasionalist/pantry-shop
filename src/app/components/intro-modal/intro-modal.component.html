@@ -1,33 +1,33 @@
 <div class="questions">  
-    <mat-toolbar>How It Works</mat-toolbar>
-    <mat-horizontal-stepper labelPosition="bottom">
-        <mat-step label="Qualify" state="qualification" completed="false">
-        <mat-card>[Qualifications Goes Here]</mat-card>
-        </mat-step>
-        <mat-step label="Order" state="order" completed="false">
-        <mat-card>[Placing an Order Goes Here]</mat-card>
-        </mat-step>
-        <mat-step label="Pick Up" state="pick-up" completed="false">
-        <mat-card>[Pick Up Goes Here]</mat-card>
-        </mat-step>
-        <ng-template matStepperIcon="contact">
-        <mat-icon>person</mat-icon>
-        </ng-template>
-        <ng-template matStepperIcon="qualification">
-        <mat-icon>thumb_up_alt</mat-icon>
-        </ng-template>
-        <ng-template matStepperIcon="order">
-        <mat-icon>computer</mat-icon>
-        </ng-template>
-        <ng-template matStepperIcon="pick-up">
-            <mat-icon>commute</mat-icon>
-        </ng-template>
-        <ng-template matStepperIcon="edit">
-        <mat-icon>help</mat-icon>
-        </ng-template>
-    </mat-horizontal-stepper>
-    <div>
-      <button id="return" mat-raised-button (click)="onCloseClick()"cdkFocusInitial>Return to Log In</button>
-    </div>      
-  </div>
+  <mat-toolbar>How It Works</mat-toolbar>
+  <mat-horizontal-stepper labelPosition="bottom">
+      <mat-step label="Qualify" state="qualification" completed="false">
+      <mat-card>[Qualifications Goes Here]</mat-card>
+      </mat-step>
+      <mat-step label="Order" state="order" completed="false">
+      <mat-card>[Placing an Order Goes Here]</mat-card>
+      </mat-step>
+      <mat-step label="Pick Up" state="pick-up" completed="false">
+      <mat-card>[Pick Up Goes Here]</mat-card>
+      </mat-step>
+      <ng-template matStepperIcon="contact">
+      <mat-icon>person</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="qualification">
+      <mat-icon>thumb_up_alt</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="order">
+      <mat-icon>computer</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="pick-up">
+          <mat-icon>commute</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="edit">
+      <mat-icon>help</mat-icon>
+      </ng-template>
+  </mat-horizontal-stepper>
+  <div>
+    <button id="return" mat-raised-button (click)="onCloseClick()"cdkFocusInitial>Return to Log In</button>
+  </div>      
+</div>
   

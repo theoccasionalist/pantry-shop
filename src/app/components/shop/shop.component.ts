@@ -4,11 +4,10 @@ import { Family } from '../../models/family.model';
 import { FamilyService} from '../../services/family.service';
 import { ShopService } from 'src/app/services/shop.service';
 import { Type } from 'src/app/models/type.model';
-import { forkJoin, Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItemsByType } from 'src/app/models/cart-items-by-type.model';
+import { Subscription, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-shop',
@@ -23,30 +22,27 @@ export class ShopComponent implements OnInit, OnDestroy {
   logOutClicked: boolean;
   limitedTypes: Type[] = [];
   nonLimitedTypes: Type[] = [];
-  private subscription = new Subscription();
+  subscription = new Subscription();
   types: Type[] = [];
 
   constructor(private authService: AuthService, private cartService: CartService, private familyService: FamilyService,
               private shopService: ShopService, private router: Router) { }
 
   ngOnInit() {
-    this.subscription.add(forkJoin(
-      this.authService.getLogOutClicked().pipe(
-        tap((logOutClicked: boolean) => this.logOutClicked = logOutClicked)
-      ),
-      this.cartService.getCart().pipe(
-        tap((cart: CartItemsByType[]) => this.cart = cart)
-      ),
-      this.familyService.getFamily().pipe(
-        tap((family: Family) => this.family = family)
-      ),
-      this.shopService.getShop().pipe(
-        tap((types: Type[]) => {
-          this.types = types;
-          this.setTypes();
-          this.sortTypesByName();
-        }))
-      ).subscribe()
+    this.subscription.add(
+      combineLatest([
+      this.authService.getLogOutClicked(),
+      this.cartService.getCart(),
+      this.familyService.getFamily(),
+      this.shopService.getShop()
+      ]).subscribe(([logOutClicked, cart, family, types]) => {
+        this.logOutClicked = logOutClicked;
+        this.cart = cart;
+        this.family = family;
+        this.types = types;
+        this.setTypes();
+        this.sortTypesByName();
+      })
     );
   }
 
@@ -71,12 +67,6 @@ export class ShopComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  // private setTypes(types: Type[]) {
-  //   types.forEach((type) => {
-  //     type.superTypeId ? this.subTypes.push(type) : this.types.push(type);
-  //   });
-  // }
 
   private sortTypesByName() {
     this.types.sort((before, after) => before.typeName.trim().toLowerCase() > after.typeName.trim().toLowerCase() ? 1 : -1);

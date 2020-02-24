@@ -45,40 +45,12 @@
 .button-container {
     display: flex;
 }
-.type-info-container {
-    display: flex;
-    justify-content: space-around;
-}
-.type-info-sub {
-    border: solid black .5px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    padding: 8px;
-}
-.type-limit {
-    /* background: dodgerblue;
-    border: 1px solid black;
-    border-radius: 100px;
-    height: 8px;
-    line-height: 8px;
-    font-size: large;
-    margin-left: 20.5rem;
-    margin-top: -1.5rem;
-    padding: 18px;
-    position: fixed;
-    width: 8px;
-    z-index: 2; */
-}
 .mat-expansion-panel {
-    width: 9rem;
+    background-color: #0b2f04;
+    border: 1px black solid;
     position: fixed;
-    z-index: 2;
     margin-left: 14rem;
     margin-top: -1rem;
+    width: 9rem;
+    z-index: 2;
 }
-.type-info {
-    display: flex;
-    justify-content: space-between;
-}
-  

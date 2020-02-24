@@ -25,12 +25,11 @@ export class TypeLimitedProductComponent extends LimitedProductComponent impleme
     this.setPoints();
     this.inCart = this.isProductInCart();
     this.subscription.add(
-      combineLatest(
+      combineLatest([
       this.pointService.getCurrentPoints(),
       this.typeTrackerService.getTypeTrackers()
-    ).subscribe(([currentPoints, typeTrackers]) => {
+      ]).subscribe(([currentPoints, typeTrackers]) => {
       this.currentPoints = currentPoints;
-      console.log(typeTrackers);
       this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.type._id);
       this.atTypeLimit = this.typeTracker.atTypeMaxAmount;
       this.updateTypeInCartAndBtn();
