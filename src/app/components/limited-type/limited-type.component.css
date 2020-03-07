@@ -16,10 +16,13 @@
     margin-bottom: 2rem;
 }
 .icon-sub-container {
-    background-color: #71A040;
-    border: 1px black solid;
-    border-radius: 4px;
+    background-color: #143e0c;
+    border: solid black 1px;
+    border-radius: 5px;
     padding: 16px;
+}
+.at-limit {
+    background-color: #A71E2A;
 }
 .icon-container {
     background: dodgerblue;

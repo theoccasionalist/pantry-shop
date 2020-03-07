@@ -1,6 +1,3 @@
-* * {
-  box-sizing: border-box;
-}
 .mat-expansion-panel {
   background:  #603A17;
   border: solid black 1px;
@@ -23,6 +20,9 @@
   border: 1px black solid;
   border-radius: 4px;
   padding: 16px;
+}
+.at-limit{
+  background-color: #A71E2A;
 }
 .icon-container {
   background: dodgerblue;

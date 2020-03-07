@@ -9,7 +9,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-card *ngIf="hasPoints && panelOpenState" class="icon-top-container">
-      <div class="icon-sub-container">
+      <div class="icon-sub-container" [ngClass]="{'at-limit': allPointsUsed}">
         <div class="label-container">
           <div>{{currentPoints}}</div>
           <div class="label">
