@@ -8,8 +8,8 @@
           {{panelOpenState ? 'close' : 'open'}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <mat-card *ngIf="panelOpenState" class="icon-top-container" >
-        <div *ngIf="hasPoints" class="icon-sub-container">
+      <mat-card *ngIf="panelOpenState"class="icon-top-container">
+        <div *ngIf="hasPoints" class="icon-sub-container" [ngClass]="{'at-limit': allPointsUsed}">
           <div class="label-container">
             <div>{{currentPoints}}</div>
             <div class="label">
@@ -20,7 +20,7 @@
             </div>
           </div>
         </div>
-        <div class="icon-sub-container">
+        <div class="icon-sub-container" [ngClass]="{'at-limit': atTypeLimit}">
           <div class="label-container">
             <div>{{typeLimit}}</div>
             <div class="label">
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="icon-sub-container">
+        <div class="icon-sub-container" [ngClass]="{'at-limit': atTypeLimit}">
           <div class="label-container">
             <div>{{typeAmountInCart}}</div>
             <div class="label">

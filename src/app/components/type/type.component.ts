@@ -13,6 +13,7 @@ import { TypeProduct } from 'src/app/models/type-product.model';
   styleUrls: ['./type.component.css']
 })
 export class TypeComponent implements OnInit, OnDestroy {
+  allPointsUsed: boolean;
   @Input() allSubTypes: Type[];
   @Input() cart: CartItemsByType[];
   currentPoints: number;
@@ -40,6 +41,7 @@ export class TypeComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.pointService.getCurrentPoints().subscribe((currentPoints: number) => {
       this.currentPoints = currentPoints;
+      this.allPointsUsed = this.currentPoints <= 0;
     }));
     this.loading = false;
   }

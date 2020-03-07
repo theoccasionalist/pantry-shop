@@ -31,6 +31,19 @@
     flex-direction: column;
     margin-top: 2%;
 }
+.at-type-limit-border{
+    border: 3px solid #A71E2A;
+}
+.border {
+    border: 1px black solid ;
+}
+.at-limit-message-container{
+    background: #A71E2A;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}
 .info-container {
     display: flex;
     justify-content: space-between;
@@ -46,8 +59,8 @@
     display: flex;
 }
 .mat-expansion-panel {
-    background-color: #0b2f04;
-    border: 1px black solid;
+    background: #143e0c;
+    border-radius: 5px;
     position: fixed;
     margin-left: 14rem;
     margin-top: -1rem;

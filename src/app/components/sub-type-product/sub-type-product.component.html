@@ -1,11 +1,15 @@
 <mat-expansion-panel 
-    (clickOutside)="panelOpenState = false"
-    (opened)="panelOpenState = true" 
-    (closed)="panelOpenState = false" 
-    [expanded]="panelOpenState"
+(clickOutside)="panelOpenState = false"
+(opened)="panelOpenState = true" 
+(closed)="panelOpenState = false"
+[ngClass]="{'at-type-limit-border': atTypeLimit, 'border': !atTypeLimit}"
+[expanded]="panelOpenState"
 >
     <mat-expansion-panel-header>{{typeName}}</mat-expansion-panel-header>
-    <div *ngIf="panelOpenState" class="info-container">
+    <div class="at-limit-message-container" *ngIf="atTypeLimit">
+        <div>Limit Reached</div>
+    </div>
+    <div *ngIf="panelOpenState" class="info-container" >
         <div class="icon-container">
             <mat-icon class="icon-badge" [matBadge]="typeLimit">add_box</mat-icon>
             <div>Limit</div>
@@ -14,14 +18,13 @@
             <mat-icon class="badge-cart" [matBadge]="typeAmountInCart">shopping_cart</mat-icon>
             <div>In Cart</div>
         </div>
-    </div>    
+    </div>
 </mat-expansion-panel>
- <mat-card>
+<mat-card>
     <div class="product-name">{{product.productName}}</div>
     <div class=icon-button-container>
         <div>
             <div class="info-container">
-
                 <div *ngIf="limit" class="icon-container">
                     <mat-icon class="icon-badge" [matBadge]="limit">add_box</mat-icon>
                     <div>Limit</div>

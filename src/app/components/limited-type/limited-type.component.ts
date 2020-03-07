@@ -11,6 +11,7 @@ import { combineLatest} from 'rxjs';
   styleUrls: ['./limited-type.component.css']
 })
 export class LimitedTypeComponent extends TypeComponent implements OnInit, OnDestroy {
+  atTypeLimit: boolean;
   typeLimit: number;
   typeAmountInCart: number;
   typeTracker: TypeTracker;
@@ -34,8 +35,10 @@ export class LimitedTypeComponent extends TypeComponent implements OnInit, OnDes
       this.typeTrackerService.getTypeTrackers()
       ]).subscribe(([currentPoints, typeTrackers]) => {
       this.currentPoints = currentPoints;
+      this.allPointsUsed = this.currentPoints <= 0;
       this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.type._id);
       this.typeAmountInCart = this.typeTracker.typeAmountInCart;
+      this.atTypeLimit = this.typeTracker.atTypeMaxAmount;
     }));
   }
 
