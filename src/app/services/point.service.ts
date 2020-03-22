@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import PROD from 'src/app/uri.config';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { map } from 'rxjs/operators';
 export class PointService {
   points = 0;
   maxPoints = 0;
-  uri = 'http://localhost:4000';
+  uri = PROD.uri;
 
   constructor(private httpClient: HttpClient) { }
 

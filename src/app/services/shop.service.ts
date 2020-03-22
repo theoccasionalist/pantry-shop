@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import PROD from 'src/app/uri.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  uri = 'http://localhost:4000';
+  uri = PROD.uri;
 
   constructor(private httpClient: HttpClient) {}
 

@@ -15,6 +15,7 @@ import { TypeTrackerService } from 'src/app/services/type-tracker.service';
 import { PointService } from 'src/app/services/point.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import PROD from 'src/app/uri.config';
 
 @Component({
   selector: 'app-cart',
