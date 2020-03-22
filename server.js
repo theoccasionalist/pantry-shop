@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 const Order = require('./schema-models/order.model')
 const PointsMapping = require('./schema-models/points-mapping.model');
 const Product = require('./schema-models/product.model');
