@@ -65,7 +65,7 @@ export class AuthService {
       }),
       concatMap(() => {
         return combineLatest(
-          this.isAuthenticated
+          [this.isAuthenticated]
         );
       })
     );
