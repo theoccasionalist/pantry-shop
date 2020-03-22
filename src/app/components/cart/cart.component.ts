@@ -37,7 +37,7 @@ export class CartComponent implements OnInit, OnDestroy {
   pickUpPanelOpenState = false;
   submitErrorCount = 0;
   subscription = new Subscription();
-  uri = 'http://localhost:4000';
+  uri = PROD.uri;
 
   constructor(private authService: AuthService, private cartService: CartService, private dialog: MatDialog,
               private familyService: FamilyService, private httpClient: HttpClient, private pickUpDateService: PickUpDateService,
