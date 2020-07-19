@@ -34,13 +34,13 @@
           <mat-error *ngIf="contactForm.get('phoneNumber').hasError('required')">{{requiredError}}</mat-error>
           </mat-form-field>
         </div>
-        <!-- <div>  
+        <div>  
           <mat-form-field>
             <mat-label>Email Address (optional)</mat-label>
             <input matInput formControlName="emailAddress">
             <mat-error *ngIf="contactForm.get('emailAddress').hasError('email')">Email address must include the @ symbol.</mat-error>
           </mat-form-field>
-        </div> -->
+        </div>
         <div class="button-space">
           <div></div>
           <button mat-raised-button matStepperNext [disabled]="!contactForm.valid">Next</button>
@@ -67,7 +67,7 @@
         </div>
         <div>  
           <mat-form-field>
-            <mat-label>School Aged Children</mat-label>
+            <mat-label>Number of children between 4 and 18 years old</mat-label>
             <mat-select matInput formControlName="schoolChildren">
               <mat-option [value]=0>0</mat-option>
               <mat-option [value]=1>1</mat-option>
@@ -82,7 +82,7 @@
         </div>
         <div>  
           <mat-form-field>
-            <mat-label>Any Infants in the Family?</mat-label>
+            <mat-label>Any children 3 or younger?</mat-label>
             <mat-select matInput formControlName="infants">
               <mat-option [value]=true>Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
@@ -98,14 +98,15 @@
         <mat-step [formGroup]="pickUpForm" state="pick-up" [completed]="pickUpForm.status === 'VALID'">
         <ng-template matStepLabel>Pick Up Options</ng-template>  
         <div>
-          <mat-form-field>
+          <!-- LEFT IN FOR WHEN OR IF WE RE-IMPLEMENT LIMITED PICK UP DATES AND LOCATIONS
+            <mat-form-field>
             <mat-label>Were you referred by CELC?</mat-label>
             <mat-select matInput formControlName="referral" (selectionChange)="setPickUpDateOptions($event.value)">
               <mat-option [value]=true>Yes</mat-option>
               <mat-option [value]=false>No</mat-option>
             </mat-select>
             <mat-error *ngIf="pickUpForm.get('referral').hasError('required')">{{requiredError}}</mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
         <div>
           <mat-form-field>

@@ -19,12 +19,6 @@
     font-size: x-large;
     margin-bottom: 2%;
 }
-.smile {
-    font-size: 3rem;
-    margin-left: -14.5rem;
-    margin-top: -.7rem;
-    position: fixed;
-}
 .location-message {
     background: #D47B28;
     border: 1px black solid;

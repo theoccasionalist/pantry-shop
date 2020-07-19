@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import * as moment from 'moment-timezone';
 
 @Injectable({
   providedIn: 'root'
 })
+// THIS SERVICE ONLY CURRENTLY RETURNS PICK UP DATES FOR TOMORROW OR MONDAY
+// THE METHODS MARKED "UNUSED" WERE PART OF THE THE ORIGINAL DESIGN TO
+// RETURN SPECIFIC DAYS OF THE WEEK FOR DIFFERENT PICK UP LOCATIONS
+// IN THE FUTURE WE MAY RE-IMPLEMENT THIS DESIGN, SO THEY WERE LEFT HERE
 export class PickUpDateService {
   daysOfTheWeek = new Map([
     [0, 'Sunday'],
@@ -23,6 +28,7 @@ export class PickUpDateService {
 
   constructor() { }
 
+  // UNUSED
   private formatDate(date: Date) {
     const weekDay = this.daysOfTheWeek.get(date.getDay());
     const day = date.getDate();
@@ -35,6 +41,13 @@ export class PickUpDateService {
     return this.currentPickUpDate;
   }
 
+  getTomorrowPickUpOption(): string[] {
+    return moment().tz('America/New_York').day() < 5 ?
+      this.pickUpDateOptions = ['Tomorrow'] :
+      this.pickUpDateOptions = ['Monday'];
+  }
+
+  // UNUSED
   getPickUpDateOptions(referral: boolean) {
     if (!referral) {
       let secondThursday = this.findNthWeekdayOfMonth(4, 2, false);
@@ -60,6 +73,7 @@ export class PickUpDateService {
     return this.pickUpDateOptions;
   }
 
+  // UNUSED
   private findNthWeekdayOfMonth(weekday: number, n: number, nextMonth: boolean) {
     let pickUpDate = new Date();
     let firstOfTheMonth = new Date(this.now.getFullYear(), this.now.getMonth(), 1);
@@ -72,6 +86,7 @@ export class PickUpDateService {
     return pickUpDate;
   }
 
+  // UNUSED
   private orderAndPush(firstDay: Date, secondDay?: Date) {
     this.pickUpDateOptions = [];
     if (firstDay && secondDay) {
@@ -87,12 +102,27 @@ export class PickUpDateService {
     }
   }
 
+  setTomorrowPickUpDate() {
+    if (moment().tz('America/New_York').day() < 5) {
+      this.pickUpDate = moment().tz('America/New_York').add(1, 'day').format('MM/DD/YYYY');
+    } else if (moment().tz('America/New_York').day() === 5) {
+      this.pickUpDate = moment().tz('America/New_York').add(3, 'day').format('MM/DD/YYYY');
+    } else if (moment().tz('America/New_York').day() === 6) {
+      this.pickUpDate = moment().tz('America/New_York').add(2, 'day').format('MM/DD/YYYY');
+    }
+  }
+
   resetPickUpDate() {
     const defaultPickUpDate: string = null;
     this.pickUpDateSource.next(defaultPickUpDate);
   }
 
+  // UNUSED
   updatePickUpDate(pickUpDate: string) {
     this.pickUpDateSource.next(pickUpDate);
+  }
+
+  updatePickUpDateTomorrow() {
+    this.pickUpDateSource.next(this.pickUpDate);
   }
 }
