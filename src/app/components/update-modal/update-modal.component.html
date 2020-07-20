@@ -31,13 +31,13 @@
     <mat-error *ngIf="contactForm.get('phoneNumber').hasError('required')">{{requiredError}}</mat-error>
     </mat-form-field>
   </div>
-  <!-- <div>  
+  <div>  
     <mat-form-field>
       <mat-label>Email Address (optional)</mat-label>
       <input matInput formControlName="emailAddress" [value]="family.emailAddress ? family.emailAddress : ''">
       <mat-error *ngIf="contactForm.get('emailAddress').hasError('email')">Email address must include the @ symbol.</mat-error>
     </mat-form-field>
-  </div> -->
+  </div>
   <div class="button-div">
     <button mat-raised-button (click)="onCancelClick()">Cancel</button>
     <button mat-raised-button [disabled]="!contactForm.valid || !contactForm.dirty" (click)="onUpdateContactClick()">Update</button>
@@ -69,7 +69,7 @@
   </div>
   <div>  
     <mat-form-field>
-      <mat-label>School Aged Children</mat-label>
+      <mat-label>Number of children between 4 and 18 years old</mat-label>
       <mat-select matInput formControlName="schoolChildren" [value]="family.schoolChildren">
         <mat-option [value]=0>0</mat-option>
         <mat-option [value]=1>1</mat-option>
@@ -84,7 +84,7 @@
   </div>
   <div>  
     <mat-form-field>
-      <mat-label>Any Infants in the Family?</mat-label>
+      <mat-label>Any children 3 or younger?</mat-label>
       <mat-select matInput formControlName="infants" [value]="family.infants">
         <mat-option [value]=true>Yes</mat-option>
         <mat-option [value]=false>No</mat-option>

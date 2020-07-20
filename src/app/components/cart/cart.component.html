@@ -52,8 +52,8 @@
       </mat-expansion-panel-header>
       <div class="info-container">
         <mat-card> {{'Family Size: ' + family.familySize}}</mat-card>
-        <mat-card *ngIf="family.schoolChildren !== 0">{{'School Children: ' + family.schoolChildren}}</mat-card>
-        <mat-card *ngIf="family.infants">Infants: Included</mat-card>
+        <mat-card *ngIf="family.schoolChildren !== 0">{{'Number of children between 4 and 18 years old: ' + family.schoolChildren}}</mat-card>
+        <mat-card *ngIf="family.infants">Any children 3 or younger: Yes</mat-card>
         <div class="update-button-div">
           <button mat-raised-button (click)="openUpdateHouseholdModal()">Update Household</button>  
         </div>
@@ -76,9 +76,10 @@
       <div class="info-container">
         <mat-card>{{family.referral ? 'Pick Up Location: CELC' : 'Pick Up Location: Broad Street Food Pantry'}}</mat-card>
         <mat-card>{{'Pick Up Date: ' + pickUpDate}}</mat-card>
-        <div class="update-button-div">
+        <!-- LEFT IN FOR WHEN OR IF WE WANT TO RE-IMPLEMENT PICKUP DATES/LOCATION 
+          <div class="update-button-div">
           <button mat-raised-button (click)="openUpdatePickUpModal()">Update Pick Up</button>
-        </div>
+        </div> -->
       </div>
     <mat-action-row (click)="pickUpPanelOpenState = false"></mat-action-row>  
     </mat-expansion-panel>

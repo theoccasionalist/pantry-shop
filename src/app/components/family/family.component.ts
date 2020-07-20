@@ -40,7 +40,7 @@ export class FamilyComponent implements OnInit, OnDestroy {
   });
   logOutClicked: boolean;
   pickUpForm = new FormGroup({
-    referral: new FormControl('', Validators.required),
+    // referral: new FormControl('', Validators.required),
     pickUpDate: new FormControl('', Validators.required)
   });
   pickUpDateOptions: string[];
@@ -59,6 +59,7 @@ export class FamilyComponent implements OnInit, OnDestroy {
     this.pickUpDateService.resetPickUpDate();
     this.pointService.setMaxPoints(0);
     this.pointService.updatePoints(0);
+    this.setPickUpDateOptions();
     this.typeTrackerService.resetTypeTrackers();
     this.subscription.add(
       combineLatest([
@@ -103,17 +104,24 @@ export class FamilyComponent implements OnInit, OnDestroy {
   }
 
   setPickUpInfo() {
-    this.family.referral = this.pickUpForm.get('referral').value;
-    this.pickUpDateService.updatePickUpDate(this.pickUpForm.get('pickUpDate').value);
+    // LEFT IN FOR WHEN OR IF WE WANT TO RE-IMPLEMENT SELECT PICK UP DATES/LOCATIONS
+    // this.family.referral = this.pickUpForm.get('referral').value;
+    // this.pickUpDateService.updatePickUpDate(this.pickUpForm.get('pickUpDate').value);
+    this.pickUpDateService.setTomorrowPickUpDate();
+    this.pickUpDateService.updatePickUpDateTomorrow();
   }
 
-  setPickUpDateOptions(referral: boolean) {
+  setPickUpDateOptions(referral?: boolean) {
     this.pickUpForm.controls.pickUpDate.reset();
-    this.pickUpDateOptions = this.pickUpDateService.getPickUpDateOptions(referral);
+    // LEFT IN FOR WHEN OR IF WE WANT TO RE-IMPLEMENT SELECT PICK UP DATES/LOCATIONS
+    // this.pickUpDateOptions = this.pickUpDateService.getPickUpDateOptions(referral);
+    this.pickUpDateOptions = this.pickUpDateService.getTomorrowPickUpOption();
   }
 
   onShopClick() {
     if (this.contactForm.valid && this.householdForm.valid && this.pickUpForm.valid) {
+      this.family.referral = false;
+      console.log(this.family);
       this.setContactInfo();
       this.setHouseholdInfo();
       this.setPickUpInfo();
