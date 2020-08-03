@@ -28,7 +28,10 @@ export class LimitedTypeComponent extends TypeComponent implements OnInit, OnDes
     this.setSchool();
     this.setHasPoints();
     this.setTypeLimit();
-    this.typeTrackerService.addTypeTracker(this.type._id);
+    this.setSubTypeComments();
+    if (this.type.typeLimits.enableTypeTracking) {
+      this.typeTrackerService.addTypeTracker(this.type._id);
+    }
     this.subscription.add(
       combineLatest([
       this.pointService.getCurrentPoints(),
@@ -36,9 +39,11 @@ export class LimitedTypeComponent extends TypeComponent implements OnInit, OnDes
       ]).subscribe(([currentPoints, typeTrackers]) => {
       this.currentPoints = currentPoints;
       this.allPointsUsed = this.currentPoints <= 0;
-      this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.type._id);
-      this.typeAmountInCart = this.typeTracker.typeAmountInCart;
-      this.atTypeLimit = this.typeTracker.atTypeMaxAmount;
+      if (this.type.typeLimits.enableTypeTracking) {
+        this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.type._id);
+        this.typeAmountInCart = this.typeTracker.typeAmountInCart;
+        this.atTypeLimit = this.typeTracker.atTypeMaxAmount;
+      }
     }));
   }
 
@@ -49,7 +54,7 @@ export class LimitedTypeComponent extends TypeComponent implements OnInit, OnDes
   setTypeLimit() {
     let familyValue: number;
     this.schoolType ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
-    this.type.typeSizeAmount.forEach(mapping => {
+    this.type.typeLimits.typeSizeAmount.forEach(mapping => {
       if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
         this.typeLimit = mapping.maxAmount;
       }

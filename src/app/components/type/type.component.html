@@ -8,6 +8,8 @@
         {{panelOpenState ? 'close' : 'open'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
+
+    <!-- Points -->
     <mat-card *ngIf="hasPoints && panelOpenState" class="icon-top-container">
       <div class="icon-sub-container" [ngClass]="{'at-limit': allPointsUsed}">
         <div class="label-container">
@@ -21,10 +23,18 @@
         </div>
       </div>
     </mat-card>
+
+    <!-- Comments -->
+    <mat-card class="comment-container" *ngIf="type.typeComment && panelOpenState">{{type.typeComment}}</mat-card>
+    <ng-container *ngIf="subTypeComments.length && panelOpenState">
+      <mat-card class="comment-container" *ngFor="let comment of subTypeComments">{{comment}}</mat-card>
+    </ng-container>
+
+    <!-- Products -->
     <div class="product-card-container" *ngIf="panelOpenState">
         <div *ngFor="let product of products" class="product-card">
           <app-limited-product *ngIf="!product.typeId"
-          [cart]="cart" [family]="family" [product]="product" [type]="type">
+            [cart]="cart" [family]="family" [product]="product" [type]="type">
           </app-limited-product>
           <app-sub-type-product *ngIf="product.typeId"
             [cart]="cart" [family]="family" [product]="product" [type]="type">

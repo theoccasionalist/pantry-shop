@@ -16,7 +16,7 @@
   margin-bottom: 2rem;
 }
 .icon-sub-container {
-  background-color: #71A040;
+  background-color: #143e0c;
   border: 1px black solid;
   border-radius: 4px;
   padding: 16px;
@@ -43,6 +43,10 @@
 }
 .label {
   margin-top: .25rem;
+}
+.comment-container {
+  background-color: #9a0707;
+  margin-bottom: 2rem;
 }
 .product-card-container {
   display: flex;

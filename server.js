@@ -29,12 +29,12 @@ var checkJwt = jwt({
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/pantry');
+mongoose.connect(process.env.MONGODB_URI);
 const connection = mongoose.connection;
 
 connection.once('open', () => console.log('MongoDB connection establised.'));
 
-const port = process.env.PORT || '4000';
+const port = process.env.PORT;
 app.set('port', port);
 
 router.route('/api/orders/add').post(checkJwt,(req, res) => {

@@ -15,7 +15,7 @@ import { TypeTrackerService } from 'src/app/services/type-tracker.service';
 import { PointService } from 'src/app/services/point.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import PROD from 'src/app/uri.config';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -37,7 +37,7 @@ export class CartComponent implements OnInit, OnDestroy {
   pickUpPanelOpenState = false;
   submitErrorCount = 0;
   subscription = new Subscription();
-  uri = PROD.uri;
+  url = environment.apiUrl;
 
   constructor(private authService: AuthService, private cartService: CartService, private dialog: MatDialog,
               private familyService: FamilyService, private httpClient: HttpClient, private pickUpDateService: PickUpDateService,
@@ -94,7 +94,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onSubmitOrder() {
-    this.httpClient.post(`${this.uri}/orders/add`, this.createOrder()).subscribe((response: any) => {
+    this.httpClient.post(`${this.url}/orders/add`, this.createOrder()).subscribe((response: any) => {
       if (response.status === 200) {
         this.orderReceived = true;
         let dialogWidth;

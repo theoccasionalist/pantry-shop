@@ -17,6 +17,7 @@ let orderSchema = new Schema ({
     cart: [{
         _id: false,
         typeName: {type: String, required: true},
+        typeAmountReceived: Number,
         products: [{
             _id: false,
             productName: {type: String, required: true},

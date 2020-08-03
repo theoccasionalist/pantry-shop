@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import PROD from 'src/app/uri.config';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  uri = PROD.uri;
+  url = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) {}
 
   getShop() {
-    return this.httpClient.get(`${this.uri}/shop`)
+    return this.httpClient.get(`${this.url}/shop`)
     .pipe(
       map(result => result[0].shop)
     );

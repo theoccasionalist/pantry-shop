@@ -30,9 +30,12 @@ export class TypeLimitedProductComponent extends LimitedProductComponent impleme
       this.typeTrackerService.getTypeTrackers()
       ]).subscribe(([currentPoints, typeTrackers]) => {
       this.currentPoints = currentPoints;
-      this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.type._id);
-      this.atTypeLimit = this.typeTracker.atTypeMaxAmount;
-      this.updateTypeInCartAndBtn();
+      this.amountInCart = this.getAmountInCart();
+      if (this.type.typeLimits.enableTypeTracking) {
+        this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.type._id);
+        this.atTypeLimit = this.typeTracker.atTypeMaxAmount;
+        this.updateAddBtn();
+      }
     }));
   }
 
@@ -60,9 +63,7 @@ export class TypeLimitedProductComponent extends LimitedProductComponent impleme
     }
   }
 
-  updateTypeInCartAndBtn() {
-    this.amountInCart = this.getAmountInCart();
+  updateAddBtn() {
     this.addBtnDisabled = this.atTypeLimit || !this.isProductUnderLimit() || !this.hasEnoughPoints();
   }
-
 }
