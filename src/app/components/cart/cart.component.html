@@ -13,6 +13,7 @@
     <mat-toolbar>Order Overview</mat-toolbar>
     <cdk-virtual-scroll-viewport  [itemSize]="">
 
+    <!-- Contact Information -->  
     <mat-expansion-panel (opened) ="contactPanelOpenState = true" (closed)="contactPanelOpenState = false" [expanded]="contactPanelOpenState">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -31,13 +32,14 @@
         <mat-card>{{'Zip Code: ' + family.zipCode}}</mat-card>
         <mat-card>{{'Phone Number: ' + family.phoneNumber}}</mat-card>
         <mat-card *ngIf="family.emailAddress">{{'Email Address: ' + family.emailAddress}}</mat-card>
-        <div class="update-button-div">
+        <div class="flex-justify-center">
           <button mat-raised-button (click)="openUpdateContactModal()">Update Contact</button>
         </div>
       </div>
     <mat-action-row (click)="contactPanelOpenState = false"></mat-action-row>    
     </mat-expansion-panel>
 
+    <!-- Household Information -->
     <mat-expansion-panel (opened) ="householdPanelOpenState = true" (closed)="householdPanelOpenState = false" [expanded]="householdPanelOpenState">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -54,13 +56,14 @@
         <mat-card> {{'Family Size: ' + family.familySize}}</mat-card>
         <mat-card *ngIf="family.schoolChildren !== 0">{{'Number of children between 4 and 18 years old: ' + family.schoolChildren}}</mat-card>
         <mat-card *ngIf="family.infants">Any children 3 or younger: Yes</mat-card>
-        <div class="update-button-div">
+        <div class="flex-justify-center">
           <button mat-raised-button (click)="openUpdateHouseholdModal()">Update Household</button>  
         </div>
       </div>
     <mat-action-row (click)="householdPanelOpenState = false"></mat-action-row>  
     </mat-expansion-panel>
 
+    <!-- Pick Up Information -->
     <mat-expansion-panel (opened) ="pickUpPanelOpenState = true" (closed)="pickUpPanelOpenState = false" [expanded]="pickUpPanelOpenState">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -77,13 +80,14 @@
         <mat-card>{{family.referral ? 'Pick Up Location: CELC' : 'Pick Up Location: Broad Street Food Pantry'}}</mat-card>
         <mat-card>{{'Pick Up Date: ' + pickUpDate}}</mat-card>
         <!-- LEFT IN FOR WHEN OR IF WE WANT TO RE-IMPLEMENT PICKUP DATES/LOCATION 
-          <div class="update-button-div">
+          <div class="flex-justify-center">
           <button mat-raised-button (click)="openUpdatePickUpModal()">Update Pick Up</button>
         </div> -->
       </div>
     <mat-action-row (click)="pickUpPanelOpenState = false"></mat-action-row>  
     </mat-expansion-panel>
     
+    <!-- Cart -->
     <mat-expansion-panel (opened) ="cartPanelOpenState = true" (closed)="cartPanelOpenState = false" [expanded]="cartPanelOpenState">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -102,20 +106,27 @@
     </mat-card>
     <ng-container *ngIf="cart.length">
       <ng-container *ngFor="let type of cart">
-          <mat-toolbar class="items-toolbar top-table">{{type.typeName}}</mat-toolbar>
+          <mat-toolbar class="items-toolbar top-table rounded-top" [ngClass]="type.typeAmountReceived ? 'no-bottom-border' : 'full-border'">{{type.typeName}}</mat-toolbar>
+          <div *ngIf="type.typeAmountReceived" class="items-toolbar no-top-border text-center padding-bottom-2 dumb-width-87">
+            <div class="inline">These items have limited availability.</div>
+          </div>
           <table mat-table [dataSource]="type.products">
             <ng-container matColumnDef="column1">
               <th mat-header-cell *matHeaderCellDef>Name</th>
               <td mat-cell *matCellDef="let element">{{element.productName}}</td>
             </ng-container>
-            <ng-container matColumnDef="column2">
+            <ng-container *ngIf="!type.typeAmountReceived" matColumnDef="column2">
               <th mat-header-cell *matHeaderCellDef>Amount</th>
               <td mat-cell *matCellDef="let element">{{element.amount}}</td>
+            </ng-container>
+            <ng-container *ngIf="type.typeAmountReceived" matColumnDef="column2">
+              <th mat-header-cell *matHeaderCellDef>{{'Total Amount Received: ' + type.typeAmountReceived}}</th>
+              <td mat-cell *matCellDef="let element">Requested</td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="columns"></tr>
             <tr mat-row *matRowDef="let row; columns: columns"></tr>
           </table>
-          <div class="items-toolbar bottom-table"></div>
+          <div class="items-toolbar full-border bottom-table dumb-width-89"></div>
       </ng-container>
     </ng-container>
     <mat-action-row (click)="cartPanelOpenState = false"></mat-action-row>  

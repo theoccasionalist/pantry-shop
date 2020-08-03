@@ -17,6 +17,7 @@ export class SubTypeProductComponent extends TypeLimitedProductComponent impleme
   typeId: string;
   typeLimit: number;
   typeName: string;
+  typeLimits: any;
   typeSizeAmount: any;
   typeTracker: TypeTracker;
 
@@ -26,8 +27,8 @@ export class SubTypeProductComponent extends TypeLimitedProductComponent impleme
 
   ngOnInit() {
     this.typeId = this.product.typeId;
-    this.typeName = this.product.typename;
-    this.typeSizeAmount = this.product.typeSizeAmount;
+    this.typeName = this.product.typeName;
+    this.typeLimits = this.product.typeLimits;
     this.setLimit();
     this.setPoints();
     this.setTypeLimit();
@@ -39,10 +40,11 @@ export class SubTypeProductComponent extends TypeLimitedProductComponent impleme
       this.typeTrackerService.getTypeTrackers()
       ]).subscribe(([currentPoints, typeTrackers]) => {
       this.currentPoints = currentPoints;
+      this.amountInCart = this.getAmountInCart();
       this.typeTracker = typeTrackers.find((typeTracker: TypeTracker) => typeTracker.typeId === this.typeId);
       this.atTypeLimit = this.typeTracker.atTypeMaxAmount;
       this.typeAmountInCart = this.typeTracker.typeAmountInCart;
-      this.updateTypeInCartAndBtn();
+      this.updateAddBtn();
     }));
   }
 
@@ -52,7 +54,7 @@ export class SubTypeProductComponent extends TypeLimitedProductComponent impleme
 
   setTypeLimit() {
     const familyValue = this.family.familySize;
-    this.typeSizeAmount.forEach(mapping => {
+    this.typeLimits.typeSizeAmount.forEach(mapping => {
       if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
         this.typeLimit = mapping.maxAmount;
       }

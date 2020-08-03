@@ -29,6 +29,7 @@ export class TypeComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   subTypes: Type[];
   @Input() type: Type;
+  subTypeComments: string[] = [];
 
   constructor(protected pointService: PointService) { }
 
@@ -38,6 +39,7 @@ export class TypeComponent implements OnInit, OnDestroy {
     this.setInfant();
     this.setSchool();
     this.setHasPoints();
+    this.setSubTypeComments();
     this.subscription.add(
       this.pointService.getCurrentPoints().subscribe((currentPoints: number) => {
       this.currentPoints = currentPoints;
@@ -58,6 +60,28 @@ export class TypeComponent implements OnInit, OnDestroy {
     this.hasPoints = this.products.some((product: Product) => product.points);
   }
 
+  setInfant() {
+    this.infantsIncluded = this.family.infants ? true : false;
+    this.infantType = !this.type.products.some((product: Product) => !product.infant);
+  }
+
+  setProducts() {
+    this.type.products.forEach((product: Product) => {
+      this.setProductsForFamilySize(product);
+    });
+    this.allSubTypes.forEach((subType: Type) => {
+      if (this.type._id === subType.superTypeId) {
+        subType.products.forEach((subTypeProduct: TypeProduct) => {
+          subTypeProduct.typeId = subType._id;
+          subTypeProduct.typeName = subType.typeName;
+          subTypeProduct.typeComment = subType.typeComment;
+          subTypeProduct.typeLimits = subType.typeLimits;
+          this.setProductsForFamilySize(subTypeProduct);
+        });
+      }
+    });
+  }
+
   setProductsForFamilySize(product: Product) {
     let familyValue: number;
     product.school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
@@ -72,28 +96,15 @@ export class TypeComponent implements OnInit, OnDestroy {
     }
   }
 
-  setInfant() {
-    this.infantsIncluded = this.family.infants ? true : false;
-    this.infantType = !this.type.products.some((product: Product) => !product.infant);
-  }
-
   setSchool() {
     this.schoolIncluded = this.family.schoolChildren > 0;
     this.schoolType = !this.type.products.some((product: Product) => !product.school);
   }
 
-  setProducts() {
-    this.type.products.forEach((product: Product) => {
-      this.setProductsForFamilySize(product);
-    });
+  setSubTypeComments() {
     this.allSubTypes.forEach((subType: Type) => {
-      if (this.type._id === subType.superTypeId) {
-        subType.products.forEach((subTypeProduct: TypeProduct) => {
-          subTypeProduct.typeId = subType._id;
-          subTypeProduct.typename = subType.typeName;
-          subTypeProduct.typeSizeAmount = subType.typeSizeAmount;
-          this.setProductsForFamilySize(subTypeProduct);
-        });
+      if (this.type._id === subType.superTypeId && subType.typeComment) {
+        this.subTypeComments.push(subType.typeComment);
       }
     });
   }

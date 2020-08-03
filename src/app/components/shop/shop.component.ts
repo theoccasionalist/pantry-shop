@@ -19,6 +19,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   cart: CartItemsByType[];
   currentPoints: number;
   family: Family;
+  loading = true;
   logOutClicked: boolean;
   limitedTypes: Type[] = [];
   nonLimitedTypes: Type[] = [];
@@ -42,6 +43,7 @@ export class ShopComponent implements OnInit, OnDestroy {
         this.types = types;
         this.setTypes();
         this.sortTypesByName();
+        this.loading = false;
       })
     );
   }
@@ -56,10 +58,10 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   private setTypes() {
     this.types.forEach((type: Type) => {
-      if (!type.superTypeId && type.typeSizeAmount) {
+      if (!type.superTypeId && type.typeLimits) {
         this.limitedTypes.push(type);
       }
-      if (!type.superTypeId && !type.typeSizeAmount) {
+      if (!type.superTypeId && !type.typeLimits) {
         this.nonLimitedTypes.push(type);
       }
       if (type.superTypeId) {

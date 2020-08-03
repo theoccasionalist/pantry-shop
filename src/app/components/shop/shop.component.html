@@ -1,23 +1,26 @@
 <app-navbar></app-navbar>
-<div class="top-grid">                
-    <main id="shop">
-        <mat-toolbar>Welcome to our Shop</mat-toolbar>
-        <cdk-virtual-scroll-viewport  itemSize="">
-            <ng-container *ngFor="let type of types">
-                <app-type *ngIf="nonLimitedTypes.includes(type)" 
-                    [allSubTypes]="allSubTypes" [cart]="cart" [family]="family" [type]="type">
-                </app-type>
-                <app-limited-type *ngIf="limitedTypes.includes(type)" 
-                    [allSubTypes]="allSubTypes" [cart]="cart" [family]="family" [type]="type">
-                </app-limited-type>
-            </ng-container>
-        </cdk-virtual-scroll-viewport>     
-    </main>
-    <aside class="aside-container">
-        <mat-toolbar>Ready to Review?</mat-toolbar>
-        <div id="review">
-            <button mat-raised-button  (click)="onReviewOrderClick()">Review Order</button>
-        </div>
-    </aside>  
-</div>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<ng-container *ngIf="!loading">
+    <div class="top-grid">                
+        <main id="shop">
+            <mat-toolbar>Welcome to our Shop</mat-toolbar>
+            <cdk-virtual-scroll-viewport  itemSize="">
+                <ng-container *ngFor="let type of types">
+                    <app-type *ngIf="nonLimitedTypes.includes(type)" 
+                        [allSubTypes]="allSubTypes" [cart]="cart" [family]="family" [type]="type">
+                    </app-type>
+                    <app-limited-type *ngIf="limitedTypes.includes(type)" 
+                        [allSubTypes]="allSubTypes" [cart]="cart" [family]="family" [type]="type">
+                    </app-limited-type>
+                </ng-container>
+            </cdk-virtual-scroll-viewport>   
+        </main>
+        <aside class="aside-container">
+            <mat-toolbar>Ready to Review?</mat-toolbar>
+            <div id="review">
+                <button mat-raised-button  (click)="onReviewOrderClick()">Review Order</button>
+            </div>
+        </aside>  
+    </div>
+</ng-container>
 

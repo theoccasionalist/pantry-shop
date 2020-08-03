@@ -121,7 +121,6 @@ export class FamilyComponent implements OnInit, OnDestroy {
   onShopClick() {
     if (this.contactForm.valid && this.householdForm.valid && this.pickUpForm.valid) {
       this.family.referral = false;
-      console.log(this.family);
       this.setContactInfo();
       this.setHouseholdInfo();
       this.setPickUpInfo();

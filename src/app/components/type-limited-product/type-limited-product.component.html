@@ -4,7 +4,7 @@
     <div class=icon-button-container>
         <div>
             <div class="info-container">
-                <div *ngIf="limit" class="icon-container">
+                <div *ngIf="limit && type.typeLimits.enableTypeTracking" class="icon-container">
                     <mat-icon class="icon-badge" [matBadge]="limit">add_box</mat-icon>
                     <div>Limit</div>
                 </div>
@@ -16,13 +16,21 @@
         </div>
         <div></div>
         <div class=amount-button-container>
-            <div class="icon-container">
+            <div *ngIf="type.typeLimits.enableTypeTracking" class="icon-container">
                 <mat-icon class="badge-cart" [matBadge]="amountInCart">shopping_cart</mat-icon>
                 <div>Amount in Cart</div>
             </div>
-            <span class="button-container">
-                <button mat-raised-button (click)="subtractOneTypeLimitProduct()" [disabled]="!inCart">-</button>
-                <button mat-raised-button (click)="addOneTypeLimitProduct()" [disabled]="addBtnDisabled">+</button>
+            <div *ngIf="!type.typeLimits.enableTypeTracking" class="icon-container">
+                <mat-icon class="badge-cart" [matBadge]="inCart ? 'Yes' : 'No'">shopping_cart</mat-icon>
+                <div>Item Requested</div>
+            </div>
+            <span *ngIf="type.typeLimits.enableTypeTracking" class="button-container">
+                <button class="plus-minus-font" mat-raised-button (click)="subtractOneTypeLimitProduct()" [disabled]="!inCart">-</button>
+                <button class="plus-minus-font" mat-raised-button (click)="addOneTypeLimitProduct()" [disabled]="addBtnDisabled">+</button>
+            </span>
+            <span *ngIf="!type.typeLimits.enableTypeTracking" class="button-container">
+                <button mat-raised-button (click)="subtractOneProduct()" [disabled]="!inCart">No</button>
+                <button mat-raised-button (click)="addOneProduct()" [disabled]="inCart">Yes</button>
             </span>
         </div> 
     </div>       

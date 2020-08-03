@@ -8,7 +8,9 @@
           {{panelOpenState ? 'close' : 'open'}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <mat-card *ngIf="panelOpenState"class="icon-top-container">
+
+      <!-- Points, Type Limits, and Type Amount in Cart -->
+      <mat-card *ngIf="panelOpenState" class="icon-top-container">
         <div *ngIf="hasPoints" class="icon-sub-container" [ngClass]="{'at-limit': allPointsUsed}">
           <div class="label-container">
             <div>{{currentPoints}}</div>
@@ -20,34 +22,60 @@
             </div>
           </div>
         </div>
-        <div class="icon-sub-container" [ngClass]="{'at-limit': atTypeLimit}">
-          <div class="label-container">
-            <div>{{typeLimit}}</div>
-            <div class="label">
-              <span>{{type.typeName + ' Limit'}}</span>
-              <span class="icon-container">
-                <mat-icon>add_box</mat-icon>
-              </span>
+        <ng-container *ngIf="type.typeLimits.enableTypeTracking">
+          <div class="icon-sub-container" [ngClass]="{'at-limit': atTypeLimit}">
+            <div class="label-container">
+              <div>{{typeLimit}}</div>
+              <div class="label">
+                <span>{{type.typeName + ' Limit'}}</span>
+                <span class="icon-container">
+                  <mat-icon>add_box</mat-icon>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="icon-sub-container" [ngClass]="{'at-limit': atTypeLimit}">
-          <div class="label-container">
-            <div>{{typeAmountInCart}}</div>
-            <div class="label">
-              <span>{{type.typeName + ' in Cart'}}</span>
-              <span class="icon-container">
-                <mat-icon>shopping_cart</mat-icon>
-              </span>
+          <div class="icon-sub-container" [ngClass]="{'at-limit': atTypeLimit}">
+            <div class="label-container">
+              <div>{{typeAmountInCart}}</div>
+              <div class="label">
+                <span>{{type.typeName + ' in Cart'}}</span>
+                <span class="icon-container">
+                  <mat-icon>shopping_cart</mat-icon>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="!type.typeLimits.enableTypeTracking">
+          <div class="icon-sub-container">
+            <div class="label-container">
+              <div>{{typeLimit}}</div>
+              <div class="label">
+                <span>{{type.typeName + ' Received in Total'}}</span>
+                <span class="icon-container">
+                  <mat-icon>add_box</mat-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </mat-card>
+
+      <!-- Type Comments -->
+      <mat-card class="comment-container" *ngIf="type.typeComment && panelOpenState">{{type.typeComment}}</mat-card>
+      <ng-container *ngIf="subTypeComments.length && panelOpenState">
+        <mat-card class="comment-container" *ngFor="let comment of subTypeComments">{{comment}}</mat-card>
+      </ng-container>
+
+      <!-- Products -->
       <div class="product-card-container" *ngIf="panelOpenState">
         <div *ngFor="let product of products" class="product-card">
-          <app-type-limited-product 
+          <app-type-limited-product *ngIf="!product.typeId"
             [cart]="cart" [family]="family" [product]="product" [type]="type" [typeLimit]="typeLimit">
           </app-type-limited-product>
+          <app-sub-type-product *ngIf="product.typeId"
+            [cart]="cart" [family]="family" [product]="product" [type]="type">
+          </app-sub-type-product>
         </div>
       </div>
       <mat-action-row (click)="closePanel()"></mat-action-row>
