@@ -6,6 +6,6 @@ export class Family {
     phoneNumber: string;
     familySize: number;
     schoolChildren: number;
-    infants: boolean;
+    infants: number;
     referral: boolean;
 }

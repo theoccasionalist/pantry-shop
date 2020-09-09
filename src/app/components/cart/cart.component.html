@@ -54,8 +54,8 @@
       </mat-expansion-panel-header>
       <div class="info-container">
         <mat-card> {{'Family Size: ' + family.familySize}}</mat-card>
-        <mat-card *ngIf="family.schoolChildren !== 0">{{'Number of children between 4 and 18 years old: ' + family.schoolChildren}}</mat-card>
-        <mat-card *ngIf="family.infants">Any children 3 or younger: Yes</mat-card>
+        <mat-card *ngIf="family.schoolChildren !== 0">{{'Number of children under 17 years old: ' + family.schoolChildren}}</mat-card>
+        <mat-card *ngIf="family.infants !== 0">{{'Number of children under 3 years old: ' + family.infants}}</mat-card>
         <div class="flex-justify-center">
           <button mat-raised-button (click)="openUpdateHouseholdModal()">Update Household</button>  
         </div>

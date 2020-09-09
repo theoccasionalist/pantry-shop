@@ -9,9 +9,9 @@ let orderSchema = new Schema ({
         zipCode: {type: String, required: true},
         emailAddress: String,
         phoneNumber: {type: String, required: true},
-        familySize: {type: String, required: true},
+        familySize: {type: Number, required: true},
         schoolChildren: Number,
-        infants: Boolean,
+        infants: Number,
         referral: Boolean,
     },
     cart: [{

@@ -81,8 +81,12 @@ export class LimitedProductComponent extends BaseProductComponent implements OnI
 
   setLimit() {
     if (this.product.prodSizeAmount) {
-      let familyValue: number;
-      this.product.school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
+      let familyValue: number = this.family.familySize;
+      if (this.product.infant) {
+        familyValue = this.family.infants;
+      } else if (this.product.school) {
+        familyValue = this.family.schoolChildren;
+      }
       this.product.prodSizeAmount.forEach(mapping => {
           if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
           this.limit = mapping.maxAmount;
