@@ -53,7 +53,12 @@ export class SubTypeProductComponent extends TypeLimitedProductComponent impleme
   }
 
   setTypeLimit() {
-    const familyValue = this.family.familySize;
+    let familyValue: number = this.family.familySize;
+    if (this.product.infant) {
+      familyValue = this.family.infants;
+    } else if (this.product.school) {
+      familyValue = this.family.schoolChildren;
+    }
     this.typeLimits.typeSizeAmount.forEach(mapping => {
       if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
         this.typeLimit = mapping.maxAmount;

@@ -52,8 +52,12 @@ export class LimitedTypeComponent extends TypeComponent implements OnInit, OnDes
   }
 
   setTypeLimit() {
-    let familyValue: number;
-    this.schoolType ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
+    let familyValue: number = this.family.familySize;
+    if (this.infantType) {
+      familyValue = this.family.infants;
+    } else if (this.schoolType) {
+      familyValue = this.family.schoolChildren;
+    }
     this.type.typeLimits.typeSizeAmount.forEach(mapping => {
       if (mapping.minFamSize <= familyValue && familyValue <= mapping.maxFamSize) {
         this.typeLimit = mapping.maxAmount;

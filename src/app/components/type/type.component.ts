@@ -61,7 +61,7 @@ export class TypeComponent implements OnInit, OnDestroy {
   }
 
   setInfant() {
-    this.infantsIncluded = this.family.infants ? true : false;
+    this.infantsIncluded = this.family.infants > 0;
     this.infantType = !this.type.products.some((product: Product) => !product.infant);
   }
 
@@ -83,8 +83,12 @@ export class TypeComponent implements OnInit, OnDestroy {
   }
 
   setProductsForFamilySize(product: Product) {
-    let familyValue: number;
-    product.school ? familyValue = this.family.schoolChildren : familyValue = this.family.familySize;
+    let familyValue: number = this.family.familySize;
+    if (product.infant) {
+      familyValue = this.family.infants;
+    } else if (product.school) {
+      familyValue = this.family.schoolChildren;
+    }
     if (product.prodSizeAmount) {
       product.prodSizeAmount.forEach(mapping => {
         if (mapping.minFamSize <= familyValue  && familyValue <= mapping.maxFamSize) {
