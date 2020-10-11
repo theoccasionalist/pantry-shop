@@ -34,7 +34,7 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "jwks-rsa": "^1.7.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "moment-timezone": "^0.5.31",
     "mongoose": "^5.9.5",
     "ng-click-outside": "^6.0.0",
@@ -43,7 +43,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.900.0-rc.9",
+    "@angular-devkit/build-angular": "^0.901.12",
     "@angular/language-service": "~9.0.0-rc.8",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
@@ -51,12 +51,12 @@
     "codelyzer": "^5.1.2",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "^4.4.1",
+    "karma": "^5.2.3",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.4.0",
+    "protractor": "^7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.6.4"
