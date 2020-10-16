@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://bsfp-pantry-test.herokuapp.com/api'
+  apiUrl: 'http://localhost:4200/api'
 };
