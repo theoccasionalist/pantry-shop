@@ -59,12 +59,9 @@ app.use('/', router);
 
 if (process.env.NODE_ENV !== 'dev') {
     app.use('/', express.static(path.join(__dirname, './dist/front-end')));
-}
-
-if (process.env.NODE_ENV !== 'dev') {
     app.get('*', function(req, res) {
-      res.sendFile(path.join(__dirname, '/dist/front-end/index.html'));
-    });
+        res.sendFile(path.join(__dirname, '/dist/front-end/index.html'));
+      });
 }
 
 app.listen(port, () => console.log('Express server running.'));
