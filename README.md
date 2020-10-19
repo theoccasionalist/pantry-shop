@@ -1,6 +1,6 @@
 # Pantry Shop
 
-This is an unbuildable sample of the source code for a food pantry application currently in development. 
+This is an unbuildable sample of the source code for a food pantry application currently in testing. 
 
 # User Input
 ![user_input](https://user-images.githubusercontent.com/28411165/96400006-b2aaae80-119d-11eb-9c72-08279a7fbdf4.PNG)
