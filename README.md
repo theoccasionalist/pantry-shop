@@ -9,6 +9,7 @@ This is an unbuildable sample of the source code for a food pantry application t
 # Shop
 ![shop](https://user-images.githubusercontent.com/28411165/96400309-66ac3980-119e-11eb-925c-409de681ce94.PNG)
 ![image](https://user-images.githubusercontent.com/28411165/96660629-122cc980-1318-11eb-8280-79c8a82dcd74.png)
+![image](https://user-images.githubusercontent.com/28411165/96660698-456f5880-1318-11eb-971b-d8e91c0f9568.png)
 ![image](https://user-images.githubusercontent.com/28411165/96660539-d0038800-1317-11eb-955e-689c4ab0de9d.png)
 
 # Order Overview
