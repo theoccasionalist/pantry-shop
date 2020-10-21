@@ -5,8 +5,11 @@ This is an unbuildable sample of the source code for a food pantry application t
 # User Input
 ![user_input](https://user-images.githubusercontent.com/28411165/96400006-b2aaae80-119d-11eb-9c72-08279a7fbdf4.PNG)
 
+
 # Shop
 ![shop](https://user-images.githubusercontent.com/28411165/96400309-66ac3980-119e-11eb-925c-409de681ce94.PNG)
+![image](https://user-images.githubusercontent.com/28411165/96660451-8dda4680-1317-11eb-90fb-e4a3cbcd5c29.png)
+![image](https://user-images.githubusercontent.com/28411165/96660539-d0038800-1317-11eb-955e-689c4ab0de9d.png)
 
 # Order Overview
 ![order_overview](https://user-images.githubusercontent.com/28411165/96400297-5f852b80-119e-11eb-93a1-9109bcec9f39.PNG)
