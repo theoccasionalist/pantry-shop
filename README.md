@@ -4,6 +4,7 @@ This is an unbuildable sample of the source code for a food pantry application t
 
 # User Input
 ![user_input](https://user-images.githubusercontent.com/28411165/96400006-b2aaae80-119d-11eb-9c72-08279a7fbdf4.PNG)
+![image](https://user-images.githubusercontent.com/28411165/96660797-88313080-1318-11eb-8fbc-50cc8b8f9c76.png)
 
 
 # Shop
