@@ -14,7 +14,7 @@ This is an unbuildable sample of the source code for a food pantry application t
 
 ### Shop
 <ul> 
-  <li> Expand for each category/type in the shop</li>
+  <li> Expand for each category/type in the shop </li>
   <li> Product limits determined by family size and shown on product card </li>
   <li> Amount of product in cart shown on product card </li>
   <li> After school and infant products only visible to families that have children or infants, respectively </li>
@@ -23,21 +23,21 @@ This is an unbuildable sample of the source code for a food pantry application t
 ![shop](https://user-images.githubusercontent.com/28411165/96400309-66ac3980-119e-11eb-925c-409de681ce94.PNG)
 
 <ul> 
-  <li> Sub-types track and display allocated product allotments </li>
+  <li> Sub-types track and display allocated product amounts </li>
 </ul>
   
 ![image](https://user-images.githubusercontent.com/28411165/96660629-122cc980-1318-11eb-8280-79c8a82dcd74.png)
 
 <ul> 
   <li> Products requiring "choice points" display cost (i.e., points) along with product limits </li>
-  <li> Real time update of points remaining displayed in relevant types </li>
+  <li> Real time update of remaining points displayed in relevant types </li>
 </ul>
 
 ![image](https://user-images.githubusercontent.com/28411165/96660698-456f5880-1318-11eb-971b-d8e91c0f9568.png)
 
 <ul> 
   <li> Optional type comments displayed to users (and set within administration application) </li>
-  <li> Bulk or "Yes/No" types shown with allocated amounts </li>
+  <li> Bulk or "Yes/No" types shown with total allocated amounts </li>
 </ul>
   
 ![image](https://user-images.githubusercontent.com/28411165/96660539-d0038800-1317-11eb-955e-689c4ab0de9d.png)
